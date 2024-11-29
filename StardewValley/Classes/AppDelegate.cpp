@@ -19,7 +19,7 @@ using namespace CocosDenshion;
 USING_NS_CC;
 
 //屏幕分辨率
-static cocos2d::Size designResolutionSize = cocos2d::Size(1000, 756);//写死了，可是该如何适应...后面再说吧
+static cocos2d::Size designResolutionSize = cocos2d::Size(1280, 720);//写死了，可是该如何适应...后面再说吧
 static cocos2d::Size smallResolutionSize = cocos2d::Size(480, 320);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1024, 768);
 static cocos2d::Size largeResolutionSize = cocos2d::Size(2048, 1536);
@@ -66,7 +66,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     }
 
     // turn on display FPS 帧率是否显示
-    director->setDisplayStats(true);
+    director->setDisplayStats(false);
 
     // set FPS. the default value is 1.0/60 if you don't call this 设置帧率 游戏帧率不能低于60
     director->setAnimationInterval(1.0f / 60);

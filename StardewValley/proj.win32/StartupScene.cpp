@@ -1,6 +1,7 @@
 #include"StartupScene.h"
 #include "AppDelegate.h"
 #include "ui/CocosGUI.h"
+#include "InitialScene.h"
 
 // 命名空间
 using cocos2d::Scene;
@@ -24,11 +25,10 @@ bool StartupScene::init()
     if (!Scene::init()) {
         return false;
     }
-
     // 加载音乐
     // 加载背景
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
-    const auto background = Sprite::create("photo/startup_p/1.png");
+    const auto background = Sprite::create("photo/startup_p/StartupScene.png");
     if (background == nullptr)
     {
         //problemLoading("'HelloWorld.png'");一个报错信息，我还没做
@@ -37,7 +37,7 @@ bool StartupScene::init()
     {
         // position the sprite on the center of the screen
         background->setPosition(Vec2(screenSize.width / 2, screenSize.height / 2));
-
+        background->setContentSize(screenSize);
         // add the sprite as a child to this layer 在库函数中设置了自动适应大小，所以窗口设置大一点图片就可以显示完全
         this->addChild(background, 0);//0表示图片级别
     }
@@ -50,10 +50,27 @@ bool StartupScene::init()
     // 设置按钮点击事件
     startButton->addClickEventListener([=](Ref* sender) {
         // 切换到游戏场景
-       // Director::getInstance()->replaceScene(GameScene::createScene());
+        auto transition = cocos2d::TransitionFade::create(1.0f, InitialScene::createScene(), cocos2d::Color3B::WHITE);
+        cocos2d::Director::getInstance()->replaceScene(transition);
         });
 
     // 将按钮添加到场景
     this->addChild(startButton);
+    addImageToScene("photo/startup_p/logo.png", Vec2(screenSize.width / 2, screenSize.height / 2 + 150));
     return true;
+}
+
+void StartupScene::addImageToScene(const std::string& imageFile, const Vec2& position)
+{
+    // 创建精灵
+    auto sprite = Sprite::create(imageFile);
+    if (sprite != nullptr) {
+        // 设置精灵的位置
+        sprite->setPosition(position);
+        // 将精灵添加到场景
+        this->addChild(sprite);
+    }
+    else {
+        CCLOG("Failed to load image: %s", imageFile.c_str());
+    }
 }
