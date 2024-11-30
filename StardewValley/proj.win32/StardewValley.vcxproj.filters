@@ -13,6 +13,12 @@
     <Filter Include="src\Scene">
       <UniqueIdentifier>{14a59f2f-a5e9-4cf7-a499-2dbad6b71f26}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Farm">
+      <UniqueIdentifier>{348cc910-1aef-4619-9f9e-245242cc44c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Character">
+      <UniqueIdentifier>{b1355052-98d4-48fa-abf3-539f0da25522}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -27,6 +33,15 @@
     <ClCompile Include="InitialScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="FarmScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Weed.cpp">
+      <Filter>src\Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>src\Character</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -40,6 +55,18 @@
     </ClInclude>
     <ClInclude Include="InitialScene.h">
       <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FarmScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Weed.h">
+      <Filter>src\Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool.h">
+      <Filter>src\Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>src\Character</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
