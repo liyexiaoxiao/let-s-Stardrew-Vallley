@@ -42,20 +42,27 @@ bool StartupScene::init()
         this->addChild(background, 0);//0表示图片级别
     }
     //创建按钮
-    auto startButton = Button::create("photo/startup_p/button1.png", "button_pressed.png", "button_disabled.png");
+    auto NewButton = Button::create("photo/startup_p/NewButton.png", "photo/startup_p/NewButtonPressed.png");
+    auto ExitButton=Button::create("photo/startup_p/ExitButton.png", "photo/startup_p/ExitButtonPressed.png");
     // 设置按钮位置
-    startButton->setPosition(Vec2(screenSize.width / 2, screenSize.height / 4));
+    NewButton->setPosition(Vec2(screenSize.width / 2 - 150, screenSize.height / 4));
+    ExitButton->setPosition(Vec2(screenSize.width / 2 + 150, screenSize.height / 4));
     // 设置按钮大小，确保按钮不会超出屏幕
-    startButton->setScale(0.5f);  // 可根据需要调整按钮大小
+    NewButton->setScale(1.3f);  // 可根据需要调整按钮大小
+    ExitButton->setScale(1.3f);
+    // 将按钮添加到场景
+    this->addChild(NewButton);
+    this->addChild(ExitButton);
     // 设置按钮点击事件
-    startButton->addClickEventListener([=](Ref* sender) {
+    NewButton->addClickEventListener([=](Ref* sender) {
         // 切换到游戏场景
         auto transition = cocos2d::TransitionFade::create(1.0f, InitialScene::createScene(), cocos2d::Color3B::WHITE);
         cocos2d::Director::getInstance()->replaceScene(transition);
         });
+    ExitButton->addClickEventListener([](Ref* sender) {
+        cocos2d::Director::getInstance()->end();
+        });
 
-    // 将按钮添加到场景
-    this->addChild(startButton);
     addImageToScene("photo/startup_p/logo.png", Vec2(screenSize.width / 2, screenSize.height / 2 + 150));
     return true;
 }

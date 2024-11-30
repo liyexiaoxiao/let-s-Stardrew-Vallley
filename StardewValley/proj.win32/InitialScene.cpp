@@ -20,7 +20,21 @@ Scene* InitialScene::createScene()
     scene->addChild(layer);// 使用 CREATE_FUNC 宏生成场景
     return scene;
 }
-
+//人物初始化界面
+void InitialScene::addImageToScene(const std::string& imageFile, const Vec2& position)
+{
+    // 创建精灵
+    auto sprite = Sprite::create(imageFile);
+    if (sprite != nullptr) {
+        // 设置精灵的位置
+        sprite->setPosition(position);
+        // 将精灵添加到场景
+        this->addChild(sprite);
+    }
+    else {
+        CCLOG("Failed to load image: %s", imageFile.c_str());
+    }
+}
 // 初始化场景
 bool InitialScene::init()
 {
@@ -42,10 +56,7 @@ bool InitialScene::init()
         this->addChild(background, 0);
     }
 
-    // 设置场景标题或其他元素
-    auto titleLabel = Label::createWithSystemFont("Welcome to the Game!", "Arial", 36);
-    titleLabel->setPosition(Vec2(screenSize.width / 2, screenSize.height * 0.8f));
-    this->addChild(titleLabel);
+
 
  
 

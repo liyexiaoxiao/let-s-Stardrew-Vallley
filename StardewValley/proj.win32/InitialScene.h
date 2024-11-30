@@ -11,7 +11,8 @@ public:
 
     // 创建场景
     static Scene* createScene();
-
+    // 添加图片到场景
+    void addImageToScene(const std::string& imageFile, const cocos2d::Vec2& position);
     // 初始化场景
     virtual bool init();
 
