@@ -42,6 +42,15 @@
     <ClCompile Include="player.cpp">
       <Filter>src\Character</Filter>
     </ClCompile>
+    <ClCompile Include="SoilScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Crop.cpp">
+      <Filter>src\Farm</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>src\Farm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -67,6 +76,15 @@
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>src\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="SoilScene.h">
+      <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Crop.h">
+      <Filter>src\Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>src\Farm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

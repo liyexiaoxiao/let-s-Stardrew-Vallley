@@ -2,10 +2,10 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>D:\GamePrivateRes\let-s-Stardrew-Vallley\StardewValley\proj.win32\Debug.win32\libcocos2d.dll</FullPath>
+      <FullPath>D:\stardew\let-s-Stardrew-Vallley\StardewValley\proj.win32\Debug.win32\libcocos2d.dll</FullPath>
     </ProjectOutput>
     <ProjectOutput>
-      <FullPath>D:\GamePrivateRes\let-s-Stardrew-Vallley\StardewValley\proj.win32\Debug.win32\StardewValley.exe</FullPath>
+      <FullPath>D:\stardew\let-s-Stardrew-Vallley\StardewValley\proj.win32\Debug.win32\StardewValley.exe</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
