@@ -1,9 +1,9 @@
 #include "FarmScene.h"
-#include "Crop.h"
 #include "Tile.h"
+#include "Crop.h"
 #include "cocos2d.h"
 
-FarmScene::FarmScene() : farmWidth(10), farmHeight(10) {
+FarmScene::FarmScene() : farmWidth(5), farmHeight(5) {
     farmGrid.resize(farmHeight, std::vector<Tile>(farmWidth));
 }
 
@@ -22,12 +22,12 @@ FarmScene* FarmScene::create() {
 }
 
 void FarmScene::update(float dt) {
-    // 更新农场的每个格子，作物成长
+    // 更新所有作物的成长状态
     for (int i = 0; i < farmHeight; ++i) {
         for (int j = 0; j < farmWidth; ++j) {
             Tile& tile = farmGrid[i][j];
             if (tile.isPlanted() && tile.getCrop() != nullptr) {
-                tile.getCrop()->grow();
+                tile.getCrop()->grow(); // 让作物生长
             }
         }
     }
@@ -36,38 +36,26 @@ void FarmScene::update(float dt) {
 void FarmScene::plantCrop(int x, int y, Crop* crop) {
     if (x >= 0 && x < farmWidth && y >= 0 && y < farmHeight) {
         Tile& tile = farmGrid[y][x];
-        if (!tile.isPlanted()) {
-            tile.plant(crop);
-        }
+        tile.plow();
+        tile.plant(crop);
     }
 }
 
 void FarmScene::waterCrop(int x, int y) {
     if (x >= 0 && x < farmWidth && y >= 0 && y < farmHeight) {
-        farmGrid[y][x].water();
-    }
-}
-
-void FarmScene::harvestCrop(int x, int y) {
-    if (x >= 0 && x < farmWidth && y >= 0 && y < farmHeight) {
         Tile& tile = farmGrid[y][x];
-        if (tile.isHarvestable()) {
-            tile.harvest();
-        }
+        tile.water();
     }
 }
 
 void FarmScene::renderFarm(cocos2d::Layer* layer) {
-    // 绘制农场，每个格子的状态
+    // 渲染农场
     for (int i = 0; i < farmHeight; ++i) {
         for (int j = 0; j < farmWidth; ++j) {
             Tile& tile = farmGrid[i][j];
             cocos2d::Sprite* sprite = nullptr;
             if (tile.isPlanted()) {
-                sprite = cocos2d::Sprite::create("crop.png"); // 假设你有 crop.png 图片
-                if (tile.getCrop()->isMature()) {
-                    sprite->setColor(cocos2d::Color3B::GREEN);
-                }
+                sprite = tile.getCrop()->getSprite(); // 获取作物的 Sprite
             }
             else {
                 sprite = cocos2d::Sprite::create("soil.png"); // 假设你有 soil.png 图片

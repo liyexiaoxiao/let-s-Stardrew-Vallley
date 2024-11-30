@@ -18,12 +18,6 @@ void Tile::water() {
     }
 }
 
-void Tile::harvest() {
-    if (isHarvestable()) {
-        crop = nullptr;
-    }
-}
-
 bool Tile::isPlanted() const {
     return crop != nullptr;
 }
