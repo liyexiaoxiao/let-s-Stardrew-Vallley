@@ -41,7 +41,8 @@ bool StartupScene::init()
         // add the sprite as a child to this layer 在库函数中设置了自动适应大小，所以窗口设置大一点图片就可以显示完全
         this->addChild(background, 0);//0表示图片级别
     }
-    //创建按钮
+
+    //创建按钮,确定键
     auto startButton = Button::create("photo/startup_p/button1.png", "button_pressed.png", "button_disabled.png");
     // 设置按钮位置
     startButton->setPosition(Vec2(screenSize.width / 2, screenSize.height / 4));
@@ -53,9 +54,9 @@ bool StartupScene::init()
         auto transition = cocos2d::TransitionFade::create(1.0f, InitialScene::createScene(), cocos2d::Color3B::WHITE);
         cocos2d::Director::getInstance()->replaceScene(transition);
         });
-
-    // 将按钮添加到场景
     this->addChild(startButton);
+
+    // 将标题贴添加到场景
     addImageToScene("photo/startup_p/logo.png", Vec2(screenSize.width / 2, screenSize.height / 2 + 150));
     return true;
 }
