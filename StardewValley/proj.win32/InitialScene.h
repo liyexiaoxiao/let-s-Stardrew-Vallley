@@ -2,22 +2,20 @@
 #define __INITIAL_SCENE_H__
 
 #include "cocos2d.h"
+#include "ui/CocosGUI.h"
 
 class InitialScene : public cocos2d::Scene
 {
+private:
+    cocos2d::ui::TextField* PlayerNameTxt = nullptr;
 public:
+
     InitialScene();
     ~InitialScene();
-
     // 创建场景
     static Scene* createScene();
-    // 添加图片到场景
-    void addImageToScene(const std::string& imageFile, const cocos2d::Vec2& position);
     // 初始化场景
     virtual bool init();
-
-    // 其他场景相关的函数，可以根据需求来添加
-
     // 宏，创建静态的 create() 函数
     CREATE_FUNC(InitialScene);
 };

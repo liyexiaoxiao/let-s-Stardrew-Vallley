@@ -34,7 +34,6 @@ public:
     //检查点击是否与地图元素发生交互
     void checkForElementInteraction(const cocos2d::Vec2& clickPos);
 
-
 private:
     //地图参数相关
     cocos2d::Sprite* Farmmap;    // 地图

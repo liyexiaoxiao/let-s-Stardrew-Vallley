@@ -19,6 +19,12 @@
     <Filter Include="src\Character">
       <UniqueIdentifier>{b1355052-98d4-48fa-abf3-539f0da25522}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\UI">
+      <UniqueIdentifier>{5787218b-67e2-4871-a051-bc9e6096eb4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Tools">
+      <UniqueIdentifier>{4af4ffdc-f05b-4a4e-aba5-305e885ff9a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -41,6 +47,12 @@
     </ClCompile>
     <ClCompile Include="player.cpp">
       <Filter>src\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Clock.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools.cpp">
+      <Filter>src\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>src\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Clock.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools.h">
+      <Filter>src\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

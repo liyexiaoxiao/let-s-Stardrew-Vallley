@@ -1,5 +1,5 @@
 #include "AppDelegate.h"
-#include "proj.win32/StartupScene.h"//我服了必须用这个文件里面的要不然跑不起来
+#include "proj.win32/StartupScene.h"
 //音频相关 只能同时开启一个
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -96,7 +96,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 
     // run
-    director->runWithScene(StartupScene::createScene());
+    director->runWithScene(StartupScene::create());
 
     return true;
 }

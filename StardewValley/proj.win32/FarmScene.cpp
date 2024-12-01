@@ -1,6 +1,7 @@
 //农场地图功能完善
 #include "FarmScene.h"
 #include "cocos2d.h"
+#include "Clock.h"
 
 // 构造析构初始化
 FarmScene::FarmScene()
@@ -19,7 +20,6 @@ FarmScene* FarmScene::create() {
     CC_SAFE_DELETE(ret);
     return nullptr;
 }
-
 bool FarmScene::init() {
     // 获取屏幕尺寸
     const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
@@ -30,15 +30,23 @@ bool FarmScene::init() {
     FarmmapSize = Farmmap->getContentSize();  // 地图的总大小
     this->addChild(Farmmap);
 
+
     // 创建玩家
-    mainPlayer = Player::create("photo/Character/mainPlayer.png");
+    mainPlayer = Player::create("photo/Character/PlayerFront1.png");
     mainPlayer->setPosition(visibleSize.width / 2, visibleSize.height / 2); // 玩家在屏幕中心
+    mainPlayer->setScale(2.0f);
     this->addChild(mainPlayer);
 
     // 更新函数
     schedule([this](float deltaTime) {
         update(deltaTime);
         }, "update_key");
+
+    // 创建并启动时钟
+    Clock* clock = Clock::create();
+    clock->setLocalZOrder(1000);
+    this->addChild(clock); // 将时钟添加到场景
+    clock->startClock(); // 启动时钟
 
     // 监听键盘输入
     auto Keyboardlistener = cocos2d::EventListenerKeyboard::create();

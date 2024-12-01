@@ -28,7 +28,7 @@ bool StartupScene::init()
     // 加载音乐
     // 加载背景
     const auto screenSize = cocos2d::Director::getInstance()->getVisibleSize();
-    const auto background = Sprite::create("photo/startup_p/StartupScene.png");
+    const auto background = Sprite::create("photo/startup_p/stardewbackground.png");
     if (background == nullptr)
     {
         //problemLoading("'HelloWorld.png'");一个报错信息，我还没做
