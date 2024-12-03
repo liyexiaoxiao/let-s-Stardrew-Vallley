@@ -2,6 +2,7 @@
 #include "FarmScene.h"
 #include "cocos2d.h"
 #include "Clock.h"
+#include "Player.h"
 
 // 构造析构初始化
 FarmScene::FarmScene()
@@ -21,14 +22,18 @@ FarmScene* FarmScene::create() {
     return nullptr;
 }
 bool FarmScene::init() {
-    // 获取屏幕尺寸
-    const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
-
+  
     // 加载地图
-    Farmmap = cocos2d::Sprite::create("photo/Map/FarmInit.png");
-    Farmmap->setPosition(visibleSize.width / 2, visibleSize.height / 2); // 初始时地图居中
-    FarmmapSize = Farmmap->getContentSize();  // 地图的总大小
+    Farmmap = cocos2d::TMXTiledMap::create("photo/Map/0farmsoilground2048x2048.tmx"); 
+    Farmmap->setContentSize(cocos2d::Size(2048, 2048));//设置大小
+    const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
+    Farmmap->setPosition(visibleSize.width / 2 - Farmmap->getContentSize().width / 2,
+        visibleSize.height / 2 - Farmmap->getContentSize().height / 2);
     this->addChild(Farmmap);
+
+    // 获取不同的图层
+    groundLayer = Farmmap->getLayer("layer1ground");  // 地面层
+    wallLayer = Farmmap->getLayer("layer2wall");      // 围墙层
 
 
     // 创建玩家
@@ -57,15 +62,20 @@ bool FarmScene::init() {
     return true;
 }
 
-#include "FarmScene.h"
-#include "Player.h"
-#include "cocos2d.h"
+void FarmScene::moveMap(float deltaX, float deltaY) {
+    // 获取玩家当前的位置
+    cocos2d::Vec2 playerPos = mainPlayer->getPosition();
+    // 计算背景移动后的玩家新位置
+    cocos2d::Vec2 newPlayerPos = playerPos - cocos2d::Vec2(deltaX, deltaY); 
+    //更新地图移动
+    cocos2d::Vec2 newPos = Farmmap ->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+    // 判断玩家是否碰到围墙
+    if (!isColliding(newPlayerPos)) {
+        // 如果没有碰到围墙，更新玩家位置
+        Farmmap->setPosition(newPos);
+    }
+}
 
-
-// 定义控制状态
-bool isKeyPressed[4] = { false, false, false, false }; // 用于判断是否按下了某个方向的键
-// 方向键的映射：上、下、左、右
-enum Direction { UP, DOWN, LEFT, RIGHT };
 // 地图显示相关
 void FarmScene::update(float deltaTime) {
     // 每帧更新，检查是否有按键被长按，持续移动地图
@@ -81,28 +91,6 @@ void FarmScene::update(float deltaTime) {
     if (movingRight) {
         moveMap(-10.0f, 0); // 向右持续移动
     }
-}
-// 地图移动控制相关
-void FarmScene::moveMap(float deltaX, float deltaY) {
-    // 计算新的地图位置
-    cocos2d::Vec2 newPosition = Farmmap->getPosition() + cocos2d::Vec2(deltaX, deltaY);
-
-    // 防止地图超出边界
-    if (newPosition.x > FarmmapSize.width / 2) {
-        newPosition.x = FarmmapSize.width / 2;  // 到达右边界
-    }
-    if (newPosition.x < -FarmmapSize.width / 2 + cocos2d::Director::getInstance()->getVisibleSize().width) {
-        newPosition.x = -FarmmapSize.width / 2 + cocos2d::Director::getInstance()->getVisibleSize().width;  // 到达左边界
-    }
-    if (newPosition.y > FarmmapSize.height / 2) {
-        newPosition.y = FarmmapSize.height / 2;  // 到达上边界
-    }
-    if (newPosition.y < -FarmmapSize.height / 2 + cocos2d::Director::getInstance()->getVisibleSize().height) {
-        newPosition.y = -FarmmapSize.height / 2 + cocos2d::Director::getInstance()->getVisibleSize().height;  // 到达下边界
-    }
-
-    // 更新地图位置
-    Farmmap->setPosition(newPosition);
 }
 
 void FarmScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
@@ -143,6 +131,47 @@ void FarmScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
         break;
     }
 }
+
+bool FarmScene::isColliding(const cocos2d::Vec2& newPos) {
+    // 获取玩家的边界框（Bounding Box）
+    cocos2d::Rect playerBoundingBox = mainPlayer->getBoundingBox();
+
+    // 获取瓦片的大小
+    cocos2d::Size tileSize = Farmmap->getTileSize();
+    float tileWidth = tileSize.width;
+    float tileHeight = tileSize.height;
+
+    // 计算新位置
+    cocos2d::Vec2 mapSpacePos = Farmmap->convertToNodeSpace(newPos);  // 将屏幕坐标转换为地图坐标
+
+    // 获取玩家在新位置时的边界框
+    playerBoundingBox.origin = mapSpacePos;
+
+    // 遍历围墙图层的所有瓦片，检查是否与玩家的边界框相交
+    int layerWidth = wallLayer->getLayerSize().width;
+    int layerHeight = wallLayer->getLayerSize().height;
+
+    for (int x = 0; x < layerWidth; ++x) {
+        for (int y = 0; y < layerHeight; ++y) {
+            auto tile = wallLayer->getTileAt(cocos2d::Vec2(x, y));
+
+            if (tile) {
+                // 获取瓦片的边界框
+                cocos2d::Rect tileBoundingBox(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+
+                // 判断瓦片的边界框是否与玩家的边界框重叠
+                if (playerBoundingBox.intersectsRect(tileBoundingBox)) {
+                    // 如果重叠，表示玩家与围墙发生碰撞
+                    return true;
+                }
+            }
+        }
+    }
+
+    // 没有碰撞
+    return false;
+}
+
 
 // 检查与工具或其他元素的交互（类似处理）
 // 鼠标点击事件处理

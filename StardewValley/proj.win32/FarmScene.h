@@ -18,16 +18,19 @@ public:
     static FarmScene* create();
     bool init();
 
+
     // 游戏更新
     void update(float deltaTime);
 
     //地图移动，利用上下左右按键控制
     void moveMap(float deltaX, float deltaY);
-    //void movePlayer(float deltaX, float deltaY);不实现玩家移动
     //添加 onKeyPressed 声明 识别键盘控制 单击
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
     //长按
     void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+
+    // 检查是否与围墙发生碰撞
+    bool isColliding(const cocos2d::Vec2& newPos);  // 声明碰撞检测函数
 
     //鼠标点击事件的控制
     void onMouseClicked(cocos2d::Event* event);
@@ -35,9 +38,12 @@ public:
     void checkForElementInteraction(const cocos2d::Vec2& clickPos);
 
 private:
-    //地图参数相关
-    cocos2d::Sprite* Farmmap;    // 地图
-    cocos2d::Size FarmmapSize;  // 地图大小
+    // 地图相关
+    cocos2d::TMXTiledMap* Farmmap;   // 地图对象，改为 Tiled 地图
+    cocos2d::TMXLayer* groundLayer;  // 地面层
+    cocos2d::TMXLayer* wallLayer;    // 围墙层
+
+    cocos2d::Size FarmmapSize;        // 地图大小
     float scaleFactor;  // 当前缩放比例
 
     //玩家相关
