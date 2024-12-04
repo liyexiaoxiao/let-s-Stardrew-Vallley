@@ -1,8 +1,7 @@
 //农场地图功能完善
 #include "FarmScene.h"
-#include "cocos2d.h"
 #include "Clock.h"
-#include "Player.h"
+
 
 // 构造析构初始化
 FarmScene::FarmScene()
@@ -42,6 +41,20 @@ bool FarmScene::init() {
     mainPlayer->setScale(2.0f);
     this->addChild(mainPlayer);
 
+    //创建农场里面的npc
+    // 创建 Farmer NPC 
+    farmer = new Farmer();
+    farmer->setPosition(cocos2d::Vec2(1180, 1180));  // 初始位置设为左下角
+    //获取这个人物相对于地图的位置
+    const cocos2d::Vec2 farmerPos = Farmmap->convertToNodeSpace(cocos2d::Vec2(1180, 1180));  // 将屏幕坐标转换为地图坐标
+    std::string debugInfo1 = "farmerPos : x=" + std::to_string(farmerPos.x) +
+        ", y=" + std::to_string(farmerPos.y);
+
+    // 显示调试信息
+    displayDebugInfo(debugInfo1);
+    interactiveElements.push_back(farmer);
+    this->addChild(farmer);  // 将 Farmer 添加到场景中
+
     // 更新函数
     schedule([this](float deltaTime) {
         update(deltaTime);
@@ -59,20 +72,27 @@ bool FarmScene::init() {
     Keyboardlistener->onKeyReleased = CC_CALLBACK_2(FarmScene::onKeyReleased, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(Keyboardlistener, this);
 
+    //监听鼠标点击
+    auto Mouselistener = cocos2d::EventListenerMouse::create();
+    Mouselistener->onMouseDown = CC_CALLBACK_1(FarmScene::onMouseClicked, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(Mouselistener, this);
+
     return true;
 }
 
 void FarmScene::moveMap(float deltaX, float deltaY) {
     // 获取玩家当前的位置
-    cocos2d::Vec2 playerPos = mainPlayer->getPosition();
+    const cocos2d::Vec2 playerPos = mainPlayer->getPosition();
     // 计算背景移动后的玩家新位置
-    cocos2d::Vec2 newPlayerPos = playerPos - cocos2d::Vec2(deltaX, deltaY); 
-    //更新地图移动
-    cocos2d::Vec2 newPos = Farmmap ->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+    const cocos2d::Vec2 newPlayerPos = playerPos - cocos2d::Vec2(deltaX, deltaY); 
+    //更新地图移动以及跟随他移动的所有图片
+    const cocos2d::Vec2 newPos = Farmmap ->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+    const cocos2d::Vec2 farmerPosition = farmer->getPosition() + cocos2d::Vec2(deltaX, deltaY);
     // 判断玩家是否碰到围墙
     if (!isColliding(newPlayerPos)) {
         // 如果没有碰到围墙，更新玩家位置
         Farmmap->setPosition(newPos);
+        farmer->setPosition(farmerPosition);
     }
 }
 
@@ -137,27 +157,27 @@ bool FarmScene::isColliding(const cocos2d::Vec2& newPos) {
     cocos2d::Rect playerBoundingBox = mainPlayer->getBoundingBox();
 
     // 获取瓦片的大小
-    cocos2d::Size tileSize = Farmmap->getTileSize();
-    float tileWidth = tileSize.width;
-    float tileHeight = tileSize.height;
+    const cocos2d::Size tileSize = Farmmap->getTileSize();
+    const float tileWidth = tileSize.width;
+    const float tileHeight = tileSize.height;
 
     // 计算新位置
-    cocos2d::Vec2 mapSpacePos = Farmmap->convertToNodeSpace(newPos);  // 将屏幕坐标转换为地图坐标
+    const cocos2d::Vec2 mapSpacePos = Farmmap->convertToNodeSpace(newPos);  // 将屏幕坐标转换为地图坐标
 
     // 获取玩家在新位置时的边界框
     playerBoundingBox.origin = mapSpacePos;
 
     // 遍历围墙图层的所有瓦片，检查是否与玩家的边界框相交
-    int layerWidth = wallLayer->getLayerSize().width;
-    int layerHeight = wallLayer->getLayerSize().height;
+    const int layerWidth = wallLayer->getLayerSize().width;
+    const int layerHeight = wallLayer->getLayerSize().height;
 
     for (int x = 0; x < layerWidth; ++x) {
         for (int y = 0; y < layerHeight; ++y) {
-            auto tile = wallLayer->getTileAt(cocos2d::Vec2(x, y));
+            const auto tile = wallLayer->getTileAt(cocos2d::Vec2(x, y));
 
             if (tile) {
                 // 获取瓦片的边界框
-                cocos2d::Rect tileBoundingBox(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+                const cocos2d::Rect tileBoundingBox(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
 
                 // 判断瓦片的边界框是否与玩家的边界框重叠
                 if (playerBoundingBox.intersectsRect(tileBoundingBox)) {
@@ -175,25 +195,41 @@ bool FarmScene::isColliding(const cocos2d::Vec2& newPos) {
 
 // 检查与工具或其他元素的交互（类似处理）
 // 鼠标点击事件处理
+// 检查点击位置是否是一个实例
 void FarmScene::onMouseClicked(cocos2d::Event* event) {
-    // 获取鼠标点击的屏幕位置
-    auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
-    cocos2d::Vec2 clickPos = mouseEvent->getLocation();
-
-    // 处理点击与元素的交互
+    // 获取鼠标点击的位置
+    const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
+    // 获取鼠标点击位置（屏幕坐标系）
+    const cocos2d::Vec2 clickPos = mouseEvent->getLocation();
+    // 遍历所有的可交互元素，检查是否被点击
     checkForElementInteraction(clickPos);
 }
-// 检查点击位置是否与元素重叠
-void FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
-    // 将屏幕坐标转换为地图坐标
-    cocos2d::Vec2 mapSpacePos = Farmmap->convertToNodeSpace(clickPos);
 
-    // 检查点击是否与杂草重叠
-    for (auto weed : weeds) {
-        if (!weed->isRemoved() && weed->getBoundingBox().containsPoint(mapSpacePos)) {
-            weed->removeWeed();
+void FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
+    // 将鼠标点击位置从屏幕坐标系转换为当前场景的坐标系
+     // 获取地图当前位置（地图的偏移量）
+    cocos2d::Vec2 mapPosition = Farmmap->getPosition();
+    // 将屏幕坐标转换为地图的显示坐标（相对地图左下角）
+    cocos2d::Vec2 worldPos = Farmmap->convertToNodeSpace(clickPos);
+    for (auto& child : interactiveElements) {
+        // 获取交互元素的包围盒并更新它
+        cocos2d::Rect boundingBox = child->getBoundingBox();
+        // 创建调试信息
+        std::string debugInfo = "Bounding Box: x=" + std::to_string(boundingBox.origin.x) +
+            ", y=" + std::to_string(boundingBox.origin.y) +
+            ", width=" + std::to_string(boundingBox.size.width) +
+            ", height=" + std::to_string(boundingBox.size.height) +
+            "\nClick Position: x=" + std::to_string(worldPos.x) +
+            ", y=" + std::to_string(worldPos.y);
+
+        // 显示调试信息
+        displayDebugInfo(debugInfo);
+
+        // 判断点击位置是否在包围盒内
+        if (boundingBox.containsPoint(worldPos)) {
+            // 如果点击了该元素，触发其 onClick 事件
+            child->onClick();
             break;
         }
     }
 }
-

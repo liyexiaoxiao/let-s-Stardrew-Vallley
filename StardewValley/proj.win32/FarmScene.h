@@ -7,13 +7,18 @@
 #include "cocos2d.h"
 #include "Weed.h"       // 假设有 Weed 类
 #include "Tool.h"       // 假设有 Tool 类
+#include "Resident.h"   //NPC基类
 #include "player.h"    //玩家类
+#include "Farmer.h"    //农民类
+#include "NPCinfo.h"   //npcUI面板
 
 
 class FarmScene : public cocos2d::Scene {
 public:
     FarmScene();
     ~FarmScene();
+
+
     //Farm地图界面生成
     static FarmScene* create();
     bool init();
@@ -36,8 +41,26 @@ public:
     void onMouseClicked(cocos2d::Event* event);
     //检查点击是否与地图元素发生交互
     void checkForElementInteraction(const cocos2d::Vec2& clickPos);
+    // 添加一个管理所有可交互元素的方法
+    void addInteractiveElement(InteractiveElement* element) {
+        interactiveElements.push_back(element);
+    }
+    void displayDebugInfo(const std::string& info) {
+        // 如果没有调试文本标签，创建一个新的
+        if (!_debugLabel) {
+            _debugLabel = cocos2d::Label::createWithSystemFont(info, "Arial", 24);
+            _debugLabel->setPosition(cocos2d::Vec2(400, 500));  // 在屏幕中间位置显示
+            this->addChild(_debugLabel);
+        }
+        else {
+            // 如果已有调试标签，更新它的文本
+            _debugLabel->setString(info);
+        }
+    }
+
 
 private:
+    cocos2d::Label* _debugLabel = nullptr;  // 用于显示调试信息
     // 地图相关
     cocos2d::TMXTiledMap* Farmmap;   // 地图对象，改为 Tiled 地图
     cocos2d::TMXLayer* groundLayer;  // 地面层
@@ -49,16 +72,25 @@ private:
     //玩家相关
     Player* mainPlayer; // 主玩家
 
+    //NPC相关
+    Farmer* farmer;
+    //农民的位置
+
     //农场实现后续功能相关
     std::vector<Weed*> weeds;      // 杂草列表
     //std::vector<Tool*> tools;      // 工具列表
 
-    //游玩功能性
+
+
+    //交互相关
     //长按键盘相关
     bool movingUp;  // 是否按住上键
     bool movingDown; // 是否按住下键
     bool movingLeft; // 是否按住左键
     bool movingRight; // 是否按住右键
+    //鼠标点击交互相关
+    // 存储所有 NPC 和其他可交互元素的列表
+    std::vector<InteractiveElement*> interactiveElements;
 };
 
 #endif // __FARM_SCENE_H__

@@ -25,6 +25,12 @@
     <Filter Include="src\Tools">
       <UniqueIdentifier>{4af4ffdc-f05b-4a4e-aba5-305e885ff9a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Character\NPC">
+      <UniqueIdentifier>{2b39214f-3766-465e-968c-25f1748134c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Task">
+      <UniqueIdentifier>{e03efd37-c0d4-416b-b364-13cd11fe60ea}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -53,6 +59,18 @@
     </ClCompile>
     <ClCompile Include="Tools.cpp">
       <Filter>src\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Farmer.cpp">
+      <Filter>src\Character\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="Resident.cpp">
+      <Filter>src\Character\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCinfo.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="InteractiveElement.cpp">
+      <Filter>src\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +103,21 @@
     </ClInclude>
     <ClInclude Include="Tools.h">
       <Filter>src\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Farmer.h">
+      <Filter>src\Character\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Resident.h">
+      <Filter>src\Character\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Task.h">
+      <Filter>src\Task</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCinfo.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="InteractiveElement.h">
+      <Filter>src\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
