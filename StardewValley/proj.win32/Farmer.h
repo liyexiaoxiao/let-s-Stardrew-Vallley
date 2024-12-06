@@ -14,6 +14,9 @@ private:
     cocos2d::Label* romanceLabel;
     cocos2d::Label* friendshipLabel;
     cocos2d::Label* taskLabel;
+    //初始位置相关，屏幕坐标系
+    int Worldx;
+    int Worldy;
 public:
     Farmer();  // 默认构造函数
     ~Farmer();

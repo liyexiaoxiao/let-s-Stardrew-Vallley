@@ -4,8 +4,11 @@ using namespace cocos2d;
 Farmer::Farmer() {
     name = "John Doe";
     profession = "Farmer";
+    Worldx = 1180;
+    Worldy = 1180;
     sprite = this;
     this->initWithFile("photo/Character/Resident1.png");  // 设置农民的图像
+    this->setPosition(cocos2d::Vec2(Worldx, Worldy));
     
     // 创建面板的 UI 元素以及面板初始化
     nameLabel = cocos2d::Label::createWithSystemFont("Name: ", "Arial", 24);
@@ -52,7 +55,15 @@ void Farmer::showInfoPanel() {
     }
 }
 cocos2d::Rect Farmer::getBoundingBox() const {
-    // 返回更新后的包围盒
-    return cocos2d::Rect(1550, 1815, 28, 58);
+    // 动态返回当前 Farmer 的包围盒
+    auto position = this->getPosition();  // 当前 Farmer 的世界坐标
+    auto contentSize = this->getContentSize();
+
+    return cocos2d::Rect(
+        position.x - contentSize.width * this->getAnchorPoint().x,
+        position.y - contentSize.height * this->getAnchorPoint().y,
+        contentSize.width,
+        contentSize.height
+    );
 }
 

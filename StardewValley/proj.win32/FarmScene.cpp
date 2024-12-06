@@ -44,7 +44,7 @@ bool FarmScene::init() {
     //创建农场里面的npc
     // 创建 Farmer NPC 
     farmer = new Farmer();
-    farmer->setPosition(cocos2d::Vec2(1180, 1180));  // 初始位置设为左下角
+   // farmer->setPosition(cocos2d::Vec2(1180, 1180));  // 初始位置设为左下角
     //获取这个人物相对于地图的位置
     const cocos2d::Vec2 farmerPos = Farmmap->convertToNodeSpace(cocos2d::Vec2(1180, 1180));  // 将屏幕坐标转换为地图坐标
     std::string debugInfo1 = "farmerPos : x=" + std::to_string(farmerPos.x) +
@@ -200,17 +200,16 @@ void FarmScene::onMouseClicked(cocos2d::Event* event) {
     // 获取鼠标点击的位置
     const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
     // 获取鼠标点击位置（屏幕坐标系）
-    const cocos2d::Vec2 clickPos = mouseEvent->getLocation();
+    cocos2d::Vec2 clickPos = mouseEvent->getLocation();
+    clickPos = cocos2d::Director::getInstance()->convertToGL(clickPos);
     // 遍历所有的可交互元素，检查是否被点击
     checkForElementInteraction(clickPos);
 }
 
 void FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
     // 将鼠标点击位置从屏幕坐标系转换为当前场景的坐标系
-     // 获取地图当前位置（地图的偏移量）
-    cocos2d::Vec2 mapPosition = Farmmap->getPosition();
     // 将屏幕坐标转换为地图的显示坐标（相对地图左下角）
-    cocos2d::Vec2 worldPos = Farmmap->convertToNodeSpace(clickPos);
+    cocos2d::Vec2 worldPos =clickPos;
     for (auto& child : interactiveElements) {
         // 获取交互元素的包围盒并更新它
         cocos2d::Rect boundingBox = child->getBoundingBox();
