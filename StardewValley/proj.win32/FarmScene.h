@@ -12,6 +12,8 @@
 #include "Farmer.h"    //农民类
 #include "NPCinfo.h"   //npcUI面板
 
+#include "Crop.h"    //农作物类
+
 
 class FarmScene : public cocos2d::Scene {
 public:
@@ -39,8 +41,14 @@ public:
 
     //鼠标点击事件的控制
     void onMouseClicked(cocos2d::Event* event);
+
+    //种植种子
+    void onMouseClickedSoil(cocos2d::Event* event);
+    void plantSeed(int x, int y);
+    void waterCrop(int x, int y);  // 浇水
+
     //检查点击是否与地图元素发生交互
-    void checkForElementInteraction(const cocos2d::Vec2& clickPos);
+    int checkForElementInteraction(const cocos2d::Vec2& clickPos);
     // 添加一个管理所有可交互元素的方法
     void addInteractiveElement(InteractiveElement* element) {
         interactiveElements.push_back(element);
@@ -65,6 +73,9 @@ private:
     cocos2d::TMXTiledMap* Farmmap;   // 地图对象，改为 Tiled 地图
     cocos2d::TMXLayer* groundLayer;  // 地面层
     cocos2d::TMXLayer* wallLayer;    // 围墙层
+
+    std::vector<std::vector<Crop*>> plantedCrops; // 存储种植的作物
+
 
     cocos2d::Size FarmmapSize;        // 地图大小
     float scaleFactor;  // 当前缩放比例

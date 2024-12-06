@@ -72,6 +72,9 @@
     <ClCompile Include="InteractiveElement.cpp">
       <Filter>src\UI</Filter>
     </ClCompile>
+    <ClCompile Include="Crop.cpp">
+      <Filter>src\Farm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -118,6 +121,9 @@
     </ClInclude>
     <ClInclude Include="InteractiveElement.h">
       <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Crop.h">
+      <Filter>src\Farm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

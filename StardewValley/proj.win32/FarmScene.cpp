@@ -1,13 +1,16 @@
 //农场地图功能完善
 #include "FarmScene.h"
 #include "Clock.h"
+#include "Crop.h"
+#include "cocos2d.h"
 
 
 // 构造析构初始化
 FarmScene::FarmScene()
     : Farmmap(nullptr), mainPlayer(nullptr),
     movingUp(false), movingDown(false),
-    movingLeft(false), movingRight(false) {}
+    movingLeft(false), movingRight(false) {
+}
 
 FarmScene::~FarmScene() {}
 
@@ -21,9 +24,9 @@ FarmScene* FarmScene::create() {
     return nullptr;
 }
 bool FarmScene::init() {
-  
+
     // 加载地图
-    Farmmap = cocos2d::TMXTiledMap::create("photo/Map/0farmsoilground2048x2048.tmx"); 
+    Farmmap = cocos2d::TMXTiledMap::create("photo/Map/0farmsoilground2048x2048.tmx");
     Farmmap->setContentSize(cocos2d::Size(2048, 2048));//设置大小
     const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
     Farmmap->setPosition(visibleSize.width / 2 - Farmmap->getContentSize().width / 2,
@@ -44,8 +47,8 @@ bool FarmScene::init() {
     //创建农场里面的npc
     // 创建 Farmer NPC 
     farmer = new Farmer();
-   // farmer->setPosition(cocos2d::Vec2(1180, 1180));  // 初始位置设为左下角
-    //获取这个人物相对于地图的位置
+    // farmer->setPosition(cocos2d::Vec2(1180, 1180));  // 初始位置设为左下角
+     //获取这个人物相对于地图的位置
     const cocos2d::Vec2 farmerPos = Farmmap->convertToNodeSpace(cocos2d::Vec2(1180, 1180));  // 将屏幕坐标转换为地图坐标
     std::string debugInfo1 = "farmerPos : x=" + std::to_string(farmerPos.x) +
         ", y=" + std::to_string(farmerPos.y);
@@ -66,11 +69,18 @@ bool FarmScene::init() {
     this->addChild(clock); // 将时钟添加到场景
     clock->startClock(); // 启动时钟
 
+    // 初始化 plantedCrops
+    int mapWidth = groundLayer->getLayerSize().width;
+    int mapHeight = groundLayer->getLayerSize().height;
+    plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr));
+
+
     // 监听键盘输入
     auto Keyboardlistener = cocos2d::EventListenerKeyboard::create();
     Keyboardlistener->onKeyPressed = CC_CALLBACK_2(FarmScene::onKeyPressed, this);
     Keyboardlistener->onKeyReleased = CC_CALLBACK_2(FarmScene::onKeyReleased, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(Keyboardlistener, this);
+
 
     //监听鼠标点击
     auto Mouselistener = cocos2d::EventListenerMouse::create();
@@ -84,10 +94,13 @@ void FarmScene::moveMap(float deltaX, float deltaY) {
     // 获取玩家当前的位置
     const cocos2d::Vec2 playerPos = mainPlayer->getPosition();
     // 计算背景移动后的玩家新位置
-    const cocos2d::Vec2 newPlayerPos = playerPos - cocos2d::Vec2(deltaX, deltaY); 
+    const cocos2d::Vec2 newPlayerPos = playerPos - cocos2d::Vec2(deltaX, deltaY);
     //更新地图移动以及跟随他移动的所有图片
-    const cocos2d::Vec2 newPos = Farmmap ->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+    const cocos2d::Vec2 newPos = Farmmap->getPosition() + cocos2d::Vec2(deltaX, deltaY);
     const cocos2d::Vec2 farmerPosition = farmer->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+
+
+
     // 判断玩家是否碰到围墙
     if (!isColliding(newPlayerPos)) {
         // 如果没有碰到围墙，更新玩家位置
@@ -196,39 +209,65 @@ bool FarmScene::isColliding(const cocos2d::Vec2& newPos) {
 // 检查与工具或其他元素的交互（类似处理）
 // 鼠标点击事件处理
 // 检查点击位置是否是一个实例
+
 void FarmScene::onMouseClicked(cocos2d::Event* event) {
     // 获取鼠标点击的位置
     const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
-    // 获取鼠标点击位置（屏幕坐标系）
     cocos2d::Vec2 clickPos = mouseEvent->getLocation();
-    clickPos = cocos2d::Director::getInstance()->convertToGL(clickPos);
-    // 遍历所有的可交互元素，检查是否被点击
-    checkForElementInteraction(clickPos);
+    clickPos = cocos2d::Director::getInstance()->convertToGL(clickPos); // 转换为OpenGL坐标
+
+   
+    // 判断点击的区域：点击土地还是其他可交互元素
+    const auto tileSize = Farmmap->getTileSize();
+    int tileX = clickPos.x / tileSize.width;
+    int tileY = clickPos.y / tileSize.height;
+
+    int Interacted = checkForElementInteraction(clickPos);
+
+    // 如果点击的瓦片在土地上，调用 `onMouseClickedSoil`
+    if (!Interacted && (tileX >= 0 && tileX < groundLayer->getLayerSize().width &&
+        tileY >= 0 && tileY < groundLayer->getLayerSize().height)) {
+        onMouseClickedSoil(event);  // 处理种植作物的逻辑
+    }
+
+}
+int FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
+    // 将鼠标点击位置从屏幕坐标系转换为当前场景的坐标系
+    cocos2d::Vec2 worldPos = clickPos;
+
+    for (auto& child : interactiveElements) {
+        // 获取交互元素的包围盒并检查点击是否在其范围内
+        cocos2d::Rect boundingBox = child->getBoundingBox();
+        if (boundingBox.containsPoint(worldPos)) {
+            child->onClick();  // 触发该元素的 onClick 事件
+            CCLOG("Clicked on interactive element: %s", typeid(*child).name());  // 打印调试信息
+            return 1;
+        }
+    }
+    return 0;
 }
 
-void FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
-    // 将鼠标点击位置从屏幕坐标系转换为当前场景的坐标系
-    // 将屏幕坐标转换为地图的显示坐标（相对地图左下角）
-    cocos2d::Vec2 worldPos =clickPos;
-    for (auto& child : interactiveElements) {
-        // 获取交互元素的包围盒并更新它
-        cocos2d::Rect boundingBox = child->getBoundingBox();
-        // 创建调试信息
-        std::string debugInfo = "Bounding Box: x=" + std::to_string(boundingBox.origin.x) +
-            ", y=" + std::to_string(boundingBox.origin.y) +
-            ", width=" + std::to_string(boundingBox.size.width) +
-            ", height=" + std::to_string(boundingBox.size.height) +
-            "\nClick Position: x=" + std::to_string(worldPos.x) +
-            ", y=" + std::to_string(worldPos.y);
+void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
+    // 获取鼠标点击的位置
+    const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
+    cocos2d::Vec2 clickPos = mouseEvent->getLocation();
+    clickPos = cocos2d::Director::getInstance()->convertToGL(clickPos);
 
-        // 显示调试信息
-        displayDebugInfo(debugInfo);
+   
+    // 获取瓦片的大小
+    const auto tileSize = Farmmap->getTileSize();
+    int tileX = clickPos.x / tileSize.width;
+    int tileY = clickPos.y / tileSize.height;
 
-        // 判断点击位置是否在包围盒内
-        if (boundingBox.containsPoint(worldPos)) {
-            // 如果点击了该元素，触发其 onClick 事件
-            child->onClick();
-            break;
+
+    // 确保点击的位置在有效的土地块范围内
+    if (tileX >= 0 && tileX < groundLayer->getLayerSize().width &&
+        tileY >= 0 && tileY < groundLayer->getLayerSize().height) {
+        // 调用 Crop 类的 plantSeed 函数来种植作物
+        if (plantedCrops[tileY][tileX] == nullptr) {
+            Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops);
         }
     }
 }
+
+
