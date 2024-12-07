@@ -52,9 +52,9 @@ Crop* Crop::plantSeed(int x, int y, cocos2d::TMXTiledMap* map, std::vector<std::
     float X = mapPos.x;
     float Y = mapPos.y;
 
-    // 计算偏移量
-    int offsetX = static_cast<int>(X / map->getTileSize().width);  // 根据瓦片宽度计算横向偏移
-    int offsetY = static_cast<int>(Y / map->getTileSize().height); // 根据瓦片高度计算纵向偏移
+    int offsetX = static_cast<int>(std::round(X / map->getTileSize().width));  // 根据瓦片宽度计算横向偏移
+    int offsetY = static_cast<int>(std::round(Y / map->getTileSize().height)); // 根据瓦片高度计算纵向偏移
+
 
     // 检查该位置是否已经种植过作物
     if (plantedCrops[y - offsetY][x - offsetX] != nullptr) {

@@ -264,9 +264,7 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
     if (tileX >= 0 && tileX < groundLayer->getLayerSize().width &&
         tileY >= 0 && tileY < groundLayer->getLayerSize().height) {
         // 调用 Crop 类的 plantSeed 函数来种植作物
-        if (plantedCrops[tileY][tileX] == nullptr) {
             Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops);
-        }
     }
 }
 
