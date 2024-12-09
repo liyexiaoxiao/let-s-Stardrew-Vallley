@@ -163,7 +163,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="StartupScene.cpp" />
     <ClCompile Include="Clock.cpp" />
     <ClCompile Include="Tools.cpp" />
-    <ClCompile Include="Weed.cpp" />
+    <ClCompile Include="Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
@@ -181,7 +181,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="Task.h" />
     <ClInclude Include="Tool.h" />
     <ClInclude Include="Tools.h" />
-    <ClInclude Include="Weed.h" />
+    <ClInclude Include="Tree.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\cocos2d\cocos\2d\libcocos2d.vcxproj">

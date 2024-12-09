@@ -48,7 +48,7 @@
     <ClCompile Include="FarmScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Weed.cpp">
+    <ClCompile Include="Tree.cpp">
       <Filter>src\Farm</Filter>
     </ClCompile>
     <ClCompile Include="player.cpp">
@@ -92,7 +92,7 @@
     <ClInclude Include="FarmScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Weed.h">
+    <ClInclude Include="Tree.h">
       <Filter>src\Farm</Filter>
     </ClInclude>
     <ClInclude Include="Tool.h">

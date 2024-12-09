@@ -12,7 +12,12 @@ FarmScene::FarmScene()
     movingLeft(false), movingRight(false) {
 }
 
-FarmScene::~FarmScene() {}
+FarmScene::~FarmScene() {
+    // 释放树的资源
+    for (auto tree : trees) {
+        tree->release();
+    }
+}
 
 FarmScene* FarmScene::create() {
     FarmScene* ret = new FarmScene();
@@ -41,13 +46,12 @@ bool FarmScene::init() {
     // 创建玩家
     mainPlayer = Player::create("photo/Character/PlayerFront1.png");
     mainPlayer->setPosition(visibleSize.width / 2, visibleSize.height / 2); // 玩家在屏幕中心
-    mainPlayer->setScale(2.0f);
+    //mainPlayer->setScale(2.0f);
     this->addChild(mainPlayer);
 
-    //创建农场里面的npc
+    //创建农场里面的交互性元素--初始即存在
     // 创建 Farmer NPC 
     farmer = new Farmer();
-    // farmer->setPosition(cocos2d::Vec2(1180, 1180));  // 初始位置设为左下角
      //获取这个人物相对于地图的位置
     const cocos2d::Vec2 farmerPos = Farmmap->convertToNodeSpace(cocos2d::Vec2(1180, 1180));  // 将屏幕坐标转换为地图坐标
     std::string debugInfo1 = "farmerPos : x=" + std::to_string(farmerPos.x) +
@@ -57,6 +61,16 @@ bool FarmScene::init() {
     displayDebugInfo(debugInfo1);
     interactiveElements.push_back(farmer);
     this->addChild(farmer);  // 将 Farmer 添加到场景中
+
+    //创建农场里面的树
+    for (int i = 0; i < 10; ++i) {
+        Tree* tree = Tree::create();
+        // 设置树的初始位置（你可以根据实际需要调整位置）
+        tree->setPosition(cocos2d::Vec2(128 + i * 128, 600)); // 假设树的初始位置
+        interactiveElements.push_back(tree);
+        this->addChild(tree); // 将树添加到场景中
+        trees.push_back(tree); // 将树加入列表
+    }
 
     // 更新函数
     schedule([this](float deltaTime) {
@@ -87,25 +101,49 @@ bool FarmScene::init() {
     Mouselistener->onMouseDown = CC_CALLBACK_1(FarmScene::onMouseClicked, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(Mouselistener, this);
 
+
+    //进入其它场景
+     //创建按钮，进入室内场景，这个按钮就是那个房子图标，player房子--左上角，即点击房子进入室内场景。
+    startButton = cocos2d::ui::Button::create("photo/startup_p/enterhome.png");
+    // 设置按钮位置
+    startButton->setPosition(cocos2d::Vec2(1,1020));
+    // 设置按钮大小，确保按钮不会超出屏幕
+    startButton->setScale(0.8f);  // 可根据需要调整按钮大小
+    // 设置按钮点击事件，连接到第二个画面：室内！！！
+    startButton->addClickEventListener([=](Ref* sender) {
+        // 切换到游戏场景
+        auto transition = cocos2d::TransitionFade::create(1.0f, FarmScene::create(), cocos2d::Color3B::WHITE);
+        cocos2d::Director::getInstance()->replaceScene(transition);
+        });
+    this->addChild(startButton);
+
     return true;
 }
 
 void FarmScene::moveMap(float deltaX, float deltaY) {
     // 获取玩家当前的位置
     const cocos2d::Vec2 playerPos = mainPlayer->getPosition();
+
     // 计算背景移动后的玩家新位置
     const cocos2d::Vec2 newPlayerPos = playerPos - cocos2d::Vec2(deltaX, deltaY);
-    //更新地图移动以及跟随他移动的所有图片
-    const cocos2d::Vec2 newPos = Farmmap->getPosition() + cocos2d::Vec2(deltaX, deltaY);
-    const cocos2d::Vec2 farmerPosition = farmer->getPosition() + cocos2d::Vec2(deltaX, deltaY);
-
-
 
     // 判断玩家是否碰到围墙
     if (!isColliding(newPlayerPos)) {
         // 如果没有碰到围墙，更新玩家位置
+        const cocos2d::Vec2 newPos = Farmmap->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         Farmmap->setPosition(newPos);
+
+        const cocos2d::Vec2 farmerPosition = farmer->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         farmer->setPosition(farmerPosition);
+
+        const cocos2d::Vec2 buttonPosition = startButton->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+        startButton->setPosition(buttonPosition);
+
+        // 更新树的位置
+        for (auto tree : trees) {
+            const cocos2d::Vec2 newTreePos = tree->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+            tree->setPosition(newTreePos);  // 设置树的新位置
+        }
     }
 }
 
@@ -176,9 +214,11 @@ bool FarmScene::isColliding(const cocos2d::Vec2& newPos) {
 
     // 计算新位置
     const cocos2d::Vec2 mapSpacePos = Farmmap->convertToNodeSpace(newPos);  // 将屏幕坐标转换为地图坐标
+    // 调整Y坐标（反转Y轴）
+    const float adjustedY = Farmmap->getContentSize().height - mapSpacePos.y;
 
     // 获取玩家在新位置时的边界框
-    playerBoundingBox.origin = mapSpacePos;
+    playerBoundingBox.origin = cocos2d::Vec2(mapSpacePos.x, adjustedY);
 
     // 遍历围墙图层的所有瓦片，检查是否与玩家的边界框相交
     const int layerWidth = wallLayer->getLayerSize().width;

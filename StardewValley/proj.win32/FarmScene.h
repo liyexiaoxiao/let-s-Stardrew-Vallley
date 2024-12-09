@@ -5,13 +5,13 @@
 #define __FARM_SCENE_H__
 
 #include "cocos2d.h"
-#include "Weed.h"       // 假设有 Weed 类
+#include "ui/CocosGUI.h"
 #include "Tool.h"       // 假设有 Tool 类
 #include "Resident.h"   //NPC基类
 #include "player.h"    //玩家类
 #include "Farmer.h"    //农民类
 #include "NPCinfo.h"   //npcUI面板
-
+#include "Tree.h"
 #include "Crop.h"    //农作物类
 
 
@@ -74,6 +74,9 @@ private:
     cocos2d::TMXLayer* groundLayer;  // 地面层
     cocos2d::TMXLayer* wallLayer;    // 围墙层
 
+    //场景转化相关
+    cocos2d::ui::Button* startButton;  // 声明按钮变量--进入室内
+
     std::vector<std::vector<Crop*>> plantedCrops; // 存储种植的作物
 
 
@@ -88,9 +91,8 @@ private:
     //农民的位置
 
     //农场实现后续功能相关
-    std::vector<Weed*> weeds;      // 杂草列表
     //std::vector<Tool*> tools;      // 工具列表
-
+    std::vector<Tree*> trees; //树列表
 
 
     //交互相关

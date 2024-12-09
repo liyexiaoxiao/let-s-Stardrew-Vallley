@@ -63,7 +63,7 @@ bool InitialScene::init()
     this->addChild(CharacterGround);
     //放置人物
     Vec2 CharacterGroundPos = CharacterGround->getPosition();
-    auto PlayerPhoto = Tool.addImageToScene("photo/Character/PlayerFront1.png", CharacterGroundPos, 4.0f);
+    auto PlayerPhoto = Tool.addImageToScene("photo/Character/PlayerFront1.png", CharacterGroundPos, 1.0f);
     this->addChild(PlayerPhoto);
 
     // 输入文本框
@@ -111,8 +111,6 @@ bool InitialScene::init()
     this->addChild(FarmLabel);
     auto FarmTypeLabel= Tool.createLabel("Your Farm Type:", "fonts/Marker Felt.ttf", 24, NameLabelPosition + Vec2(0, -160));
     this->addChild(FarmTypeLabel);
-
-    // 以下为 gyx 为了测试地图以及游玩而写的按钮代码
 
      //创建按钮,确定键
     auto startButton = cocos2d::ui::Button::create("photo/startup_p/ok.png");

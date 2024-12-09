@@ -4,8 +4,8 @@ using namespace cocos2d;
 Farmer::Farmer() {
     name = "John Doe";
     profession = "Farmer";
-    Worldx = 1180;
-    Worldy = 1180;
+    Worldx = 1100;
+    Worldy = 1100;
     sprite = this;
     this->initWithFile("photo/Character/Resident1.png");  // 设置农民的图像
     this->setPosition(cocos2d::Vec2(Worldx, Worldy));
