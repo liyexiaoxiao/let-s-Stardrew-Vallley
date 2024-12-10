@@ -321,11 +321,11 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
             TilledLand::tillLand(tileX, tileY, Farmmap, tilledLand);
         }
         // 种植作物
-        else if (mainPlayer->Heldseed == 1) {
+        else if (mainPlayer->Heldseed >0) {
             Crop* crop = plantedCrops[adjustedY][adjustedX];
             if (tilledLand[adjustedY][adjustedX]&&plantedCrops[adjustedY][adjustedX]== nullptr) {
                 // 调用种植方法
-                Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops);
+                Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops, mainPlayer->Heldseed);
             }
             else if (/*mainPlayer->Heldtool == 2 &&*/ crop != nullptr && !crop->isMature()) {
                 crop->water(); // 浇水逻辑
