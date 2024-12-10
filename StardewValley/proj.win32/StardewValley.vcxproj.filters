@@ -75,6 +75,9 @@
     <ClCompile Include="Crop.cpp">
       <Filter>src\Farm</Filter>
     </ClCompile>
+    <ClCompile Include="tilledLand.cpp">
+      <Filter>src\Farm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -123,6 +126,9 @@
       <Filter>src\UI</Filter>
     </ClInclude>
     <ClInclude Include="Crop.h">
+      <Filter>src\Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="tilledLand.h">
       <Filter>src\Farm</Filter>
     </ClInclude>
   </ItemGroup>

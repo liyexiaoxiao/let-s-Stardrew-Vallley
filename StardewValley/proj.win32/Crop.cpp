@@ -1,6 +1,5 @@
 #include "Crop.h"
 #include "cocos2d.h"
-
 using namespace cocos2d;
 
 Crop::Crop(const std::string& name, const std::vector<std::string>& stages)
@@ -57,24 +56,23 @@ Crop* Crop::plantSeed(int x, int y, cocos2d::TMXTiledMap* map, std::vector<std::
 
 
     // 检查该位置是否已经种植过作物
-    if (plantedCrops[y - offsetY][x - offsetX] != nullptr) {
-        return nullptr;  // 如果该位置已有作物，返回 nullptr
-    }
+   
 
     // 创建作物对象，假设作物有三个阶段
-    std::vector<std::string> cropStages = { "photo/Farm/seed.png", "photo/Farm/growing.png", "photo/Farm/mature.png" };
+    std::vector<std::string> cropStages = { "photo/Farm/crop1_seed.png", "photo/Farm/crop1_growing1.png", "photo/Farm/crop1_growing2.png","photo/Farm/crop1_mature.png" };
     Crop* newCrop = new Crop("Crop", cropStages);
 
     // 获取瓦片的大小
     cocos2d::Size tileSize = map->getTileSize();  // 获取瓦片的宽度和高度
 
     // 根据鼠标点击的位置计算对应的瓦片坐标
-    cocos2d::Vec2 tilePos = cocos2d::Vec2((x - offsetX) * tileSize.width + tileSize.width / 2,
+    cocos2d::Vec2 tilePos = cocos2d::Vec2((x - offsetX ) * tileSize.width + tileSize.width / 2,
         (y - offsetY) * tileSize.height + tileSize.height / 2);
 
     // 设置作物的位置为瓦片的中心
     newCrop->setPosition(tilePos);  // 将作物放置在瓦片的中心位置
-
+    // 确保作物的贴图在开垦土地的贴图上方
+    newCrop->setLocalZOrder(2);  // 设置较高的 Z 轴层级
     // 将作物添加到地图层中
     map->addChild(newCrop);
 

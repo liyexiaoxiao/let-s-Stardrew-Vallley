@@ -1,6 +1,7 @@
 //农场地图功能完善
 #include "FarmScene.h"
 #include "Clock.h"
+#include "tilledLand.h"
 #include "Crop.h"
 #include "cocos2d.h"
 
@@ -52,7 +53,7 @@ bool FarmScene::init() {
     //创建农场里面的交互性元素--初始即存在
     // 创建 Farmer NPC 
     farmer = new Farmer();
-     //获取这个人物相对于地图的位置
+    //获取这个人物相对于地图的位置
     const cocos2d::Vec2 farmerPos = Farmmap->convertToNodeSpace(cocos2d::Vec2(1180, 1180));  // 将屏幕坐标转换为地图坐标
     std::string debugInfo1 = "farmerPos : x=" + std::to_string(farmerPos.x) +
         ", y=" + std::to_string(farmerPos.y);
@@ -66,11 +67,18 @@ bool FarmScene::init() {
     for (int i = 0; i < 10; ++i) {
         Tree* tree = Tree::create();
         // 设置树的初始位置（你可以根据实际需要调整位置）
-        tree->setPosition(cocos2d::Vec2(128 + i * 128, 600)); // 假设树的初始位置
+        tree->setPosition(cocos2d::Vec2((128 + i * 128)+32, 600+32)); // 假设树的初始位置
         interactiveElements.push_back(tree);
         this->addChild(tree); // 将树添加到场景中
         trees.push_back(tree); // 将树加入列表
     }
+
+    // 初始化所有土地未开垦
+    int mapWidth = groundLayer->getLayerSize().width;
+    int mapHeight = groundLayer->getLayerSize().height;
+    plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr));
+    tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
+
 
     // 更新函数
     schedule([this](float deltaTime) {
@@ -84,8 +92,6 @@ bool FarmScene::init() {
     clock->startClock(); // 启动时钟
 
     // 初始化 plantedCrops
-    int mapWidth = groundLayer->getLayerSize().width;
-    int mapHeight = groundLayer->getLayerSize().height;
     plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr));
 
 
@@ -106,7 +112,7 @@ bool FarmScene::init() {
      //创建按钮，进入室内场景，这个按钮就是那个房子图标，player房子--左上角，即点击房子进入室内场景。
     startButton = cocos2d::ui::Button::create("photo/startup_p/enterhome.png");
     // 设置按钮位置
-    startButton->setPosition(cocos2d::Vec2(1,1020));
+    startButton->setPosition(cocos2d::Vec2(1, 1020));
     // 设置按钮大小，确保按钮不会超出屏幕
     startButton->setScale(0.8f);  // 可根据需要调整按钮大小
     // 设置按钮点击事件，连接到第二个画面：室内！！！
@@ -256,7 +262,7 @@ void FarmScene::onMouseClicked(cocos2d::Event* event) {
     cocos2d::Vec2 clickPos = mouseEvent->getLocation();
     clickPos = cocos2d::Director::getInstance()->convertToGL(clickPos); // 转换为OpenGL坐标
 
-   
+
     // 判断点击的区域：点击土地还是其他可交互元素
     const auto tileSize = Farmmap->getTileSize();
     int tileX = clickPos.x / tileSize.width;
@@ -288,23 +294,43 @@ int FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
 }
 
 void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
-    // 获取鼠标点击的位置
+    // 获取鼠标点击位置
     const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
     cocos2d::Vec2 clickPos = mouseEvent->getLocation();
     clickPos = cocos2d::Director::getInstance()->convertToGL(clickPos);
 
-   
-    // 获取瓦片的大小
+    // 获取瓦片大小和点击位置
     const auto tileSize = Farmmap->getTileSize();
     int tileX = clickPos.x / tileSize.width;
     int tileY = clickPos.y / tileSize.height;
 
+    cocos2d::Vec2 mapPos = Farmmap->getPosition();
+    int offsetX = static_cast<int>(std::round(mapPos.x / tileSize.width));
+    int offsetY = static_cast<int>(std::round(mapPos.y / tileSize.height));
 
-    // 确保点击的位置在有效的土地块范围内
-    if (tileX >= 0 && tileX < groundLayer->getLayerSize().width &&
-        tileY >= 0 && tileY < groundLayer->getLayerSize().height) {
-        // 调用 Crop 类的 plantSeed 函数来种植作物
-            Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops);
+    // 确保点击在有效范围内
+    if (tileX - offsetX >= 0 && tileX - offsetX < groundLayer->getLayerSize().width &&
+        tileY - offsetY >= 0 && tileY - offsetY < groundLayer->getLayerSize().height) {
+
+        // 获取点击位置的状态
+        int adjustedX = tileX - offsetX;
+        int adjustedY = tileY - offsetY;
+
+        // 开垦土地
+        if (/*mainPlayer->Heldtool == 1 &&*/ !tilledLand[adjustedY][adjustedX]) {
+            TilledLand::tillLand(tileX, tileY, Farmmap, tilledLand);
+        }
+        // 种植作物
+        else if (mainPlayer->Heldseed == 1) {
+            Crop* crop = plantedCrops[adjustedY][adjustedX];
+            if (tilledLand[adjustedY][adjustedX]&&plantedCrops[adjustedY][adjustedX]== nullptr) {
+                // 调用种植方法
+                Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops);
+            }
+            else if (/*mainPlayer->Heldtool == 2 &&*/ crop != nullptr && !crop->isMature()) {
+                crop->water(); // 浇水逻辑
+            }
+        }
     }
 }
 

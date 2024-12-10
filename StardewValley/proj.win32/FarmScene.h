@@ -12,6 +12,7 @@
 #include "Farmer.h"    //农民类
 #include "NPCinfo.h"   //npcUI面板
 #include "Tree.h"
+#include "tilledLand.h"
 #include "Crop.h"    //农作物类
 
 
@@ -77,7 +78,10 @@ private:
     //场景转化相关
     cocos2d::ui::Button* startButton;  // 声明按钮变量--进入室内
 
+    std::vector<std::vector<TilledLand*>> tilledLand;
+    // 记录哪些土地已开垦
     std::vector<std::vector<Crop*>> plantedCrops; // 存储种植的作物
+
 
 
     cocos2d::Size FarmmapSize;        // 地图大小

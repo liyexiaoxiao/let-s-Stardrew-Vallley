@@ -162,6 +162,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="Farmer.cpp" />
     <ClCompile Include="StartupScene.cpp" />
     <ClCompile Include="Clock.cpp" />
+    <ClCompile Include="tilledLand.cpp" />
     <ClCompile Include="Tools.cpp" />
     <ClCompile Include="Tree.cpp" />
   </ItemGroup>
@@ -179,6 +180,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="StartupScene.h" />
     <ClInclude Include="Clock.h" />
     <ClInclude Include="Task.h" />
+    <ClInclude Include="tilledLand.h" />
     <ClInclude Include="Tool.h" />
     <ClInclude Include="Tools.h" />
     <ClInclude Include="Tree.h" />

@@ -49,3 +49,5 @@ void Player::setSpeed(float speed) {
 float Player::getSpeed() const {
     return speed;
 }
+
+

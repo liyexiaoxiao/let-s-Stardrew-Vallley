@@ -21,6 +21,9 @@ public:
 
     void setSpeed(float speed);   // 设置移动速度
     float getSpeed() const;       // 获取移动速度
+    int Heldtool = 1;
+    //为了测试暂时设此参数=1时拿着锄头，等于2时拿着浇水壶
+    int Heldseed = 1;
 
 private:
     int health;   // 生命值

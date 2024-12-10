@@ -45,3 +45,4 @@ cocos2d::Rect Tree::getBoundingBox() const {
         contentSize.height  // ¸ß¶È
     );
 }
+
