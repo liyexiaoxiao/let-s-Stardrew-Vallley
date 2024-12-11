@@ -14,7 +14,7 @@
 #include "Tree.h"
 #include "tilledLand.h"
 #include "Crop.h"    //农作物类
-
+#include "MenuLayer.h"//菜单界面
 
 class FarmScene : public cocos2d::Scene {
 public:
@@ -82,13 +82,9 @@ private:
     // 记录哪些土地已开垦
     std::vector<std::vector<Crop*>> plantedCrops; // 存储种植的作物
 
-
-
     cocos2d::Size FarmmapSize;        // 地图大小
     float scaleFactor;  // 当前缩放比例
 
-    //玩家相关
-    Player* mainPlayer; // 主玩家
 
     //NPC相关
     Farmer* farmer;
@@ -97,7 +93,6 @@ private:
     //农场实现后续功能相关
     //std::vector<Tool*> tools;      // 工具列表
     std::vector<Tree*> trees; //树列表
-
 
     //交互相关
     //长按键盘相关
@@ -108,6 +103,9 @@ private:
     //鼠标点击交互相关
     // 存储所有 NPC 和其他可交互元素的列表
     std::vector<InteractiveElement*> interactiveElements;
+
+    MenuLayer* menuLayer;  // 菜单层对象
+    bool isMenuActive = false;  // 标志变量，表示菜单是否显示
 };
 
 #endif // __FARM_SCENE_H__

@@ -14,6 +14,8 @@ public:
 	cocos2d::ui::TextField* createTextField(const cocos2d::Vec2& position);
 	//创建标签的函数声明
 	cocos2d::Label* createLabel(const std::string& text, const std::string& font, int fontSize, const cocos2d::Vec2& position);
+	//创建按钮的函数声明
+	cocos2d::ui::Button* createButton(const std::string& normalImage, const cocos2d::Vec2& position, float scale = 1.0);
 };
 #endif // __TOOLS_H__
 #pragma once

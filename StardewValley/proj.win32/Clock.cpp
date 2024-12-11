@@ -1,22 +1,18 @@
 #include "Clock.h"
-#include "InitialScene.h"
 #include "Tools.h"
-int day = 1; // 初始化天数
-std::string Week = ""; // 初始化星期
-std::string Season = ""; // 初始化季节
 
-Clock::Clock() : gameTime(0), timeLabel(nullptr), ClockPhoto(nullptr), dayLabel(nullptr) ,seasonImage(nullptr){}
+Clock* Clock::instance = nullptr;  // 初始化单例指针为 nullptr
+
+Clock::Clock() : gameTime(0), timeLabel(nullptr), ClockPhoto(nullptr), dayLabel(nullptr), seasonImage(nullptr) {}
 
 Clock::~Clock() {}
 
-Clock* Clock::create() {
-    Clock* ret = new Clock();
-    if (ret) {
-        ret->autorelease();
-        return ret;
+Clock* Clock::getInstance() {
+    if (instance == nullptr) {
+        instance = new Clock();  // 创建单例实例
+        instance->retain();  // 增加引用计数
     }
-    CC_SAFE_DELETE(ret);
-    return nullptr;
+    return instance;  // 返回单例对象
 }
 
 void Clock::startClock() {
@@ -28,7 +24,7 @@ void Clock::startClock() {
 
 void Clock::updateClock(float deltaTime) {
     CCLOG("Updating clock, gameTime: %f", gameTime);
-    gameTime += deltaTime / 0.7f;  
+    gameTime += deltaTime / 0.7f;//换算成分钟
     setTimeDisplay();
 }
 
@@ -44,32 +40,17 @@ void Clock::setTimeDisplay() {
     if (deltahours >= 20) {
         day++;
     }
-
+    year = day / 112;
     // 改变星期几
     switch (day % 7) {
-        case 0:
-            Week = "Sun";
-            break;
-        case 1:
-            Week = "Mon";
-            break;
-        case 2:
-            Week = "Tue";
-            break;
-        case 3:
-            Week = "Wed";
-            break;
-        case 4:
-            Week = "Thu";
-            break;
-        case 5:
-            Week = "Fri";
-            break;
-        case 6:
-            Week = "Sat";
-            break;
-        default:
-            break;
+        case 0: Week = "Sun"; break;
+        case 1: Week = "Mon"; break;
+        case 2: Week = "Tue"; break;
+        case 3: Week = "Wed"; break;
+        case 4: Week = "Thu"; break;
+        case 5: Week = "Fri"; break;
+        case 6: Week = "Sat"; break;
+        default: break;
     }
 
     // 设置季节
@@ -109,16 +90,16 @@ void Clock::setTimeDisplay() {
         // 创建季节图片并显示
         if (!seasonImage) {
             auto seasonImagePos = cocos2d::Vec2(visibleSize.width - 150, visibleSize.height - 90);
-            seasonImage = Tool.addImageToScene(imageFileName, seasonImagePos, 2.5f);
+            seasonImage = Tool.addImageToScene(imageFileName, seasonImagePos, 3.0f);
             seasonImage->setLocalZOrder(1001); // 确保其层级在前
             this->addChild(seasonImage);
         }
     }
- 
+
     // 如果时钟图片还没有创建，则创建它
     if (!ClockPhoto) {
         auto ClockPhotoPos = cocos2d::Vec2(visibleSize.width - 150, visibleSize.height - 120);
-        ClockPhoto=Tool.addImageToScene("photo/ui/Clock.png", ClockPhotoPos, 2.5f);
+        ClockPhoto = Tool.addImageToScene("photo/ui/Clock.png", ClockPhotoPos, 3.0f);
         ClockPhoto->setLocalZOrder(1000);
         this->addChild(ClockPhoto);
     }
@@ -146,4 +127,3 @@ void Clock::setTimeDisplay() {
     // 确保父节点可见
     this->setVisible(true);
 }
-

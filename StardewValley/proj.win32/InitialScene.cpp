@@ -3,7 +3,10 @@
 #include "ui/CocosGUI.h"
 #include "FarmScene.h"
 #include "Tools.h"
+#include "player.h"
 using namespace cocos2d;
+
+Player* mainPlayer;
 
 InitialScene::InitialScene() {
     CCLOG("InitialScene constructed");
@@ -29,7 +32,7 @@ bool InitialScene::init()
     if (!Scene::init()) {
         return false;
     }
-    
+    mainPlayer = new Player();// 初始化 Player 对象
     // 获取屏幕尺寸
     const auto screenSize = Director::getInstance()->getVisibleSize();
     auto setGroundPosition = Vec2(screenSize.width / 2, screenSize.height / 2);
@@ -59,7 +62,6 @@ bool InitialScene::init()
     
     //放置人物背景
     auto CharacterGround = Tool.addImageToScene("photo/startup_p/Character Backgrounds.png", CharacterPosition, 0.8f);
-    CharacterGround->setPosition(CharacterPosition);
     this->addChild(CharacterGround);
     //放置人物
     Vec2 CharacterGroundPos = CharacterGround->getPosition();
@@ -87,17 +89,19 @@ bool InitialScene::init()
     PlayerNameTxt->addEventListener([=](Ref* sender, ui::TextField::EventType event) {
         if (event == ui::TextField::EventType::INSERT_TEXT || event == ui::TextField::EventType::DELETE_BACKWARD) {
             // 获取文本框中的文本
-            std::string enteredText = PlayerNameTxt->getString();
+            std::string PlayerName = PlayerNameTxt->getString();
+            mainPlayer->PlayerName = PlayerName;
             // 更新显示的 Label
-            DisplayLabel->setString(enteredText);  // 更新文本
+            DisplayLabel->setString(PlayerName);  // 更新文本
         }
         });
     FarmNameTxt->addEventListener([=](Ref* sender, ui::TextField::EventType event) {
         if (event == ui::TextField::EventType::INSERT_TEXT || event == ui::TextField::EventType::DELETE_BACKWARD) {
             // 获取文本框中的文本
-            std::string enteredText = FarmNameTxt->getString();
-            // 更新显示的 Label
-            DisplayLabel2->setString(enteredText);  // 更新文本
+            std::string FarmName = FarmNameTxt->getString();
+            mainPlayer->FarmName = FarmName;
+            // 更新显示的 Label 
+            DisplayLabel2->setString(FarmName);  // 更新文本
         }
         });
     // 将文本框添加到场景中

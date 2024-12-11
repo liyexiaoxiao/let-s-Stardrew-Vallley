@@ -153,9 +153,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="Crop.cpp" />
     <ClCompile Include="FarmScene.cpp" />
+    <ClCompile Include="FarmSceneFunctions.cpp" />
     <ClCompile Include="InitialScene.cpp" />
     <ClCompile Include="InteractiveElement.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MenuLayer.cpp" />
     <ClCompile Include="NPCinfo.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Resident.cpp" />
@@ -173,6 +175,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="InitialScene.h" />
     <ClInclude Include="InteractiveElement.h" />
     <ClInclude Include="main.h" />
+    <ClInclude Include="MenuLayer.h" />
     <ClInclude Include="NPCinfo.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Resident.h" />

@@ -3,7 +3,7 @@
 
 USING_NS_CC;
 
-Player::Player() : health(100), speed(100.0f) {} // 初始化玩家默认属性
+Player::Player() : health(100), speed(100.0f), money(500), PlayerName("Dave") ,FarmName("Dave's Farm") {} // 初始化玩家默认属性
 
 Player::~Player() {}
 

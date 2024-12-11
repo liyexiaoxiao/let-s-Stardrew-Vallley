@@ -78,6 +78,12 @@
     <ClCompile Include="tilledLand.cpp">
       <Filter>src\Farm</Filter>
     </ClCompile>
+    <ClCompile Include="MenuLayer.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="FarmSceneFunctions.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -130,6 +136,9 @@
     </ClInclude>
     <ClInclude Include="tilledLand.h">
       <Filter>src\Farm</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuLayer.h">
+      <Filter>src\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@
 #include "ui/CocosGUI.h"
 using namespace cocos2d;
 // 增添精灵
-cocos2d::Sprite* Tools::addImageToScene(const std::string& imageFile, const cocos2d::Vec2& position, const float scale)
+Sprite* Tools::addImageToScene(const std::string& imageFile, const cocos2d::Vec2& position, const float scale)
 {
     // 创建精灵
     auto sprite = Sprite::create(imageFile);
@@ -22,7 +22,7 @@ cocos2d::Sprite* Tools::addImageToScene(const std::string& imageFile, const coco
 }
 
 // 创建标签的函数实现
-cocos2d::Label* Tools::createLabel(const std::string& text, const std::string& font, int fontSize, const cocos2d::Vec2& position) {
+Label* Tools::createLabel(const std::string& text, const std::string& font, int fontSize, const cocos2d::Vec2& position) {
     // 创建Label
     auto label = cocos2d::Label::createWithTTF(text, font, fontSize);
     // 设置Label的位置
@@ -33,7 +33,7 @@ cocos2d::Label* Tools::createLabel(const std::string& text, const std::string& f
 }
 
 // 创建文本框的函数实现
-cocos2d::ui::TextField* Tools::createTextField(const cocos2d::Vec2& position) {
+ui::TextField* Tools::createTextField(const cocos2d::Vec2& position) {
     auto textField = ui::TextField::create("Click and Enter", "fonts/Marker Felt.ttf", 24);
     textField->setPosition(position);  // 设置文本框位置
     textField->setMaxLength(10);  // 设置最大输入字符数
@@ -66,4 +66,12 @@ cocos2d::ui::TextField* Tools::createTextField(const cocos2d::Vec2& position) {
         }
         });
     return textField;
+}
+
+//创建按钮的函数实现
+ui::Button* Tools::createButton(const std::string& normalImage, const cocos2d::Vec2& position, float scale) {
+    auto button = ui::Button::create(normalImage);
+    button->setPosition(position);
+    button->setScale(scale);
+    return button;
 }

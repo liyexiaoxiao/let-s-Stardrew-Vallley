@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "proj.win32/StartupScene.h"
+#include "proj.win32/FarmScene.h"
 //音频相关 只能同时开启一个
 // #define USE_AUDIO_ENGINE 1
 // #define USE_SIMPLE_AUDIO_ENGINE 1
@@ -96,7 +97,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 
     // run
-    director->runWithScene(StartupScene::create());
+    director->runWithScene(FarmScene::create());
 
     return true;
 }
