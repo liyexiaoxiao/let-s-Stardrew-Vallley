@@ -155,13 +155,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="FarmScene.cpp" />
     <ClCompile Include="FarmSceneFunctions.cpp" />
     <ClCompile Include="InitialScene.cpp" />
-    <ClCompile Include="InteractiveElement.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuLayer.cpp" />
     <ClCompile Include="NPCinfo.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Resident.cpp" />
-    <ClCompile Include="Farmer.cpp" />
     <ClCompile Include="StartupScene.cpp" />
     <ClCompile Include="Clock.cpp" />
     <ClCompile Include="tilledLand.cpp" />
@@ -179,7 +177,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="NPCinfo.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="Resident.h" />
-    <ClInclude Include="Farmer.h" />
     <ClInclude Include="StartupScene.h" />
     <ClInclude Include="Clock.h" />
     <ClInclude Include="Task.h" />

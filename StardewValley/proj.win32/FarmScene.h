@@ -87,8 +87,10 @@ private:
 
 
     //NPC相关
-    Farmer* farmer;
-    //农民的位置
+    Resident* farmer;
+    Resident* fisherman;
+    Resident* breeder;
+    
 
     //农场实现后续功能相关
     //std::vector<Tool*> tools;      // 工具列表

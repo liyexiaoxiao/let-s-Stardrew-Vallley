@@ -60,16 +60,10 @@
     <ClCompile Include="Tools.cpp">
       <Filter>src\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Farmer.cpp">
-      <Filter>src\Character\NPC</Filter>
-    </ClCompile>
     <ClCompile Include="Resident.cpp">
       <Filter>src\Character\NPC</Filter>
     </ClCompile>
     <ClCompile Include="NPCinfo.cpp">
-      <Filter>src\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="InteractiveElement.cpp">
       <Filter>src\UI</Filter>
     </ClCompile>
     <ClCompile Include="Crop.cpp">
@@ -115,9 +109,6 @@
     </ClInclude>
     <ClInclude Include="Tools.h">
       <Filter>src\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Farmer.h">
-      <Filter>src\Character\NPC</Filter>
     </ClInclude>
     <ClInclude Include="Resident.h">
       <Filter>src\Character\NPC</Filter>

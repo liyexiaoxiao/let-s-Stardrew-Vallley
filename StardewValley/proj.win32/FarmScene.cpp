@@ -54,22 +54,27 @@ bool FarmScene::init() {
 
     //创建农场里面的交互性元素--初始即存在
     // 创建 Farmer NPC 
-    farmer = new Farmer();
-    //获取这个人物相对于地图的位置
-    const cocos2d::Vec2 farmerPos = Farmmap->convertToNodeSpace(cocos2d::Vec2(1180, 1180));  // 将屏幕坐标转换为地图坐标
-    std::string debugInfo1 = "farmerPos : x=" + std::to_string(farmerPos.x) +
-        ", y=" + std::to_string(farmerPos.y);
-
-    // 显示调试信息
-    displayDebugInfo(debugInfo1);
-    interactiveElements.push_back(farmer);
+    //1.农民
+    farmer = new Resident();
+    farmer->init("Alex", "Farmer", "photo/Character/Resident1.png", cocos2d::Vec2(1000, 1000));
+    interactiveElements.push_back(farmer);//可点击交互
     this->addChild(farmer);  // 将 Farmer 添加到场景中
+    //2.渔夫
+    fisherman = new Resident();
+    fisherman->init("Willy", "Fisherman", "photo/Character/Resident2.png", cocos2d::Vec2(1000, -50));
+    interactiveElements.push_back(fisherman);//可点击交互
+    this->addChild(fisherman);  // 将  fisherman 添加到场景中
+    //3.饲养着
+    breeder = new Resident();
+    breeder->init("Marnie", "Breeder", "photo/Character/Resident3.png", cocos2d::Vec2(0, -100));
+    interactiveElements.push_back(breeder);//可点击交互
+    this->addChild(breeder);  // 将  fisherman 添加到场景中
 
     //创建农场里面的树
     for (int i = 0; i < 10; ++i) {
         Tree* tree = Tree::create();
         // 设置树的初始位置（你可以根据实际需要调整位置）
-        tree->setPosition(cocos2d::Vec2((128 + i * 128)+32, 600+32)); // 假设树的初始位置
+        tree->setPosition(cocos2d::Vec2((128 + i * 128) + 32, 600 + 32)); // 假设树的初始位置
         tree->setScale(1.5f);
         interactiveElements.push_back(tree);
         this->addChild(tree); // 将树添加到场景中
@@ -122,13 +127,13 @@ bool FarmScene::init() {
     // 设置按钮点击事件，连接到第二个画面：室内！！！
     startButton->addClickEventListener([=](Ref* sender) {
         // 切换到游戏场景
-        auto transition = cocos2d::TransitionFade::create(1.0f, FarmScene::create(), cocos2d::Color3B::WHITE);
-        cocos2d::Director::getInstance()->replaceScene(transition);
+        /*auto transition = cocos2d::TransitionFade::create(1.0f, FarmScene::create(), cocos2d::Color3B::WHITE);
+        cocos2d::Director::getInstance()->replaceScene(transition);*/
         });
-    this->addChild(startButton);
+        this->addChild(startButton);
 
-    return true;
-}
+        return true;
+        }
 
 
 

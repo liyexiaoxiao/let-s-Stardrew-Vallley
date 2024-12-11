@@ -1,8 +1,9 @@
 #pragma once
 #include "cocos2d.h"
 #include "Task.h"//npc任务相关
+#include "InteractiveElement.h" //交互式相关
 
-class Resident : public cocos2d::Sprite{
+class Resident : public cocos2d::Sprite,public InteractiveElement {
 protected:
     std::string name;               // NPC 的名字
     std::string profession;         // NPC 的职业
@@ -10,6 +11,8 @@ protected:
     int friendship;                 //友谊值
     Task* currentTask;              // 当前任务
     bool busy;                      // 是否忙碌
+    // 面板相关的成员变量
+    cocos2d::Label* nameLabel;
 
 public:
     // NPC 的构造函数和析构函数
@@ -17,7 +20,7 @@ public:
     virtual ~Resident();
 
     // 标准的创建和初始化方法
-    bool init(const std::string& n, const std::string& prof, const std::string& imgPath);
+    bool init(const std::string& n, const std::string& prof, const std::string& imgPath, const cocos2d::Vec2& site);
 
    // 其他 Resident 相关成员函数
     // 获取 NPC 的基本信息
@@ -50,4 +53,14 @@ public:
     // 设置和获取忙碌状态
     bool isBusy() const { return busy; }
     void setBusy(bool busyStatus);
+
+    //多态回应点击
+     // 显示 NPC 面板
+    void showInfoPanel();  // 显示信息面板
+    // 实现 InteractiveElement 的 onClick 方法
+    void onClick() override {
+        showInfoPanel();
+    }
+    //利用包围盒进行多态判断
+    cocos2d::Rect getBoundingBox() const override;
 };

@@ -40,13 +40,12 @@ void FarmScene::onMouseClicked(cocos2d::Event* event) {
 int FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
     // 将鼠标点击位置从屏幕坐标系转换为当前场景的坐标系
     cocos2d::Vec2 worldPos = clickPos;
-
     for (auto& child : interactiveElements) {
         // 获取交互元素的包围盒并检查点击是否在其范围内
         cocos2d::Rect boundingBox = child->getBoundingBox();
         if (boundingBox.containsPoint(worldPos)) {
             child->onClick();  // 触发该元素的 onClick 事件
-            CCLOG("Clicked on interactive element: %s", typeid(*child).name());  // 打印调试信息
+            //CCLOG("Clicked on interactive element: %s", typeid(*child).name());  // 打印调试信息
             return 1;
         }
     }
@@ -155,6 +154,10 @@ void FarmScene::moveMap(float deltaX, float deltaY) {
 
         const cocos2d::Vec2 farmerPosition = farmer->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         farmer->setPosition(farmerPosition);
+        const cocos2d::Vec2 fishermanPosition = fisherman->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+        fisherman->setPosition(fishermanPosition);
+        const cocos2d::Vec2 breederPosition = breeder->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+        breeder->setPosition(breederPosition);
 
         const cocos2d::Vec2 buttonPosition = startButton->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         startButton->setPosition(buttonPosition);
