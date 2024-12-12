@@ -1,4 +1,6 @@
 #pragma once
+#ifndef CROP_H_ 
+#define CROP_H_ 
 #include "cocos2d.h"
 #include <string>
 #include <vector>
@@ -24,3 +26,4 @@ public:
         std::vector<std::vector<Crop*>>& plantedCrops,
         int cropType); // Ìí¼Ó cropType ²ÎÊý
 };
+#endif // CROP_H_

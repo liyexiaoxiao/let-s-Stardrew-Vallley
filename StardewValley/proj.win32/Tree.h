@@ -1,6 +1,9 @@
 //目前为gyx11/30测试使用
-#pragma once
+#ifndef TREE_H
+#define TREE_H
 
+// 确保包含保护不会与同名的其他头文件冲突
+#pragma once
 #include "InteractiveElement.h" //交互式相关
 #include "cocos2d.h"
 
@@ -26,4 +29,4 @@ public:
 private:
     bool removed; // 标记杂草是否已被移除
 };
-
+#endif // TREE_H

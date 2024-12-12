@@ -93,6 +93,7 @@ bool FarmScene::init() {
         update(deltaTime);
         }, "update_key");
 
+    //初始化时间
     Clock* clock = Clock::getInstance();
     clock->startClock();
     this->addChild(clock);
