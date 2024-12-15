@@ -11,7 +11,12 @@ enum class ItemID {
     T_Hoe = 1,      // 锄头
     T_WateringCan = 2, // 浇水壶
     T_Axe = 3,       // 斧头
-    A_Seed = 4     // 种子
+    A_Seed1 = 4,    // 种子1
+    A_Seed2 = 5,
+    A_Seed3 = 6,
+    A_Seed4 = 7,
+    C_dish1,C_dish2,C_dish3,C_dish4,
+    A_wood
     // 可以继续添加其他物品类型
 };
 //物品的类别属性
@@ -97,14 +102,20 @@ public:
     //为了测试暂时设此参数=1时拿着防风草种子，等于2时拿着树莓种子，等于3时拿着南瓜种子，等于4时拿着小麦种子
 
 private:
-
+    //玩家等级
+    int maxlevel = 4;//每一个技能方向等级上限
+    //用于判断是否满级，还未添加入口函数，四个都满级了才能开启商店
+    bool a_level_max;
+    bool m_level_max;
+    bool f_level_max;
+    bool c_level_max;
     //玩家金币
     int money;
     //玩家物品
     std::unordered_map<ItemID, ItemInfo> items; // 存储物品信息的映射
 
     // 每个等级解锁的物品
-    std::map<int, std::vector<ItemID>> agricultureUnlockItems;
+    std::map<int, std::vector<ItemID>> agricultureUnlockItems;//int级解锁 物品 int个数
     std::map<int, std::vector<ItemID>> miningUnlockItems;
     std::map<int, std::vector<ItemID>> fishingUnlockItems;
     std::map<int, std::vector<ItemID>> cookingUnlockItems;

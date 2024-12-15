@@ -44,8 +44,10 @@ int FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
         // 获取交互元素的包围盒并检查点击是否在其范围内
         cocos2d::Rect boundingBox = child->getBoundingBox();
         if (boundingBox.containsPoint(worldPos)) {
-            child->onClick();  // 触发该元素的 onClick 事件
-            //CCLOG("Clicked on interactive element: %s", typeid(*child).name());  // 打印调试信息
+            int choosenextstep = child->onClick();  // 触发该元素的 onClick 事件 通过返回值进行后续操作
+            //返回值为1，进行了看书操作
+            mainPlayer->upgradeSkillTree(ItemCategory::A, 1);//农业经验值加一
+            mainPlayer->addItem(ItemID::A_wood, 1);//木材数量加一
             return 1;
         }
     }

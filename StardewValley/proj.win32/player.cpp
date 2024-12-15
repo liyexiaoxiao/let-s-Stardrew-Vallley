@@ -5,18 +5,30 @@ USING_NS_CC;
 
 
 //玩家相关
-Player::Player() : money(500), PlayerName("Dave") ,FarmName("Dave's Farm") {
+Player::Player() : money(500), PlayerName("Dave") ,FarmName("Dave's Farm"), a_level_max(false), m_level_max(false) , f_level_max(false) , c_level_max(false) {
     // 初始化初始解锁的物品
     items[ItemID::T_Hoe] = { true, 1, ItemID::T_Hoe,ItemCategory::T };
     items[ItemID::T_WateringCan] = { true, 1, ItemID::T_WateringCan,ItemCategory::T };
-    items[ItemID::A_Seed] = { true, 5, ItemID::A_Seed,ItemCategory::A };
+    items[ItemID::A_Seed1] = { true, 5, ItemID::A_Seed1,ItemCategory::A };//初始只有一种种子
     items[ItemID::T_Axe] = { true, 1, ItemID::T_Axe,ItemCategory::T };
-
+    items[ItemID::C_dish1] = { true, 1, ItemID::C_dish1,ItemCategory::C };
+   
+    //初始化未解锁的
+    items[ItemID::A_Seed2] = { false, 5, ItemID::A_Seed1,ItemCategory::A };
+    items[ItemID::A_Seed3] = { false, 5, ItemID::A_Seed1,ItemCategory::A };
+    items[ItemID::A_Seed4] = { false, 5, ItemID::A_Seed1,ItemCategory::A };
+    items[ItemID::C_dish2] = { false, 1, ItemID::C_dish2,ItemCategory::C };
+    items[ItemID::C_dish3] = { false, 1, ItemID::C_dish3,ItemCategory::C };
+    items[ItemID::C_dish4] = { false, 1, ItemID::C_dish4,ItemCategory::C };
     //初始化每一个技能方向的等级逻辑--示例
-    agricultureUnlockItems[2] = { ItemID::T_Hoe };
-    agricultureUnlockItems[3] = { ItemID::T_WateringCan };
-    miningUnlockItems[2] = { ItemID::T_Axe };
-    miningUnlockItems[3] = { ItemID::A_Seed };
+    //等级2
+    agricultureUnlockItems[2] = { ItemID::A_Seed2};//南瓜 2级 
+    cookingUnlockItems[2] = { ItemID::C_dish2 };
+    //等级3
+    agricultureUnlockItems[3] = { ItemID::A_Seed3,ItemID::A_Seed4 };//xx xx 三级
+    cookingUnlockItems[3] = { ItemID::C_dish3};
+    //等级四--满级
+    cookingUnlockItems[4] = { ItemID::C_dish4};
 } // 初始化玩家默认属性
 
 Player::~Player() {}
@@ -72,8 +84,8 @@ void Player::addItem(ItemID itemId, int amount) {
 //减少物品数量
 void Player::deleteItem(ItemID itemId, int amount) {
     auto it = items.find(itemId);
-    if (it != items.end()&& it->second.count！=0) {
-        it->second.count -= amount; // 增加物品数量
+    if (it != items.end()&& it->second.count!=0) {
+        it->second.count -= amount; // 减少物品数量
     }
 }
 
@@ -83,18 +95,30 @@ void Player::deleteItem(ItemID itemId, int amount) {
      switch (category) {
      case ItemCategory::A:
          agricultureLevel += exp / 100; // 假设每100经验值增加1级
+         agricultureLevel = std::min(agricultureLevel, maxlevel);
+         if (agricultureLevel == maxlevel)
+             a_level_max = true;
          unlockItemsForLevel(ItemCategory::A, agricultureLevel);
          break;
      case ItemCategory::M:
          miningLevel += exp / 100;
+         miningLevel = std::min(miningLevel, maxlevel);
+         if (miningLevel == maxlevel)
+             m_level_max = true;
          unlockItemsForLevel(ItemCategory::M, miningLevel);
          break;
      case ItemCategory::F:
          fishingLevel += exp / 100;
+         fishingLevel = std::min(fishingLevel, maxlevel);
+         if (fishingLevel == maxlevel)
+             f_level_max = true;
          unlockItemsForLevel(ItemCategory::F, fishingLevel);
          break;
      case ItemCategory::C:
          cookingLevel += exp / 100;
+         cookingLevel = std::min(cookingLevel, maxlevel);
+         if (cookingLevel == maxlevel)
+             c_level_max = true;
          unlockItemsForLevel(ItemCategory::C, cookingLevel);
          break;
      }

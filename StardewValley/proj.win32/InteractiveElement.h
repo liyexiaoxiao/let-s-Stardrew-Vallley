@@ -7,7 +7,7 @@ public:
     virtual ~InteractiveElement() {}
 
     // 纯虚函数，所有交互元素都必须实现此函数
-    virtual void onClick() = 0;
+    virtual int onClick() = 0;
     // 返回包围盒，派生类可以重写此方法来自动获取包围盒
     virtual cocos2d::Rect getBoundingBox() const = 0;
 };

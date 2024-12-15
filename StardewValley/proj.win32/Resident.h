@@ -2,7 +2,7 @@
 #include "cocos2d.h"
 #include "Task.h"//npc任务相关
 #include "InteractiveElement.h" //交互式相关
-
+#include"NPCinfo.h"//展示NPC面板
 class Resident : public cocos2d::Sprite,public InteractiveElement {
 protected:
     std::string name;               // NPC 的名字
@@ -15,6 +15,7 @@ protected:
     cocos2d::Label* nameLabel;
 
 public:
+ 
     // NPC 的构造函数和析构函数
     Resident();
     virtual ~Resident();
@@ -58,8 +59,9 @@ public:
      // 显示 NPC 面板
     void showInfoPanel();  // 显示信息面板
     // 实现 InteractiveElement 的 onClick 方法
-    void onClick() override {
+    int onClick() override {
         showInfoPanel();
+        return 0;//0代表返回值没什么用
     }
     //利用包围盒进行多态判断
     cocos2d::Rect getBoundingBox() const override;

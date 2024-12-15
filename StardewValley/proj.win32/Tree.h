@@ -20,8 +20,9 @@ public:
     bool isRemoved() const { return removed; }
 
     // 实现 InteractiveElement 的 onClick 方法
-    void onClick() override {
+    int onClick() override {
         removeTree();
+        return 1;
     }
     //利用包围盒进行多态判断
     cocos2d::Rect getBoundingBox() const override;

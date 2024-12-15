@@ -47,8 +47,7 @@ cocos2d::Rect Resident::getBoundingBox() const {
 }
 //展示面板测试
 void Resident::showInfoPanel() {
-    // 更新面板上的信息
-    nameLabel->setVisible(true);
-    nameLabel->setString("Name: " + name);
+    NPCInfo* npcLayer = NPCInfo::create(); // 创建NPCInfo实例
+    npcLayer->showResidentInfo(name, profession, friendship, romance); // 显示NPC信息
+    this->getParent()->addChild(npcLayer); // 将面板添加到父节点
 }
-

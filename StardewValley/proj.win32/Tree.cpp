@@ -1,7 +1,9 @@
 //地图上树的生成
 #include "Tree.h"
 
-Tree::Tree() : removed(false) {}
+Tree::Tree() : removed(false) {
+    // 指向玩家对象的指针
+}
 
 Tree::~Tree() {}
 
