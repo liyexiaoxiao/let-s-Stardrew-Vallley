@@ -85,10 +85,10 @@ public:
 
     //技能树相关
     // 技能树等级
-    int agricultureLevel;
-    int miningLevel;
-    int fishingLevel;
-    int cookingLevel;
+    int agricultureLevel=1;
+    int miningLevel=1;
+    int fishingLevel=1;
+    int cookingLevel=1;
     void upgradeSkillTree(ItemCategory category, int exp); // 增加经验值，并可能升级技能树
     void unlockItemsForLevel(ItemCategory category, int targetLevel); // 解锁特定等级的物品
     std::map<int, std::vector<ItemID>>& getItemsMapByCategory(ItemCategory category);
