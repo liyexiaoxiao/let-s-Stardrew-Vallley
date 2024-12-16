@@ -6,6 +6,7 @@
 #include "cocos2d.h"
 #include "MenuLayer.h"
 #include "FarmhouseScene.h"
+#include"ExploreScene.h"
 
 extern Player* mainPlayer; // 主玩家
 
@@ -18,10 +19,13 @@ FarmScene::FarmScene()
 }
 
 FarmScene::~FarmScene() {
-    // 释放树的资源
+    /*释放树的资源
     for (auto tree : trees) {
         tree->release();
     }
+    for (auto resident : interactiveElements) {
+        delete resident;
+    }*/
 }
 
 FarmScene* FarmScene::create() {
@@ -135,10 +139,24 @@ bool FarmScene::init() {
         auto transition = cocos2d::TransitionFade::create(1.0f, FarmhouseScene::create(), cocos2d::Color3B::WHITE);
         cocos2d::Director::getInstance()->replaceScene(transition);
         });
-        this->addChild(startButton);
+    this->addChild(startButton);
 
-        return true;
-        }
+    startButton2 = cocos2d::ui::Button::create("photo/startup_p/enterhome.png");//先懒得改
+    // 设置按钮位置
+    startButton2->setPosition(cocos2d::Vec2(1180, 1000));
+    // 设置按钮大小，确保按钮不会超出屏幕
+    startButton2->setScale(0.8f);  // 可根据需要调整按钮大小
+    // 设置按钮点击事件，连接到第二个画面：冒险！！！
+    startButton2->addClickEventListener([=](Ref* sender) {
+        // 切换到 ExploreScene 场景
+        auto exploreScene = ExploreScene::create();  // 创建新场景
+        auto transition = cocos2d::TransitionFade::create(1.0f, exploreScene, cocos2d::Color3B::WHITE);  // 创建切换过渡效果
+        cocos2d::Director::getInstance()->replaceScene(transition);  // 执行场景替换
+        });
+    this->addChild(startButton2);
+
+    return true;
+ }
 
 
 

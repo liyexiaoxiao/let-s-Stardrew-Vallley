@@ -155,6 +155,8 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="Crop.cpp" />
+    <ClCompile Include="ExploreScene.cpp" />
+    <ClCompile Include="ExploreSceneFunctions.cpp" />
     <ClCompile Include="FarmhouseScene.cpp" />
     <ClCompile Include="FarmScene.cpp" />
     <ClCompile Include="FarmSceneFunctions.cpp" />
@@ -163,6 +165,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="MenuLayer.cpp" />
     <ClCompile Include="NPCinfo.cpp" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="playerManager.cpp" />
     <ClCompile Include="Resident.cpp" />
     <ClCompile Include="StartupScene.cpp" />
     <ClCompile Include="Clock.cpp" />
@@ -174,6 +177,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="Crop.h" />
+    <ClInclude Include="ExploreScene.h" />
     <ClInclude Include="FarmhouseScene.h" />
     <ClInclude Include="FarmScene.h" />
     <ClInclude Include="InitialScene.h" />
@@ -182,6 +186,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="MenuLayer.h" />
     <ClInclude Include="NPCinfo.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="playerManager.h" />
     <ClInclude Include="Resident.h" />
     <ClInclude Include="StartupScene.h" />
     <ClInclude Include="Clock.h" />

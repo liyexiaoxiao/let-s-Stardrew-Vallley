@@ -81,8 +81,15 @@
     <ClCompile Include="FarmhouseScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Toolbar.cpp">
-      <Filter>src\UI</Filter>
+    <ClCompile Include="Toolbar.cpp" />
+    <ClCompile Include="playerManager.cpp">
+      <Filter>src\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="ExploreScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ExploreSceneFunctions.cpp">
+      <Filter>src\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,8 +147,12 @@
     <ClInclude Include="FarmhouseScene.h">
       <Filter>src\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Toolbar.h">
-      <Filter>src\UI</Filter>
+    <ClInclude Include="Toolbar.h" />
+    <ClInclude Include="playerManager.h">
+      <Filter>src\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="ExploreScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
