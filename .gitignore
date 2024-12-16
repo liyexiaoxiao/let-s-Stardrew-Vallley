@@ -1,2 +1,3 @@
 ## Ignore Visual Studio project and solution files
 .vs/
+/StardewValley/proj.win32/Debug.win32/Resources
