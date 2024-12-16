@@ -45,8 +45,7 @@ public:
 
     //种植种子
     void onMouseClickedSoil(cocos2d::Event* event);
-    void plantSeed(int x, int y);
-    void waterCrop(int x, int y);  // 浇水
+    
 
     //检查点击是否与地图元素发生交互
     int checkForElementInteraction(const cocos2d::Vec2& clickPos);

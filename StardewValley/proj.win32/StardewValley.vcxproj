@@ -114,6 +114,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
       <Outputs>$(TargetName).cab</Outputs>
       <Inputs>$(TargetFileName)</Inputs>
     </CustomBuildStep>
+    <ClCompile>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp17</LanguageStandard>
+    </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -152,6 +155,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="Crop.cpp" />
+    <ClCompile Include="FarmhouseScene.cpp" />
     <ClCompile Include="FarmScene.cpp" />
     <ClCompile Include="FarmSceneFunctions.cpp" />
     <ClCompile Include="InitialScene.cpp" />
@@ -169,6 +173,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="Crop.h" />
+    <ClInclude Include="FarmhouseScene.h" />
     <ClInclude Include="FarmScene.h" />
     <ClInclude Include="InitialScene.h" />
     <ClInclude Include="InteractiveElement.h" />

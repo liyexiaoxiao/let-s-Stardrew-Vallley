@@ -5,8 +5,10 @@
 #include "Crop.h"
 #include "cocos2d.h"
 #include "MenuLayer.h"
+#include "FarmhouseScene.h"
 
 extern Player* mainPlayer; // 主玩家
+
 
 // 构造析构初始化
 FarmScene::FarmScene()
@@ -128,8 +130,8 @@ bool FarmScene::init() {
     // 设置按钮点击事件，连接到第二个画面：室内！！！
     startButton->addClickEventListener([=](Ref* sender) {
         // 切换到游戏场景
-        /*auto transition = cocos2d::TransitionFade::create(1.0f, FarmScene::create(), cocos2d::Color3B::WHITE);
-        cocos2d::Director::getInstance()->replaceScene(transition);*/
+        auto transition = cocos2d::TransitionFade::create(1.0f, FarmhouseScene::create(), cocos2d::Color3B::WHITE);
+        cocos2d::Director::getInstance()->replaceScene(transition);
         });
         this->addChild(startButton);
 

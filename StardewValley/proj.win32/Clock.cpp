@@ -28,6 +28,14 @@ void Clock::updateClock(float deltaTime) {
     setTimeDisplay();
 }
 
+void Clock::setTimeafterSleep(int hour, int minute, int second) {
+    day++;
+    // 计算游戏时间（单位：分钟）
+    gameTime = 0;
+    setTimeDisplay(); // 更新显示
+}
+
+
 void Clock::setTimeDisplay() {
     Tools Tool;
     // 将游戏时间转化为小时和分钟

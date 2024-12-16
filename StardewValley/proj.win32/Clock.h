@@ -9,7 +9,7 @@ public:
     static Clock* getInstance();  // 获取单例实例
     void startClock();  // 启动时钟
     void stopClock();   // 停止时钟
-
+    void setTimeafterSleep(int hour, int minute, int second); //设置固定时间（起床后）
     void updateClock(float deltaTime);  // 每帧更新时钟
     void setTimeDisplay();             // 更新屏幕上显示的时间
 

@@ -78,6 +78,9 @@
     <ClCompile Include="FarmSceneFunctions.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="FarmhouseScene.cpp">
+      <Filter>src\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -130,6 +133,9 @@
     </ClInclude>
     <ClInclude Include="MenuLayer.h">
       <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="FarmhouseScene.h">
+      <Filter>src\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
