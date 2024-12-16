@@ -3,6 +3,7 @@
 #include "Tools.h"
 #include "Clock.h"
 #include "StartupScene.h"
+
 extern Player* mainPlayer;
 
 MenuLayer::MenuLayer() : isVisible(false) {}
@@ -64,7 +65,7 @@ bool MenuLayer::init() {
     createPanels();
     return true;
 }
-
+//创建所有面板
 void MenuLayer::createPanels() {
     // 创建面板1
     panel1 = createPanel(1);
@@ -84,7 +85,7 @@ void MenuLayer::createPanels() {
     panel4->setVisible(false);
 
 }
-
+//展示指定面板
 void MenuLayer::showPanel(int index) {
     // 隐藏所有面板
     panel1->setVisible(false);
@@ -106,19 +107,14 @@ void MenuLayer::showPanel(int index) {
         panel4->setVisible(true);
     }
 }
-
+//创建单个面板
 cocos2d::Layer* MenuLayer::createPanel(int panelIndex) {
     Tools Tool;
     auto panel = cocos2d::Layer::create();
     const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
 
     Clock* clock = Clock::getInstance();
-    //// 添加背景图片
-    //auto background = cocos2d::Sprite::create("photo/ui/Menu.png");
-    //if (background) {
-    //    background->setPosition(cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2)); // 背景居中
-    //    this->addChild(background, 1);
-    //}
+
     if (panelIndex == 1) {
         //添加玩家背景及人像
         auto CharacterGroundPos = cocos2d::Vec2(visibleSize.width / 2-180, visibleSize.height / 2);

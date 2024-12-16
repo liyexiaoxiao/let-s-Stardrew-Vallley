@@ -4,7 +4,7 @@
 #include "Crop.h"
 #include "cocos2d.h"
 #include "MenuLayer.h"
-
+using namespace cocos2d;
 extern Player* mainPlayer;
 
 //键盘和鼠标相关---------------------------------

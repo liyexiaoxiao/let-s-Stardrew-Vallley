@@ -8,13 +8,14 @@
 //为保证每一个player管理好自己的流程进度，我们在人物文件中实现实现对物品的管理
 //每个物品包含的信息
 enum class ItemID {
-    T_Hoe = 1,      // 锄头
-    T_WateringCan = 2, // 浇水壶
-    T_Axe = 3,       // 斧头
-    A_Seed1 = 4,    // 种子1
-    A_Seed2 = 5,
-    A_Seed3 = 6,
-    A_Seed4 = 7,
+    T_Axe = 1,       // 斧头
+    T_Hoe = 2,      // 锄头
+    T_WateringCan = 3, // 浇水壶
+    T_Pickaxe = 4,//镐子
+    T_Sickle = 5,//镰刀
+    T_Fish = 6,
+
+    A_Seed = 7,
     C_dish1,C_dish2,C_dish3,C_dish4,
     A_wood
     // 可以继续添加其他物品类型
