@@ -16,6 +16,10 @@ enum class ItemID {
     T_Fish = 6,
 
     A_Seed = 7,
+    A_Seed1=8,
+    A_Seed2,
+    A_Seed3,
+    A_Seed4,
     C_dish1,C_dish2,C_dish3,C_dish4,
     A_wood
     // 可以继续添加其他物品类型

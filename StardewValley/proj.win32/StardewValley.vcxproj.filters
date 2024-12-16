@@ -81,6 +81,9 @@
     <ClCompile Include="FarmhouseScene.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="Toolbar.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -136,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="FarmhouseScene.h">
       <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Toolbar.h">
+      <Filter>src\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
