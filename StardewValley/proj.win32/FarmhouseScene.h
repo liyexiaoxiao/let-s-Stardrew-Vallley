@@ -5,6 +5,8 @@
 #include "ui/CocosGUI.h"
 #include "MenuLayer.h"//≤Àµ•ΩÁ√Ê
 
+
+
 class FarmhouseScene : public cocos2d::Scene
 {
 private:

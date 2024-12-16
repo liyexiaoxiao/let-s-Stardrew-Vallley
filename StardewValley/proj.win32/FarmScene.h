@@ -16,6 +16,8 @@
 #include "Crop.h"    //农作物类
 #include "MenuLayer.h"//菜单界面
 
+#define farmscale 4
+
 class FarmScene : public cocos2d::Scene {
 public:
     FarmScene();

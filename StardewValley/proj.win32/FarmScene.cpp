@@ -36,16 +36,18 @@ FarmScene* FarmScene::create() {
 bool FarmScene::init() {
 
     // 加载地图
-    Farmmap = cocos2d::TMXTiledMap::create("photo/Map/0farmsoilground2048x2048.tmx");
-    Farmmap->setContentSize(cocos2d::Size(2048, 2048));//设置大小
+    Farmmap = cocos2d::TMXTiledMap::create("Maps/Farm_Combat.tmx");
+    // 设置缩放因子为 4.0f--此后每一次计算位置都要考量farmscale
+    Farmmap->setScale(farmscale);
+    //Farmmap->setContentSize(cocos2d::Size(2048, 2048));//设置大小
     const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
     Farmmap->setPosition(visibleSize.width / 2 - Farmmap->getContentSize().width / 2,
         visibleSize.height / 2 - Farmmap->getContentSize().height / 2);
     this->addChild(Farmmap);
 
     // 获取不同的图层
-    groundLayer = Farmmap->getLayer("layer1ground");  // 地面层
-    wallLayer = Farmmap->getLayer("layer2wall");      // 围墙层
+    groundLayer = Farmmap->getLayer("Back");  // 地面层
+    wallLayer = Farmmap->getLayer("Buildings");      // 围墙层
 
 
     // 创建玩家
