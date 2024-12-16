@@ -25,8 +25,8 @@ void FarmScene::onMouseClicked(cocos2d::Event* event) {
 
     // 判断点击的区域：点击土地还是其他可交互元素
     const auto tileSize = Farmmap->getTileSize();
-    int tileX = clickPos.x / tileSize.width;
-    int tileY = clickPos.y / tileSize.height;
+    const int tileX = clickPos.x / (tileSize.width * farmscale);
+    const int tileY = clickPos.y / (tileSize.height * farmscale);
 
     int Interacted = checkForElementInteraction(clickPos);
 
@@ -62,8 +62,8 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
 
     // 获取瓦片大小和点击位置
     const auto tileSize = Farmmap->getTileSize();
-    int tileX = clickPos.x / tileSize.width;
-    int tileY = clickPos.y / tileSize.height;
+    int tileX = clickPos.x / (tileSize.width * farmscale);
+    int tileY = clickPos.y / (tileSize.height * farmscale);
 
     cocos2d::Vec2 mapPos = Farmmap->getPosition();
     int offsetX = static_cast<int>(std::round(mapPos.x / tileSize.width));
