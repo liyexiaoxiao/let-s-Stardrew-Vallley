@@ -1,5 +1,5 @@
 #include "tilledLand.h"
-
+#include "FarmScene.h"
 TilledLand* TilledLand::create() {
     TilledLand* ret = new TilledLand();
     if (ret && ret->init()) {
@@ -17,6 +17,7 @@ bool TilledLand::init() {
 
     // 设置土地的贴图
     this->setTexture("photo/Farm/tilledLand.png");
+   
     return true;
 }
 
@@ -35,7 +36,7 @@ TilledLand* TilledLand::tillLand(int x, int y, cocos2d::TMXTiledMap* map, std::v
     if (tilledLand[adjustedY][adjustedX] != nullptr) {
         return nullptr; // 如果土地已经开垦，返回 nullptr
     }
-
+   
     // 创建新土地
     TilledLand* newTilledLand = TilledLand::create();
     newTilledLand->setPosition((adjustedX) * tileSize.width + tileSize.width / 2,

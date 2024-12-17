@@ -13,6 +13,7 @@
 #include "NPCinfo.h"   //npcUI面板
 #include "Tree.h"
 #include "tilledLand.h"
+#include "WateredLand.h"
 #include "Crop.h"    //农作物类
 #include "MenuLayer.h"//菜单界面
 
@@ -47,7 +48,8 @@ public:
 
     //种植种子
     void onMouseClickedSoil(cocos2d::Event* event);
-    
+    //第二天更新植物状态
+    void nextDay();
 
     //检查点击是否与地图元素发生交互
     int checkForElementInteraction(const cocos2d::Vec2& clickPos);
@@ -81,6 +83,7 @@ private:
     cocos2d::ui::Button* startButton2;  // 声明按钮变量--前往冒险地图
     std::vector<std::vector<TilledLand*>> tilledLand;
     // 记录哪些土地已开垦
+    std::vector<std::vector<WateredLand*>> wateredLand;// 记录哪些土地已浇水
     std::vector<std::vector<Crop*>> plantedCrops; // 存储种植的作物
 
     cocos2d::Size FarmmapSize;        // 地图大小

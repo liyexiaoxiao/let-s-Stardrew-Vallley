@@ -1,5 +1,6 @@
 #include "Crop.h"
 #include "cocos2d.h"
+#include "Clock.h"
 using namespace cocos2d;
 
 Crop::Crop(const std::string& name, const std::vector<std::string>& stages)
@@ -43,6 +44,13 @@ void Crop::water() {
         currentStage++;
         sprite->setTexture(stages[currentStage]); // 更新作物图像
     }
+    watered = true;  // 标记为已浇水
+   
+}
+
+void Crop::resetWatered() {
+        watered = false;  // 每天结束时重置浇水状态
+    
 }
 
 Crop* Crop::plantSeed(int x, int y, cocos2d::TMXTiledMap* map,
@@ -107,3 +115,5 @@ Crop* Crop::plantSeed(int x, int y, cocos2d::TMXTiledMap* map,
 
     return newCrop;
 }
+
+

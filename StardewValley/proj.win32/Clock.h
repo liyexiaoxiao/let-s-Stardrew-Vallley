@@ -12,6 +12,7 @@ public:
     void setTimeafterSleep(int hour, int minute, int second); //设置固定时间（起床后）
     void updateClock(float deltaTime);  // 每帧更新时钟
     void setTimeDisplay();             // 更新屏幕上显示的时间
+    float getGameTime() const { return gameTime; }
 
     // 防止外部调用构造函数
     Clock(const Clock&) = delete;

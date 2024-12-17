@@ -91,6 +91,9 @@
     <ClCompile Include="ExploreSceneFunctions.cpp">
       <Filter>src\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="WateredLand.cpp">
+      <Filter>src\Farm</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -153,6 +156,9 @@
     </ClInclude>
     <ClInclude Include="ExploreScene.h">
       <Filter>src\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="WateredLand.h">
+      <Filter>src\Farm</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

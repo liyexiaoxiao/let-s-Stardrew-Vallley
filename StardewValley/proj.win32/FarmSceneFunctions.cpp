@@ -1,6 +1,7 @@
 #include "FarmScene.h"
 #include "Clock.h"
 #include "tilledLand.h"
+#include "WateredLand.h"
 #include "Crop.h"
 #include "cocos2d.h"
 #include "MenuLayer.h"
@@ -88,12 +89,18 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
                 // 调用种植方法
                 Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops, mainPlayer->Heldseed);
             }
-            else if (/*mainPlayer->Heldtool == 2 &&*/ crop != nullptr && !crop->isMature()) {
-                crop->water(); // 浇水逻辑
-            }
+            
+        }
+        if (/*mainPlayer->Heldtool == 2 &&*/ plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
+
+
+            plantedCrops[adjustedY][adjustedX]->water();
+            WateredLand::waterLand(tileX, tileY, Farmmap, wateredLand);
         }
     }
 }
+
+
 // 设置按键状态为真，表示按键被按下
 void FarmScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
 

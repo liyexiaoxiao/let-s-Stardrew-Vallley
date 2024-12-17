@@ -107,7 +107,9 @@ bool FarmScene::init() {
     this->addChild(clock);
 
     // 初始化 plantedCrops
-    plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr));
+    wateredLand.resize(mapHeight, std::vector<WateredLand*>(mapWidth, nullptr));
+    plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr)); 
+    tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
 
     // 创建菜单层并添加到场景中
     menuLayer = MenuLayer::create();
