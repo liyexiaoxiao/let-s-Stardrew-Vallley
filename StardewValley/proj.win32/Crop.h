@@ -12,6 +12,7 @@ private:
     std::vector<std::string> stages;
     cocos2d::Sprite* sprite;
     bool watered;// 是否被浇水的标志
+    int bestseason;
 
 public:
     Crop(const std::string& name, const std::vector<std::string>& stages);

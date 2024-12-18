@@ -35,7 +35,6 @@ void Clock::setTimeafterSleep(int hour, int minute, int second) {
     setTimeDisplay(); // 更新显示
 }
 
-
 void Clock::setTimeDisplay() {
     Tools Tool;
     // 将游戏时间转化为小时和分钟

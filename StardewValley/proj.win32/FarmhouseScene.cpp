@@ -87,8 +87,8 @@ void FarmhouseScene::movePlayer(float deltaX, float deltaY) {
     Vec2 newPos = playerPos + Vec2(deltaX, deltaY);
 
     // 限制人物在屏幕边界内
-    newPos.x = std::clamp(newPos.x, 0.f, screenSize.width); // 限制X坐标
-    newPos.y = std::clamp(newPos.y, 0.f, screenSize.height); // 限制Y坐标
+    newPos.x = std::clamp(newPos.x, 160.0f, screenSize.width-130); // 限制X坐标
+    newPos.y = std::clamp(newPos.y, 55+screenSize.height/4, 3 * screenSize.height/4-60); // 限制Y坐标
 
     // 更新人物位置
     mainPlayer->setPosition(newPos);
@@ -144,7 +144,7 @@ bool FarmhouseScene::init()
         return false;
     }
     mainPlayer->setPosition(screenSize.width / 2, screenSize.height / 2); // 玩家在屏幕中心
-    mainPlayer->setScale(1.0f);
+    mainPlayer->setScale(0.7f);
     this->addChild(mainPlayer); // 将玩家添加到场景中
 
     // 更新函数：处理按键状态，移动玩家
@@ -167,7 +167,7 @@ bool FarmhouseScene::init()
 
     // 创建按钮: 门
     auto startButton = cocos2d::ui::Button::create("photo/InternalHouse/Door.png");
-    startButton->setPosition(Vec2(screenSize.width / 4 + 180, screenSize.height / 4 - 60));
+    startButton->setPosition(Vec2(screenSize.width / 4 + 130, screenSize.height / 4 - 60));
     startButton->setScale(2.0f); // 设置按钮大小
     startButton->addClickEventListener([=](Ref* sender) {
         auto transition = cocos2d::TransitionFade::create(1.0f, FarmScene::create(), cocos2d::Color3B::WHITE);
@@ -177,7 +177,7 @@ bool FarmhouseScene::init()
 
     // 创建按钮: 床
     auto startButton1 = cocos2d::ui::Button::create("photo/InternalHouse/bed.png");
-    startButton1->setPosition(Vec2(screenSize.width / 2 + 227, screenSize.height / 4 +70));
+    startButton1->setPosition(Vec2(screenSize.width / 2 + 290, screenSize.height / 4 +270));
     startButton1->setScale(1.5f); // 设置按钮大小
     startButton1->addClickEventListener([=](Ref* sender) {
         // 创建一个黑色遮罩
