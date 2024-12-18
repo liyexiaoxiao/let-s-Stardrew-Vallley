@@ -114,6 +114,11 @@ bool FarmScene::init() {
     // 创建菜单层并添加到场景中
     menuLayer = MenuLayer::create();
     this->addChild(menuLayer);
+    //工具栏
+    Toolbar *toolbar=Toolbar::create();
+    if (toolbar) {
+        this->addChild(toolbar, 5);  
+    }
 
     // 监听键盘输入
     auto Keyboardlistener = cocos2d::EventListenerKeyboard::create();

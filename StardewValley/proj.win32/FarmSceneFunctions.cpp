@@ -147,6 +147,7 @@ void FarmScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::
             break;
     }
 }
+
 //地图显示相关----------------------------------
 void FarmScene::moveMap(float deltaX, float deltaY) {
     // 获取玩家当前的位置

@@ -119,36 +119,30 @@ cocos2d::Layer* MenuLayer::createPanel(int panelIndex) {
         //添加玩家背景及人像
         auto CharacterGroundPos = cocos2d::Vec2(visibleSize.width / 2-180, visibleSize.height / 2);
         auto CharacterGround = Tool.addImageToScene("photo/startup_p/Character Backgrounds.png", CharacterGroundPos, 1.1f);
-        CharacterGround->setLocalZOrder(5);
-        panel->addChild(CharacterGround);
+        panel->addChild(CharacterGround,5);
         cocos2d::Vec2 CharacterPos = CharacterGround->getPosition();
         auto PlayerPhoto = Tool.addImageToScene("photo/Character/PlayerFront1.png", CharacterPos, 1.2f);
-        PlayerPhoto->setLocalZOrder(5);
-        panel->addChild(PlayerPhoto);
+        panel->addChild(PlayerPhoto,5);
         //添加玩家名字
         auto NameLabelPos = cocos2d::Vec2(CharacterPos.x, CharacterPos.y - 130);
         auto NameLabel = Tool.createLabel(mainPlayer->PlayerName, "fonts/Marker Felt.ttf", 32, NameLabelPos);
-        NameLabel->setLocalZOrder(5);
-        panel->addChild(NameLabel);
+        panel->addChild(NameLabel,5);
         //添加农场名字
         auto FarmLabelPos = cocos2d::Vec2(visibleSize.width / 2 + 50, visibleSize.height / 2 + 100);
         auto FarmLabel = Tool.createLabel(mainPlayer->FarmName, "fonts/Marker Felt.ttf", 32, FarmLabelPos);
-        FarmLabel->setLocalZOrder(5);
-        panel->addChild(FarmLabel);
+        panel->addChild(FarmLabel,5);
         //添加钱
         auto MoneyLabelPos = cocos2d::Vec2(FarmLabelPos.x, FarmLabelPos.y - 80);
         std::string label_1 = "Money you have:";
         std::string AllMoneyLabel = label_1 + std::to_string(mainPlayer->getMoney());
         auto MoneyLabel = Tool.createLabel(AllMoneyLabel, "fonts/Marker Felt.ttf", 32, MoneyLabelPos);
-        MoneyLabel->setLocalZOrder(5);
-        panel->addChild(MoneyLabel);
+        panel->addChild(MoneyLabel,5);
         //添加时间
         std::string seasonshow = clock->getSeason();
         std::string AllTimeLabel = "year: " + std::to_string(clock->getYear())  + " day: " + std::to_string(clock->getDay()) + " " + seasonshow;
         auto TimeLabelPos = cocos2d::Vec2(MoneyLabelPos.x, MoneyLabelPos.y - 80);
         auto TimeLabel = Tool.createLabel(AllTimeLabel, "fonts/Marker Felt.ttf", 32, TimeLabelPos);
-        TimeLabel->setLocalZOrder(5);
-        panel->addChild(TimeLabel);
+        panel->addChild(TimeLabel,5);
     }
     else if (panelIndex == 2) {
 
