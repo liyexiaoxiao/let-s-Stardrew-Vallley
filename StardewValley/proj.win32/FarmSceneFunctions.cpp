@@ -46,7 +46,7 @@ int FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
         cocos2d::Rect boundingBox = child->getBoundingBox();
         if (boundingBox.containsPoint(worldPos)) {
             int choosenextstep = child->onClick();  // 触发该元素的 onClick 事件 通过返回值进行后续操作
-            //返回值为1，进行了看书操作
+            //返回值为1，进行了砍树操作
             mainPlayer->upgradeSkillTree(ItemCategory::A, 1);//农业经验值加一
             mainPlayer->addItem(ItemID::A_wood, 1);//木材数量加一
             return 1;
@@ -119,6 +119,7 @@ void FarmScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
             break;
         case cocos2d::EventKeyboard::KeyCode::KEY_E://按e打开或关闭菜单
             if (menuLayer) {
+                menuLayer->createPanels();
                 menuLayer->toggleVisibility();
             }
             isMenuActive = !isMenuActive;

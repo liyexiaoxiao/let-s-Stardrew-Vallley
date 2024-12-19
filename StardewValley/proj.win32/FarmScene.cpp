@@ -56,7 +56,7 @@ bool FarmScene::init() {
 
     // 创建玩家
     mainPlayer = Player::create("photo/Character/PlayerFront1.png");
-    mainPlayer->setPosition(visibleSize.width / 2, visibleSize.height / 2); // 玩家在屏幕中心
+    mainPlayer->setPosition(visibleSize.width / 2, visibleSize.height / 4); // 玩家在屏幕中心
     mainPlayer->setScale(1.0f);
     this->addChild(mainPlayer);
 
@@ -79,16 +79,35 @@ bool FarmScene::init() {
     this->addChild(breeder);  // 将  fisherman 添加到场景中
 
     //创建农场里面的树
-    for (int i = 0; i < 10; ++i) {
-        Tree* tree = Tree::create();
-        // 设置树的初始位置（你可以根据实际需要调整位置）
-        tree->setPosition(cocos2d::Vec2((128 + i * 128) + 32, 600 + 32)); // 假设树的初始位置
-        tree->setScale(1.5f);
-        interactiveElements.push_back(tree);
-        this->addChild(tree); // 将树添加到场景中
-        trees.push_back(tree); //  
-    }
+    // 从Tiled地图的Object Layer中读取对象信息并创建对象
+    auto objectGroup = Farmmap->getObjectGroup("Olayer1Tree");
+    if (objectGroup) {
+        // 遍历所有的对象
+        for (auto& object : objectGroup->getObjects()) {
+            // object 是 Value 类型，可以转化为 ValueMap
+            auto obj = object.asValueMap();
 
+            // 根据 "type" 字段判断对象类型
+            if (obj["type"].asString() == "tree") {
+                Tree* tree = Tree::create();
+                // 获取树在 TileMap 坐标系中的位置
+                float tileX = obj["x"].asFloat();
+                float tileY = obj["y"].asFloat();
+
+                // 将 TileMap 坐标转换为屏幕坐标
+                cocos2d::Vec2 mapPosition = cocos2d::Vec2(tileX, tileY);
+                cocos2d::Vec2 worldPosition = Farmmap->convertToWorldSpace(mapPosition);
+
+                // 设置树的位置为屏幕坐标
+                tree->setPosition(worldPosition);
+                this->addChild(tree);
+                trees.push_back(tree);//加入管理树的容器
+                // 将树添加到可交互对象列表中
+                interactiveElements.push_back(tree);
+            }
+            // 可以添加更多类型的对象
+        }
+    }
     // 初始化所有土地未开垦
     int mapWidth = groundLayer->getLayerSize().width;
     int mapHeight = groundLayer->getLayerSize().height;
@@ -133,6 +152,8 @@ bool FarmScene::init() {
     startButton = cocos2d::ui::Button::create("photo/startup_p/enterhome.png");
     // 设置按钮位置
     startButton->setPosition(cocos2d::Vec2(1, 1020));
+    // 设置按钮的 Z 值为第1层（较高的显示层级）
+    startButton->setLocalZOrder(1);
     // 设置按钮大小，确保按钮不会超出屏幕
     startButton->setScale(0.8f);  // 可根据需要调整按钮大小
     // 设置按钮点击事件，连接到第二个画面：室内！！！
@@ -148,9 +169,13 @@ bool FarmScene::init() {
     startButton2->setPosition(cocos2d::Vec2(1180, 1000));
     // 设置按钮大小，确保按钮不会超出屏幕
     startButton2->setScale(0.8f);  // 可根据需要调整按钮大小
+    // 设置按钮的 Z 值为第1层（较高的显示层级）
+    startButton->setLocalZOrder(1);
     // 设置按钮点击事件，连接到第二个画面：冒险！！！
     startButton2->addClickEventListener([=](Ref* sender) {
         // 切换到 ExploreScene 场景
+        //onExit();
+     
         auto exploreScene = ExploreScene::create();  // 创建新场景
         auto transition = cocos2d::TransitionFade::create(1.0f, exploreScene, cocos2d::Color3B::WHITE);  // 创建切换过渡效果
         cocos2d::Director::getInstance()->replaceScene(transition);  // 执行场景替换
@@ -160,5 +185,32 @@ bool FarmScene::init() {
     return true;
  }
 
+ ////资源清理--手动
+ //void FarmScene::onExit() {
+ //    if (mainPlayer) {
+ //        this->removeChild(mainPlayer);
+ //    }
 
+ //    // 清理交互元素
+ //    for (auto element : interactiveElements) {
+ //        delete element;  // 手动删除交互元素
+ //    }
+ //    interactiveElements.clear();  // 清空容器
+
+ //    // 移除事件监听器
+ //    _eventDispatcher->removeEventListenersForTarget(this);
+
+ //    // 清理其他资源，如工具、树等
+ //    for (auto tree : trees) {
+ //        delete tree;  // 手动删除树
+ //    }
+ //    trees.clear();  // 清空树列表
+
+ //    // 如果有定时器或动作，需要取消它们
+ //    this->unscheduleAllCallbacks();  // 取消所有定时器
+
+ //    // 调用基类的 onExit 方法
+ //    Scene::onExit();
+ //    
+ //}
 

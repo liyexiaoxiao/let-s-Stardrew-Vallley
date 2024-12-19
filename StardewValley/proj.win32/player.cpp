@@ -91,10 +91,10 @@ void Player::deleteItem(ItemID itemId, int amount) {
 
 
  //玩家控制技能树逻辑相关
- void Player::upgradeSkillTree(ItemCategory category, int exp) {
+ void Player::upgradeSkillTree(ItemCategory category, double exp) {
      switch (category) {
      case ItemCategory::A:
-         agricultureLevel += exp / 100; // 假设每100经验值增加1级
+         agricultureLevel += exp / 2; // 假设每100经验值增加1级
          agricultureLevel = std::min(agricultureLevel, maxlevel);
          if (agricultureLevel == maxlevel)
              a_level_max = true;

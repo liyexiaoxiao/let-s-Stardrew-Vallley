@@ -90,11 +90,11 @@ public:
 
     //技能树相关
     // 技能树等级
-    int agricultureLevel=1;
-    int miningLevel=1;
-    int fishingLevel=1;
-    int cookingLevel=1;
-    void upgradeSkillTree(ItemCategory category, int exp); // 增加经验值，并可能升级技能树
+    double agricultureLevel=1;
+    double miningLevel=1;
+    double fishingLevel=1;
+    double cookingLevel=1;
+    void upgradeSkillTree(ItemCategory category, double exp); // 增加经验值，并可能升级技能树
     void unlockItemsForLevel(ItemCategory category, int targetLevel); // 解锁特定等级的物品
     std::map<int, std::vector<ItemID>>& getItemsMapByCategory(ItemCategory category);
 
@@ -109,7 +109,7 @@ public:
 
 private:
     //玩家等级
-    int maxlevel = 4;//每一个技能方向等级上限
+    double maxlevel = 4;//每一个技能方向等级上限
     //用于判断是否满级，还未添加入口函数，四个都满级了才能开启商店
     bool a_level_max;
     bool m_level_max;

@@ -82,6 +82,11 @@ private:
     cocos2d::ui::Button* startButton;  // 声明按钮变量--进入室内
     cocos2d::ui::Button* startButton2;  // 声明按钮变量--前往冒险地图
     std::vector<std::vector<TilledLand*>> tilledLand;
+    //只能进行手动清理的资源
+    //void onExit();
+    
+    
+    
     // 记录哪些土地已开垦
     std::vector<std::vector<WateredLand*>> wateredLand;// 记录哪些土地已浇水
     std::vector<std::vector<Crop*>> plantedCrops; // 存储种植的作物
