@@ -16,7 +16,7 @@
 #include "WateredLand.h"
 #include "Crop.h"    //农作物类
 #include "MenuLayer.h"//菜单界面
-
+#include "Toolbar.h" 
 #define farmscale 4
 
 class FarmScene : public cocos2d::Scene {
@@ -70,7 +70,6 @@ public:
         }
     }
 
-
 private:
     cocos2d::Label* _debugLabel = nullptr;  // 用于显示调试信息
     // 地图相关
@@ -117,6 +116,7 @@ private:
 
     MenuLayer* menuLayer;  // 菜单层对象
     bool isMenuActive = false;  // 标志变量，表示菜单是否显示
+   
 };
 
 #endif // __FARM_SCENE_H__

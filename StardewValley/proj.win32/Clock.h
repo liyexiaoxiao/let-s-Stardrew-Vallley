@@ -34,7 +34,7 @@ private:
     cocos2d::Label* dayLabel;
     cocos2d::Sprite* ClockPhoto;      // 时钟图像
     cocos2d::Sprite* seasonImage;     //季节图像
-    int year = 1;
+    int year = 1; // 初始化年份
     int day = 1; // 初始化天数
     std::string Week = ""; // 初始化星期
     std::string Season = "Spring"; // 初始化季节
