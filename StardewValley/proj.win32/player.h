@@ -21,7 +21,8 @@ enum class ItemID {
     A_Seed3,
     A_Seed4,
     C_dish1,C_dish2,C_dish3,C_dish4,
-    A_wood
+    A_wood,
+    F_fish1, F_fish2, F_fish3, F_fish4
     // 可以继续添加其他物品类型
 };
 //物品的类别属性
@@ -101,7 +102,7 @@ public:
     //先不改
     std::string PlayerName;
     std::string FarmName;
-    int Heldtool = 0;
+    int Heldtool = 1;
     //为了测试暂时设此参数=1时拿着锄头，等于2时拿着浇水壶，等于3时拿着斧头，等于4时拿着鱼竿
 
     int Heldseed = 1;

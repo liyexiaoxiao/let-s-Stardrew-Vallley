@@ -71,15 +71,15 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
     int offsetY = static_cast<int>(std::round(mapPos.y / tileSize.height));
 
     // 确保点击在有效范围内
-    if (tileX - offsetX >= 0 && tileX - offsetX < groundLayer->getLayerSize().width &&
-        tileY - offsetY >= 0 && tileY - offsetY < groundLayer->getLayerSize().height) {
+    if (tileX - offsetX >= groundLayer->getLayerSize().width/4+3 && tileX - offsetX < 3*groundLayer->getLayerSize().width/4-1 &&
+        tileY - offsetY >= groundLayer->getLayerSize().height / 4+6 && tileY - offsetY < 3*groundLayer->getLayerSize().height/4+1) {
 
         // 获取点击位置的状态
         int adjustedX = tileX - offsetX;
         int adjustedY = tileY - offsetY;
 
         // 开垦土地
-        if (/*mainPlayer->Heldtool == 1 &&*/ !tilledLand[adjustedY][adjustedX]) {
+        if (mainPlayer->Heldtool == 1 && !tilledLand[adjustedY][adjustedX]) {
             TilledLand::tillLand(tileX, tileY, Farmmap, tilledLand);
         }
         // 种植作物
@@ -91,7 +91,7 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
             }
             
         }
-        if (/*mainPlayer->Heldtool == 2 &&*/ plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
+        if (mainPlayer->Heldtool == 3 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
 
 
             plantedCrops[adjustedY][adjustedX]->water();

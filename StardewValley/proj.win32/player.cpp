@@ -12,7 +12,8 @@ Player::Player() : money(500), PlayerName("Dave") ,FarmName("Dave's Farm"), a_le
     items[ItemID::A_Seed1] = { true, 5, ItemID::A_Seed1,ItemCategory::A };//初始只有一种种子
     items[ItemID::T_Axe] = { true, 1, ItemID::T_Axe,ItemCategory::T };
     items[ItemID::C_dish1] = { true, 1, ItemID::C_dish1,ItemCategory::C };
-   
+    items[ItemID::F_fish1] = { true, 0, ItemID::F_fish4,ItemCategory::F };
+
     //初始化未解锁的
     items[ItemID::A_Seed2] = { false, 5, ItemID::A_Seed1,ItemCategory::A };
     items[ItemID::A_Seed3] = { false, 5, ItemID::A_Seed1,ItemCategory::A };
@@ -20,15 +21,24 @@ Player::Player() : money(500), PlayerName("Dave") ,FarmName("Dave's Farm"), a_le
     items[ItemID::C_dish2] = { false, 1, ItemID::C_dish2,ItemCategory::C };
     items[ItemID::C_dish3] = { false, 1, ItemID::C_dish3,ItemCategory::C };
     items[ItemID::C_dish4] = { false, 1, ItemID::C_dish4,ItemCategory::C };
+
+    
+    items[ItemID::F_fish2] = { false, 1, ItemID::F_fish4,ItemCategory::F };
+    items[ItemID::F_fish3] = { false, 1, ItemID::F_fish4,ItemCategory::F };
+    items[ItemID::F_fish4] = { false, 1, ItemID::F_fish4,ItemCategory::F };
+
     //初始化每一个技能方向的等级逻辑--示例
     //等级2
     agricultureUnlockItems[2] = { ItemID::A_Seed2};//南瓜 2级 
     cookingUnlockItems[2] = { ItemID::C_dish2 };
+    fishingUnlockItems[2] = { ItemID::F_fish2 };
     //等级3
     agricultureUnlockItems[3] = { ItemID::A_Seed3,ItemID::A_Seed4 };//xx xx 三级
     cookingUnlockItems[3] = { ItemID::C_dish3};
+    fishingUnlockItems[3] = { ItemID::F_fish3 };
     //等级四--满级
     cookingUnlockItems[4] = { ItemID::C_dish4};
+    fishingUnlockItems[4] = { ItemID::F_fish4 };
 } // 初始化玩家默认属性
 
 Player::~Player() {}

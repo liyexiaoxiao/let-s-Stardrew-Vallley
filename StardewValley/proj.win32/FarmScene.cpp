@@ -187,6 +187,116 @@ bool FarmScene::init() {
         });
     this->addChild(startButton2);
 
+    //钓鱼功能按钮
+    FishingButton = cocos2d::ui::Button::create("photo/Farm/Fishingrod.png");
+    // 设置按钮位置
+    FishingButton->setPosition(cocos2d::Vec2(1700, 200));
+    // 设置按钮的 Z 值为第1层（较高的显示层级）
+    FishingButton->setLocalZOrder(1);
+    // 设置按钮大小，确保按钮不会超出屏幕
+    FishingButton->setScale(5.0f);  // 可根据需要调整按钮大小
+    FishingButton->setVisible(true);
+    
+    FishingButton->addClickEventListener([=](Ref* sender) {
+        
+        //拿着钓鱼竿才能钓鱼
+        if (mainPlayer->Heldtool = 6) {
+            // 点击后禁用按钮，防止重复点击
+            FishingButton->setEnabled(false);
+
+            // 根据钓鱼等级决定能钓到的鱼
+            ItemID fishItemID = ItemID::F_fish1; // 默认钓到F_fish1
+
+            std::string fishName = "F_fish1";    // 默认鱼的名称
+
+            if (mainPlayer->fishingLevel >= 2) {
+                // 等级2时，随机钓到F_fish1或者F_fish2
+                int randomFish = cocos2d::random(1, 2); // 随机生成1或2
+                if (randomFish == 1) {
+                    fishItemID = ItemID::F_fish1;
+                    fishName = "F_fish1";
+                }
+                else {
+                    fishItemID = ItemID::F_fish2;
+                    fishName = "F_fish2";
+                }
+            }
+            if (mainPlayer->fishingLevel >= 3) {
+                // 等级3时，随机钓到F_fish3、F_fish2或者F_fish1
+                int randomFish = cocos2d::random(1, 3); // 随机生成1、2、3
+                if (randomFish == 1) {
+                    fishItemID = ItemID::F_fish1;
+                    fishName = "F_fish1";
+                }
+                else if (randomFish == 2) {
+                    fishItemID = ItemID::F_fish2;
+                    fishName = "F_fish2";
+                }
+                else {
+                    fishItemID = ItemID::F_fish3;
+                    fishName = "F_fish3";
+                }
+            }
+            if (mainPlayer->fishingLevel >= 4) {
+                // 等级4时，随机钓到F_fish2、F_fish2、F_fish3或者F_fish4
+                int randomFish = cocos2d::random(1, 4); // 随机生成1、2、3、4
+                if (randomFish == 1) {
+                    fishItemID = ItemID::F_fish1;
+                    fishName = "F_fish1";
+                }
+                else if (randomFish == 2) {
+                    fishItemID = ItemID::F_fish2;
+                    fishName = "F_fish2";
+                }
+                else if (randomFish == 3) {
+                    fishItemID = ItemID::F_fish3;
+                    fishName = "F_fish3";
+                }
+                else {
+                    fishItemID = ItemID::F_fish4;
+                    fishName = "F_fish4";
+                }
+            }
+
+
+            // 给予玩家钓到的鱼
+            mainPlayer->addItem(fishItemID, 1);
+
+            // 延时2秒后显示 "上钩了" 提示
+            this->scheduleOnce([=](float dt) {
+                // 创建提示标签
+                std::string message = "Hooked: " + fishName;  // 显示钓到的鱼种类
+                auto label = cocos2d::Label::createWithSystemFont(message, "Arial", 40);
+                label->setPosition(cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2));  // 屏幕中心
+                label->setTextColor(cocos2d::Color4B::BLACK);  // 设置文字颜色为黑色
+                this->addChild(label);
+
+                // 提示显示完毕后，2秒后移除提示
+                this->scheduleOnce([=](float dt) {
+                    this->removeChild(label);
+                    // 启用按钮，玩家可以再次点击
+                    FishingButton->setEnabled(true);
+                    }, 2.0f, "remove_label");
+
+                }, 5.0f - mainPlayer->fishingLevel, "fishing_hooked");  // 延时秒数与个人钓鱼等级有关显示提示
+        }
+        
+        else {
+            auto label = cocos2d::Label::createWithSystemFont("You need a fishing rod to fish!", "Arial", 40);
+            label->setPosition(cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2));  // 屏幕中心
+            label->setTextColor(cocos2d::Color4B::RED);  // 设置文字颜色为红色
+            this->addChild(label);
+
+            // 提示显示完毕后，2秒后移除提示
+            this->scheduleOnce([=](float dt) {
+                this->removeChild(label);
+                }, 2.0f, "remove_no_tool");
+        }   
+        });
+    
+    Farmmap->addChild(FishingButton);
+
+
     return true;
  }
 
