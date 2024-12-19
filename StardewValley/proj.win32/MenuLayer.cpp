@@ -3,6 +3,7 @@
 #include "Tools.h"
 #include "Clock.h"
 #include "StartupScene.h"
+#include "ItemStorage.h"
 
 extern Player* mainPlayer;
 
@@ -117,90 +118,84 @@ cocos2d::Layer* MenuLayer::createPanel(int panelIndex) {
 
     if (panelIndex == 1) {
         //添加玩家背景及人像
-        auto CharacterGroundPos = cocos2d::Vec2(visibleSize.width / 2-180, visibleSize.height / 2);
+        auto CharacterGroundPos = cocos2d::Vec2(visibleSize.width / 2 - 180, visibleSize.height / 2);
         auto CharacterGround = Tool.addImageToScene("photo/startup_p/Character Backgrounds.png", CharacterGroundPos, 1.1f);
-        panel->addChild(CharacterGround,5);
+        panel->addChild(CharacterGround, 5);
         cocos2d::Vec2 CharacterPos = CharacterGround->getPosition();
         auto PlayerPhoto = Tool.addImageToScene("photo/Character/PlayerFront1.png", CharacterPos, 1.2f);
-        panel->addChild(PlayerPhoto,5);
+        panel->addChild(PlayerPhoto, 5);
         //添加玩家名字
         auto NameLabelPos = cocos2d::Vec2(CharacterPos.x, CharacterPos.y - 130);
         auto NameLabel = Tool.createLabel(mainPlayer->PlayerName, "fonts/Marker Felt.ttf", 32, NameLabelPos);
-        panel->addChild(NameLabel,5);
+        panel->addChild(NameLabel, 5);
         //添加农场名字
         auto FarmLabelPos = cocos2d::Vec2(visibleSize.width / 2 + 50, visibleSize.height / 2 + 100);
         auto FarmLabel = Tool.createLabel(mainPlayer->FarmName, "fonts/Marker Felt.ttf", 32, FarmLabelPos);
-        panel->addChild(FarmLabel,5);
+        panel->addChild(FarmLabel, 5);
         //添加钱
         auto MoneyLabelPos = cocos2d::Vec2(FarmLabelPos.x, FarmLabelPos.y - 80);
         std::string label_1 = "Money you have:";
         std::string AllMoneyLabel = label_1 + std::to_string(mainPlayer->getMoney());
         auto MoneyLabel = Tool.createLabel(AllMoneyLabel, "fonts/Marker Felt.ttf", 32, MoneyLabelPos);
-        panel->addChild(MoneyLabel,5);
+        panel->addChild(MoneyLabel, 5);
         //添加时间
         std::string seasonshow = clock->getSeason();
-        std::string AllTimeLabel = "year: " + std::to_string(clock->getYear())  + " day: " + std::to_string(clock->getDay()) + " " + seasonshow;
+        std::string AllTimeLabel = "year: " + std::to_string(clock->getYear()) + " day: " + std::to_string(clock->getDay()) + " " + seasonshow;
         auto TimeLabelPos = cocos2d::Vec2(MoneyLabelPos.x, MoneyLabelPos.y - 80);
         auto TimeLabel = Tool.createLabel(AllTimeLabel, "fonts/Marker Felt.ttf", 32, TimeLabelPos);
-        panel->addChild(TimeLabel,5);
+        panel->addChild(TimeLabel, 5);
     }
     else if (panelIndex == 2) {
-
+        auto stolatticePos = cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2 + 120);
+        for (int i = 0; i < 5; i++) {
+            auto stolattice = Tool.addImageToScene("photo/storage/StorageLattice.png", cocos2d::Vec2(stolatticePos.x, stolatticePos.y - 60 * i), 0.9f);
+            panel->addChild(stolattice, 5);
+        }
+        showStorage(panel);
     }
     else if (panelIndex == 3) {
         //添加玩家背景及人像
         auto CharacterGroundPos = cocos2d::Vec2(visibleSize.width / 2 - 220, visibleSize.height / 2);
         auto CharacterGround = Tool.addImageToScene("photo/startup_p/Character Backgrounds.png", CharacterGroundPos, 1.1f);
-        CharacterGround->setLocalZOrder(5);
-        panel->addChild(CharacterGround);
+        panel->addChild(CharacterGround, 5);
         cocos2d::Vec2 CharacterPos = CharacterGround->getPosition();
         auto PlayerPhoto = Tool.addImageToScene("photo/Character/PlayerFront1.png", CharacterPos, 1.2f);
-        PlayerPhoto->setLocalZOrder(5);
-        panel->addChild(PlayerPhoto);
+        panel->addChild(PlayerPhoto, 5);
         //添加玩家名字
         auto NameLabelPos = cocos2d::Vec2(CharacterPos.x, CharacterPos.y - 130);
         auto NameLabel = Tool.createLabel(mainPlayer->PlayerName, "fonts/Marker Felt.ttf", 32, NameLabelPos);
-        NameLabel->setLocalZOrder(5);
-        panel->addChild(NameLabel);
+        panel->addChild(NameLabel, 5);
         //添加技能树
         //农业
-        auto ALabelPos = cocos2d::Vec2(visibleSize.width / 2+40, visibleSize.height / 2 + 80);
+        auto ALabelPos = cocos2d::Vec2(visibleSize.width / 2 + 40, visibleSize.height / 2 + 80);
         auto ALabel = Tool.createLabel("Agriculture", "fonts/Marker Felt.ttf", 32, ALabelPos);
-        ALabel->setLocalZOrder(5);
-        panel->addChild(ALabel);
-        auto APhotoPos = cocos2d::Vec2(ALabelPos.x-90, ALabelPos.y);
+        panel->addChild(ALabel, 5);
+        auto APhotoPos = cocos2d::Vec2(ALabelPos.x - 90, ALabelPos.y);
         auto APhoto = Tool.addImageToScene("photo/ui/skill_agriculture.png", APhotoPos, 4.5f);
-        APhoto->setLocalZOrder(5);
-        panel->addChild(APhoto);
+        panel->addChild(APhoto, 5);
         //挖矿
-        auto MLabelPos = cocos2d::Vec2(ALabelPos.x, ALabelPos.y-50);
+        auto MLabelPos = cocos2d::Vec2(ALabelPos.x, ALabelPos.y - 50);
         auto MLabel = Tool.createLabel("Mining", "fonts/Marker Felt.ttf", 32, MLabelPos);
-        MLabel->setLocalZOrder(5);
-        panel->addChild(MLabel);
-        auto MPhotoPos = cocos2d::Vec2(APhotoPos.x, APhotoPos.y-50);
+        panel->addChild(MLabel, 5);
+        auto MPhotoPos = cocos2d::Vec2(APhotoPos.x, APhotoPos.y - 50);
         auto MPhoto = Tool.addImageToScene("photo/ui/skill_mining.png", MPhotoPos, 4.5f);
-        MPhoto->setLocalZOrder(5);
-        panel->addChild(MPhoto);
+        panel->addChild(MPhoto, 5);
         //钓鱼
         auto FLabelPos = cocos2d::Vec2(MLabelPos.x, MLabelPos.y - 50);
         auto FLabel = Tool.createLabel("Fishing", "fonts/Marker Felt.ttf", 32, FLabelPos);
-        FLabel->setLocalZOrder(5);
-        panel->addChild(FLabel);
+        panel->addChild(FLabel, 5);
         auto FPhotoPos = cocos2d::Vec2(MPhotoPos.x, MPhotoPos.y - 50);
         auto FPhoto = Tool.addImageToScene("photo/ui/skill_fishing.png", FPhotoPos, 4.5f);
-        FPhoto->setLocalZOrder(5);
-        panel->addChild(FPhoto);
+        panel->addChild(FPhoto, 5);
         //烹饪
         auto CLabelPos = cocos2d::Vec2(FLabelPos.x, FLabelPos.y - 50);
         auto CLabel = Tool.createLabel("Cooking", "fonts/Marker Felt.ttf", 32, CLabelPos);
-        CLabel->setLocalZOrder(5);
-        panel->addChild(CLabel);
+        panel->addChild(CLabel, 5);
         auto CPhotoPos = cocos2d::Vec2(FPhotoPos.x, FPhotoPos.y - 70);
         auto CPhoto = Tool.addImageToScene("photo/ui/skill_cooking.png", CPhotoPos, 3.8f);
-        CPhoto->setLocalZOrder(5);
-        panel->addChild(CPhoto);
+        panel->addChild(CPhoto, 5);
 
-        auto ALevelPos = cocos2d::Vec2(ALabelPos.x+100, ALabelPos.y);
+        auto ALevelPos = cocos2d::Vec2(ALabelPos.x + 100, ALabelPos.y);
         auto MLevelPos = cocos2d::Vec2(ALevelPos.x, ALevelPos.y - 50);
         auto FLevelPos = cocos2d::Vec2(MLevelPos.x, MLevelPos.y - 50);
         auto CLevelPos = cocos2d::Vec2(FLevelPos.x, FLevelPos.y - 50);
@@ -231,7 +226,7 @@ cocos2d::Layer* MenuLayer::createPanel(int panelIndex) {
     }
     else if (panelIndex == 4) {
         //返回至开始界面
-        auto BacktoStart=Tool.createButton("photo/ui/back_1.png", cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50), 0.8);
+        auto BacktoStart = Tool.createButton("photo/ui/back_1.png", cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2 + 50), 0.8);
         BacktoStart->addClickEventListener([=](Ref* sender) {
             // 切换到游戏场景
             auto transition = cocos2d::TransitionFade::create(1.0f, StartupScene::create(), cocos2d::Color3B::WHITE);
@@ -266,4 +261,26 @@ MenuLayer* MenuLayer::create() {
 void MenuLayer::toggleVisibility() {
     isVisible = !isVisible;
     this->setVisible(isVisible);  // 根据当前状态设置菜单显示或隐藏
+}
+
+void MenuLayer::showStorage(Layer* panel) {
+    Tools Tool;
+    const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
+    auto Ref_Pos = cocos2d::Vec2(visibleSize.width / 2 - 320, visibleSize.height / 2 + 120);
+
+    ItemStorage& storage = ItemStorage::getInstance();
+    //循环遍历存储物品数量的数组，如果物品数量不为0，则添加物品图标
+    for (int i = 0; i < static_cast<int>(StorageID::MAX_STORAGE_ID); i++) {
+        if (storage.getItemQuantity(i)) {
+            int newX = Ref_Pos.x + i % 12 * 58;
+            int newY = Ref_Pos.y - i / 12 * 58;
+            std::string photopath = storage.getItemIconPath(i);
+            if (photopath != "") {
+                auto itemIcon = Tool.addImageToScene(photopath, cocos2d::Vec2(newX, newY), 2.8f);
+                panel->addChild(itemIcon, 5);
+            }
+            auto itemLabel = Tool.createLabel(std::to_string(storage.getItemQuantity(i)), "fonts/Marker Felt.ttf", 20, cocos2d::Vec2(newX + 25, newY - 25));
+            panel->addChild(itemLabel, 5);
+        }
+    }
 }

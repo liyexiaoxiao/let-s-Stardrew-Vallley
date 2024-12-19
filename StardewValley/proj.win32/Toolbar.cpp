@@ -10,7 +10,7 @@ bool Toolbar::init() {
     //¹¤¾ß¿ò±³¾°
     Tools tool;
     const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
-    auto ToolbarPos=cocos2d::Vec2(visibleSize.width/2, visibleSize.height / 2-250);
+    auto ToolbarPos=cocos2d::Vec2(visibleSize.width/2, visibleSize.height / 2-300);
     auto LatticePhoto=tool.addImageToScene("photo/tools/lattice.png", ToolbarPos, 0.9f);
     auto ToolbarPhoto = tool.addImageToScene("photo/tools/LG.png", cocos2d::Vec2(ToolbarPos.x-5, ToolbarPos.y-5), 2.0f);
     this->addChild(ToolbarPhoto,4);

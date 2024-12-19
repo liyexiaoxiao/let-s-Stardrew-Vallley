@@ -96,6 +96,9 @@
     <ClCompile Include="Toolbar.cpp">
       <Filter>src\UI</Filter>
     </ClCompile>
+    <ClCompile Include="ItemStorage.cpp">
+      <Filter>src\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -162,6 +165,12 @@
       <Filter>src\Farm</Filter>
     </ClInclude>
     <ClInclude Include="Toolbar.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemIDs.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemStorage.h">
       <Filter>src\UI</Filter>
     </ClInclude>
   </ItemGroup>

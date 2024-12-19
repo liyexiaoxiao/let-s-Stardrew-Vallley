@@ -119,7 +119,6 @@ void FarmScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::E
             break;
         case cocos2d::EventKeyboard::KeyCode::KEY_E://按e打开或关闭菜单
             if (menuLayer) {
-                menuLayer->createPanels();
                 menuLayer->toggleVisibility();
             }
             isMenuActive = !isMenuActive;

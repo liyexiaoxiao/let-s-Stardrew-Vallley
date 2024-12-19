@@ -17,6 +17,7 @@ public:
     void toggleVisibility();
     void createPanels(); //创建四个面板
     void showPanel(int index);
+    void showStorage(Layer* panel);
 private:
     bool isVisible;  // 控制菜单显示状态
     cocos2d::Sprite* MenuBG;
