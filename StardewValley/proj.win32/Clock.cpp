@@ -3,7 +3,7 @@
 
 Clock* Clock::instance = nullptr;  // 初始化单例指针为 nullptr
 
-Clock::Clock() : gameTime(0), timeLabel(nullptr), ClockPhoto(nullptr), dayLabel(nullptr), seasonImage(nullptr) {}
+Clock::Clock() : gameTime(0), timeLabel(nullptr), ClockPhoto(nullptr), dayLabel(nullptr), seasonImage(nullptr), weatherImage(nullptr){}
 
 Clock::~Clock() {}
 
@@ -25,6 +25,11 @@ void Clock::startClock() {
 void Clock::updateClock(float deltaTime) {
     CCLOG("Updating clock, gameTime: %f", gameTime);
     gameTime += deltaTime / 0.7f;//换算成分钟
+    // 当一天结束时重置 gameTime
+    if (gameTime >= 1440) { // 1440 分钟即为一天
+        gameTime = 0;  // 重置时间
+        day++;  // 增加一天
+    }
     setTimeDisplay();
 }
 
@@ -44,9 +49,10 @@ void Clock::setTimeDisplay() {
     const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
 
     // 更新天数
-    if (deltahours >= 20) {
+    if (gameTime >= 1440) {
         day++;
     }
+
     year = day / 112;
     // 改变星期几
     switch (day % 7) {
@@ -60,7 +66,7 @@ void Clock::setTimeDisplay() {
         default: break;
     }
 
-    // 设置季节
+    // 设置季节------------------------------------
     std::string newSeason;
     switch ((day / 28) % 4) {
         case 0: newSeason = "Spring"; break;
@@ -94,13 +100,37 @@ void Clock::setTimeDisplay() {
             imageFileName = "photo/ui/Winter.png";
         }
 
-        // 创建季节图片并显示
-        if (!seasonImage) {
-            auto seasonImagePos = cocos2d::Vec2(visibleSize.width - 150, visibleSize.height - 90);
-            seasonImage = Tool.addImageToScene(imageFileName, seasonImagePos, 3.0f);
-            seasonImage->setLocalZOrder(1001); // 确保其层级在前
-            this->addChild(seasonImage);
+        auto seasonImagePos = cocos2d::Vec2(visibleSize.width - 150, visibleSize.height - 90);
+        seasonImage = Tool.addImageToScene(imageFileName, seasonImagePos, 3.0f);
+        this->addChild(seasonImage,10);
+    }
+    // 设置天气------------------------------------
+    std::string newWeather="Sunny";
+    if (day%2==0) {
+        newWeather = "Rainy";
+    }
+
+    // 如果天气变化，更新天气图片
+    if (newWeather != Weather) {
+        Weather = newWeather;
+
+        // 清除旧的天气图片，如果存在
+        if (weatherImage) {
+            weatherImage->removeFromParent();
         }
+
+        // 根据天气加载不同的图片
+        std::string imageFileName;
+        if (Weather == "Sunny") {
+            imageFileName = "photo/ui/Sunny.png";
+        }
+        else if (Weather == "Rainy") {
+            imageFileName = "photo/ui/Rainy.png";
+        }
+
+        auto weatherImagePos = cocos2d::Vec2(visibleSize.width - 80, visibleSize.height - 90);
+        weatherImage = Tool.addImageToScene(imageFileName, weatherImagePos, 3.0f);
+        this->addChild(weatherImage, 10);
     }
 
     // 如果时钟图片还没有创建，则创建它

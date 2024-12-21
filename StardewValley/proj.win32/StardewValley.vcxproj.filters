@@ -63,9 +63,6 @@
     <ClCompile Include="Resident.cpp">
       <Filter>src\Character\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="NPCinfo.cpp">
-      <Filter>src\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Crop.cpp">
       <Filter>src\Farm</Filter>
     </ClCompile>
@@ -98,6 +95,9 @@
     </ClCompile>
     <ClCompile Include="ItemStorage.cpp">
       <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCinfo.cpp">
+      <Filter>src\Character\NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,9 +137,6 @@
     <ClInclude Include="Task.h">
       <Filter>src\Task</Filter>
     </ClInclude>
-    <ClInclude Include="NPCinfo.h">
-      <Filter>src\UI</Filter>
-    </ClInclude>
     <ClInclude Include="InteractiveElement.h">
       <Filter>src\UI</Filter>
     </ClInclude>
@@ -172,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="ItemStorage.h">
       <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCinfo.h">
+      <Filter>src\Character\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
