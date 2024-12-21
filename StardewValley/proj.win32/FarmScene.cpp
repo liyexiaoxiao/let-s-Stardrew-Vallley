@@ -114,8 +114,7 @@ bool FarmScene::init() {
     // 初始化所有土地未开垦
     int mapWidth = groundLayer->getLayerSize().width;
     int mapHeight = groundLayer->getLayerSize().height;
-    plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr));
-    tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
+   
 
 
     // 更新函数
@@ -129,9 +128,23 @@ bool FarmScene::init() {
     this->addChild(clock);
 
     // 初始化 plantedCrops
-    wateredLand.resize(mapHeight, std::vector<WateredLand*>(mapWidth, nullptr));
-    plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr)); 
-    tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
+    
+    // 检查并初始化 wateredLand
+    if (wateredLand.size() != mapHeight ||wateredLand[0].size() != mapWidth) {
+        wateredLand.resize(mapHeight, std::vector<WateredLand*>(mapWidth, nullptr));
+    }
+
+    // 检查并初始化 plantedCrops
+    if (plantedCrops.size() != mapHeight || plantedCrops[0].size() != mapWidth) {
+        plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr));
+    }
+
+    // 检查并初始化 tilledLand
+    if (tilledLand.size() != mapHeight || tilledLand[0].size() != mapWidth||clock->getGameTime()==0) {
+        tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
+    }
+   
+   
 
     // 创建菜单层并添加到场景中
     menuLayer = MenuLayer::create();

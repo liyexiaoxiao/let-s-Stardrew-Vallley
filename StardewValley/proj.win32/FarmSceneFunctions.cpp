@@ -5,6 +5,9 @@
 #include "Crop.h"
 #include "cocos2d.h"
 #include "MenuLayer.h"
+#include "ItemStorage.h"
+#include "ItemIDs.h"
+
 using namespace cocos2d;
 extern Player* mainPlayer;
 
@@ -56,6 +59,8 @@ int FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
 }
 
 void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
+    ItemStorage& storage = ItemStorage::getInstance();
+
     // 获取鼠标点击位置
     const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
     cocos2d::Vec2 clickPos = mouseEvent->getLocation();
@@ -84,18 +89,53 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
         }
         // 种植作物
         else if (mainPlayer->Heldseed > 0) {
-            Crop* crop = plantedCrops[adjustedY][adjustedX];
-            if (tilledLand[adjustedY][adjustedX] && plantedCrops[adjustedY][adjustedX] == nullptr) {
-                // 调用种植方法
-                Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops, mainPlayer->Heldseed);
+            const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
+            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_RIGHT) {
+                // 如果是右键点击
+                Crop* crop = plantedCrops[adjustedY][adjustedX];
+                if (tilledLand[adjustedY][adjustedX] && plantedCrops[adjustedY][adjustedX] == nullptr) {
+                    // 调用种植方法
+                    Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops, mainPlayer->Heldseed);
+                    switch (plantedCrops[adjustedY][adjustedX]->croptype) {
+                    case 1:
+                        storage.addItem(StorageID::FANGFENGCAO, 1);
+                        break;
+                    case 2:
+                        storage.addItem(StorageID::SHUMEI, 1);
+                        break;
+                    case 3:
+                        storage.addItem(StorageID::NANGUA, 1);
+                        break;
+                    case 4:
+                        storage.addItem(StorageID::XIAOMAI, 1);
+                        break;
+                    };
+                }
+
             }
-            
-        }
-        if (mainPlayer->Heldtool == 3 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
+            if (mainPlayer->Heldtool == 3 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
+                plantedCrops[adjustedY][adjustedX]->water();
+                WateredLand::waterLand(tileX, tileY, Farmmap, wateredLand);
+            }
+            if (mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isMature()) {
 
-
-            plantedCrops[adjustedY][adjustedX]->water();
-            WateredLand::waterLand(tileX, tileY, Farmmap, wateredLand);
+                switch (plantedCrops[adjustedY][adjustedX]->croptype) {
+                case 1:
+                    storage.addItem(StorageID::FANGFENGCAO, 1);
+                    break;
+                case 2:
+                    storage.addItem(StorageID::SHUMEI, 1);
+                    break;
+                case 3:
+                    storage.addItem(StorageID::NANGUA, 1);
+                    break;
+                case 4:
+                    storage.addItem(StorageID::XIAOMAI, 1);
+                    break;
+                };
+                plantedCrops[adjustedY][adjustedX]->removeFromParent();
+                plantedCrops[adjustedY][adjustedX] = nullptr;
+            }
         }
     }
 }
