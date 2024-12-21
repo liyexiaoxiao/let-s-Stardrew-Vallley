@@ -18,7 +18,17 @@ enum class StorageID {
     ZUANSHI,
     FENSHUIJING,
     QICAIKUANGSHI,
-    MAX_STORAGE_ID
+    MAX_STORAGE_ID,
+    FISH_A,
+    FISH_B,
+    FISH_C,
+    FISH_D,
+    BOILED_EGG,
+    BERRIES,
+    COOKED_FISH,
+    BEER,
+    EGG
+
 };
 
 #endif // ITEMIDS_H

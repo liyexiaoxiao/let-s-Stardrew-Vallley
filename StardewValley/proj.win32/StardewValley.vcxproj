@@ -224,6 +224,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <None Include="..\Resources\photo\Map\summeraw.tsx" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\Resources\photo\InternalHouse\boiled_egg.jpg" />
     <Image Include="..\Resources\photo\Map\FarmInit.png" />
     <Image Include="..\Resources\photo\Map\mine.png" />
     <Image Include="..\Resources\photo\Map\spring_outdoorsTileSheet.es-ES.png" />

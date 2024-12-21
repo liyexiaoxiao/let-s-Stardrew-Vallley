@@ -3,12 +3,14 @@
 #include "ui/CocosGUI.h"
 #include "FarmScene.h"
 #include "Tools.h"
-#include "player.h"
 #include "Clock.h"
 #include "MenuLayer.h" // 菜单界面
+#include "ItemStorage.h"
+#include "ItemIDs.h"
 
 using namespace cocos2d;
-extern Player* mainPlayer;
+extern Player* mainPlayer; // 主玩家
+
 
 FarmhouseScene::FarmhouseScene() {
     CCLOG("FarmhouseScene constructed");
@@ -28,24 +30,12 @@ Scene* FarmhouseScene::createScene()
     return scene;
 }
 
-// 记录玩家的移动状态
-bool movingUp = false, movingDown = false, movingLeft = false, movingRight = false;
+
+
 
 // 键盘按下事件
 void FarmhouseScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
     switch (keyCode) {
-    case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
-        movingUp = true;
-        break;
-    case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-        movingDown = true;
-        break;
-    case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-        movingLeft = true;
-        break;
-    case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-        movingRight = true;
-        break;
     case cocos2d::EventKeyboard::KeyCode::KEY_E: // 按e打开或关闭菜单
         if (menuLayer) {
             menuLayer->toggleVisibility();  // Toggle the menu visibility
@@ -57,42 +47,10 @@ void FarmhouseScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos
     }
 }
 
-// 设置按键状态为假，表示按键已松开
-void FarmhouseScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
-    switch (keyCode) {
-    case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
-        movingUp = false;
-        break;
-    case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-        movingDown = false;
-        break;
-    case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-        movingLeft = false;
-        break;
-    case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-        movingRight = false;
-        break;
-    default:
-        break;
-    }
-}
 
 
-void FarmhouseScene::movePlayer(float deltaX, float deltaY) {
-    // 获取屏幕大小和人物当前位置
-    const auto screenSize = Director::getInstance()->getVisibleSize();
-    const auto playerPos = mainPlayer->getPosition();
 
-    // 计算新的玩家位置
-    Vec2 newPos = playerPos + Vec2(deltaX, deltaY);
 
-    // 限制人物在屏幕边界内
-    newPos.x = std::clamp(newPos.x, 160.0f, screenSize.width-130); // 限制X坐标
-    newPos.y = std::clamp(newPos.y, 55+screenSize.height/4, 3 * screenSize.height/4-60); // 限制Y坐标
-
-    // 更新人物位置
-    mainPlayer->setPosition(newPos);
-}
 
 // 初始化场景
 bool FarmhouseScene::init()
@@ -117,6 +75,18 @@ bool FarmhouseScene::init()
         this->addChild(background, 0);
     }
 
+
+    // 创建一个贴图
+    auto centerImage = Sprite::create("photo/Character/PlayerFront1.png");  // 使用你想要显示的图片路径
+    if (centerImage == nullptr) {
+        CCLOG("Center image loading failed!");
+    }
+    else {
+        centerImage->setPosition(setGroundPosition);  // 将图片位置设置为屏幕中心
+        centerImage->setScale(0.7f);
+        this->addChild(centerImage, 2);  // 将图片添加到场景中，2表示层级关系，越大的值会在上面显示
+    }
+
    // 设置时钟显示
     Clock* clock = Clock::getInstance();
     if (clock->getParent() == nullptr) {
@@ -137,32 +107,11 @@ bool FarmhouseScene::init()
     }
     this->addChild(menuLayer, 1);
 
-    // 创建玩家角色
-    mainPlayer = Player::create("photo/Character/PlayerFront1.png");
-    if (mainPlayer == nullptr) {
-        CCLOG("Failed to create player!");
-        return false;
-    }
-    mainPlayer->setPosition(screenSize.width / 2, screenSize.height / 2); // 玩家在屏幕中心
-    mainPlayer->setScale(0.7f);
-    this->addChild(mainPlayer); // 将玩家添加到场景中
 
-    // 更新函数：处理按键状态，移动玩家
+    // 更新函数
     schedule([this](float deltaTime) {
         Clock::getInstance()->updateClock(deltaTime);
-        // 检查按键状态，更新人物位置
-        if (movingUp) {
-            movePlayer(0, 10.0f); // 向上移动
-        }
-        if (movingDown) {
-            movePlayer(0, -10.0f); // 向下移动
-        }
-        if (movingLeft) {
-            movePlayer(-10.0f, 0); // 向左移动
-        }
-        if (movingRight) {
-            movePlayer(10.0f, 0); // 向右移动
-        }
+       
         }, "update_key");
 
     // 创建按钮: 门
@@ -209,10 +158,125 @@ bool FarmhouseScene::init()
         });
     this->addChild(startButton1);
 
+    
+    ItemStorage& storage = ItemStorage::getInstance();
+
+    // 创建按钮: 菜谱1 水煮蛋
+    auto startButton2 = cocos2d::ui::Button::create("photo/InternalHouse/boiled_egg.png");
+    startButton2->setPosition(Vec2(screenSize.width / 8 , 2*screenSize.height / 4+50 ));
+    startButton2->setScale(3.0f); // 设置按钮大小
+
+    /*startButton2->addClickEventListener([=](Ref* sender) {
+
+        if (storage.getItemQuantity(StorageID::EGG) >= 1) {
+            storage.removeItem(StorageID::EGG,1);
+            storage.addItem(StorageID::BOILED_EGG, 1);
+        }
+        else {
+            auto label = cocos2d::Label::createWithSystemFont("Ingredients Insufficient", "Arial", 40);
+            label->setPosition(cocos2d::Vec2(screenSize.width / 2, screenSize.height / 2));  // 屏幕中心
+            label->setTextColor(cocos2d::Color4B::RED);  // 设置文字颜色为红色
+            this->addChild(label);
+
+            // 提示显示完毕后，2秒后移除提示
+            this->scheduleOnce([=](float dt) {
+                this->removeChild(label);
+                }, 2.0f, "remove_no_tool");
+        }
+
+        });*/
+    this->addChild(startButton2);
+
+    // 创建按钮: 菜谱2 树莓
+    auto startButton3 = cocos2d::ui::Button::create("photo/InternalHouse/berries.png");
+    startButton3->setPosition(Vec2(screenSize.width / 8, 2 * screenSize.height / 4 ));
+    startButton3->setScale(3.0f); // 设置按钮大小
+    if (mainPlayer->cookingLevel >= 2) {
+        startButton3->setVisible(true);
+    }
+    else
+        startButton3->setVisible(false);
+
+    /*startButton3->addClickEventListener([=](Ref* sender) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::SHUMEI)) >= 1) {
+            storage.removeItem(StorageID::SHUMEI, 1);
+            storage.addItem(StorageID::BERRIES, 1);
+        }
+        else {
+            auto label = cocos2d::Label::createWithSystemFont("Ingredients Insufficient", "Arial", 40);
+            label->setPosition(cocos2d::Vec2(screenSize.width / 2, screenSize.height / 2));  // 屏幕中心
+            label->setTextColor(cocos2d::Color4B::RED);  // 设置文字颜色为红色
+            this->addChild(label);
+
+            // 提示显示完毕后，2秒后移除提示
+            this->scheduleOnce([=](float dt) {
+                this->removeChild(label);
+                }, 2.0f, "remove_no_tool");
+        }
+
+        });*/
+    this->addChild(startButton3);
+
+    // 创建按钮: 菜谱3 水煮鱼
+    auto startButton4 = cocos2d::ui::Button::create("photo/InternalHouse/cooked_fish.png");
+    startButton4->setPosition(Vec2(screenSize.width / 8, 2 * screenSize.height / 4-50));
+    startButton4->setScale(3.0f); // 设置按钮大小
+    if (mainPlayer->cookingLevel >= 3) {
+        startButton4->setVisible(true);
+    }
+    else
+        startButton4->setVisible(false);
+    /*startButton4->addClickEventListener([=](Ref* sender) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::FISH_A)) >= 1) {
+            storage.removeItem(StorageID::FISH_A, 1);
+            storage.addItem(StorageID::COOKED_FISH, 1);
+        }
+        else {
+            auto label = cocos2d::Label::createWithSystemFont("Ingredients Insufficient", "Arial", 40);
+            label->setPosition(cocos2d::Vec2(screenSize.width / 2, screenSize.height / 2));  // 屏幕中心
+            label->setTextColor(cocos2d::Color4B::RED);  // 设置文字颜色为红色
+            this->addChild(label);
+
+            // 提示显示完毕后，2秒后移除提示
+            this->scheduleOnce([=](float dt) {
+                this->removeChild(label);
+                }, 2.0f, "remove_no_tool");
+        }
+        });*/
+    this->addChild(startButton4);
+
+    // 创建按钮: 菜谱4 啤酒
+    auto startButton5 = cocos2d::ui::Button::create("photo/InternalHouse/beer.png");
+    startButton5->setPosition(Vec2(screenSize.width / 8, 2 * screenSize.height / 4-100));
+    startButton5->setScale(3.0f); // 设置按钮大小
+    if (mainPlayer->cookingLevel >= 3) {
+        startButton5->setVisible(true);
+    }
+    else
+        startButton5->setVisible(false);
+    /*startButton5->addClickEventListener([=](Ref* sender) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::XIAOMAI)) >= 2) {
+            storage.removeItem(StorageID::XIAOMAI, 2);
+            storage.addItem(StorageID::BEER, 1);
+        }
+        else {
+            auto label = cocos2d::Label::createWithSystemFont("Ingredients Insufficient", "Arial", 40);
+            label->setPosition(cocos2d::Vec2(screenSize.width / 2, screenSize.height / 2));  // 屏幕中心
+            label->setTextColor(cocos2d::Color4B::RED);  // 设置文字颜色为红色
+            this->addChild(label);
+
+            // 提示显示完毕后，2秒后移除提示
+            this->scheduleOnce([=](float dt) {
+                this->removeChild(label);
+                }, 2.0f, "remove_no_tool");
+        }
+
+        });*/
+    this->addChild(startButton5);
+
     // 监听键盘事件
     auto keyboardListener = EventListenerKeyboard::create();
     keyboardListener->onKeyPressed = CC_CALLBACK_2(FarmhouseScene::onKeyPressed, this);
-    keyboardListener->onKeyReleased = CC_CALLBACK_2(FarmhouseScene::onKeyReleased, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(keyboardListener, this);
 
     return true;

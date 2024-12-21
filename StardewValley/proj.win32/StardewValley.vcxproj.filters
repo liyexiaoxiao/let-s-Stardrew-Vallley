@@ -215,5 +215,8 @@
     <Image Include="..\Resources\photo\Map\summer_outdoorsTileSheet.es-ES.png">
       <Filter>resource</Filter>
     </Image>
+    <Image Include="..\Resources\photo\InternalHouse\boiled_egg.jpg">
+      <Filter>resource</Filter>
+    </Image>
   </ItemGroup>
 </Project>

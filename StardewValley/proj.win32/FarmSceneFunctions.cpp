@@ -82,9 +82,9 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
         // 获取点击位置的状态
         int adjustedX = tileX - offsetX;
         int adjustedY = tileY - offsetY;
-
+        const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
         // 开垦土地
-        if (mainPlayer->Heldtool == 1 && !tilledLand[adjustedY][adjustedX]) {
+        if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT&&mainPlayer->Heldtool == 1 && !tilledLand[adjustedY][adjustedX]) {
             TilledLand::tillLand(tileX, tileY, Farmmap, tilledLand);
         }
         // 种植作物
@@ -113,11 +113,11 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
                 }
 
             }
-            if (mainPlayer->Heldtool == 3 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
+            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 3 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
                 plantedCrops[adjustedY][adjustedX]->water();
                 WateredLand::waterLand(tileX, tileY, Farmmap, wateredLand);
             }
-            if (mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isMature()) {
+            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isMature()) {
 
                 switch (plantedCrops[adjustedY][adjustedX]->croptype) {
                 case 1:
