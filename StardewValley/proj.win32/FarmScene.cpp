@@ -40,13 +40,16 @@ FarmScene* FarmScene::create() {
 bool FarmScene::init() {
 
     // 加载地图
-    Farmmap = cocos2d::TMXTiledMap::create("photo/Map/0farmsoilground2048x2048.tmx");
-    // 设置缩放因子为 4.0f--此后每一次计算位置都要考量farmscale
-    //Farmmap->setScale(farmscale);
-    //Farmmap->setContentSize(cocos2d::Size(2048, 2048));//设置大小
+    Farmmap = cocos2d::TMXTiledMap::create("photo/Map/farmsoilground.tmx");
     const auto visibleSize = cocos2d::Director::getInstance()->getVisibleSize();
-    Farmmap->setPosition(visibleSize.width / 2 - Farmmap->getContentSize().width / 2,
-        visibleSize.height / 2 - Farmmap->getContentSize().height / 2);
+    // 计算32x32瓦片区域的中心位置
+    float mapCenterX = 32 * 64 / 2;
+    float mapCenterY = 32 * 64 / 2;
+    // 将地图的位置设置为，使得32x32个瓦片区域的中心对齐屏幕中心
+    Farmmap->setPosition(
+        visibleSize.width / 2 - mapCenterX,
+        visibleSize.height / 2 - mapCenterY * 3
+    );
     this->addChild(Farmmap);
 
     // 获取不同的图层
@@ -56,7 +59,7 @@ bool FarmScene::init() {
 
     // 创建玩家
     mainPlayer = Player::create("photo/Character/PlayerFront1.png");
-    mainPlayer->setPosition(visibleSize.width / 2, visibleSize.height / 4); // 玩家在屏幕中心
+    mainPlayer->setPosition(visibleSize.width / 2, visibleSize.height / 2); // 玩家在屏幕中心
     mainPlayer->setScale(1.0f);
     this->addChild(mainPlayer);
 
@@ -180,7 +183,6 @@ bool FarmScene::init() {
     startButton2->addClickEventListener([=](Ref* sender) {
         // 切换到 ExploreScene 场景
         //onExit();
-     
         auto exploreScene = ExploreScene::create();  // 创建新场景
         auto transition = cocos2d::TransitionFade::create(1.0f, exploreScene, cocos2d::Color3B::WHITE);  // 创建切换过渡效果
         cocos2d::Director::getInstance()->replaceScene(transition);  // 执行场景替换

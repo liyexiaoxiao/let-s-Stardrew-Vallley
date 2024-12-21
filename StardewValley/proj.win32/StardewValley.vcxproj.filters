@@ -179,4 +179,41 @@
       <Filter>resource</Filter>
     </ResourceCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Resources\photo\Map\64x64soilpiece.tsx">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\photo\Map\architecture.tsx">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\photo\Map\exploremap2560x2560.tmx">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\photo\Map\farmraw.tsx">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\photo\Map\mine.tsx">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\photo\Map\mineraw.tsx">
+      <Filter>resource</Filter>
+    </None>
+    <None Include="..\Resources\photo\Map\summeraw.tsx">
+      <Filter>resource</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\photo\Map\FarmInit.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\photo\Map\mine.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\photo\Map\spring_outdoorsTileSheet.es-ES.png">
+      <Filter>resource</Filter>
+    </Image>
+    <Image Include="..\Resources\photo\Map\summer_outdoorsTileSheet.es-ES.png">
+      <Filter>resource</Filter>
+    </Image>
+  </ItemGroup>
 </Project>
