@@ -31,6 +31,9 @@
     <Filter Include="src\Task">
       <UniqueIdentifier>{e03efd37-c0d4-416b-b364-13cd11fe60ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Adventure">
+      <UniqueIdentifier>{cb24f175-1d9b-4db4-b5ff-74976089784f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,6 +101,15 @@
     </ClCompile>
     <ClCompile Include="ItemStorage.cpp">
       <Filter>src\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="RepairBuilding.cpp">
+      <Filter>src\Adventure</Filter>
+    </ClCompile>
+    <ClCompile Include="Chicken.cpp">
+      <Filter>src\Adventure</Filter>
+    </ClCompile>
+    <ClCompile Include="Chickencoop.cpp">
+      <Filter>src\Adventure</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -172,6 +184,15 @@
     </ClInclude>
     <ClInclude Include="ItemStorage.h">
       <Filter>src\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="RepairBuilding.h">
+      <Filter>src\Adventure</Filter>
+    </ClInclude>
+    <ClInclude Include="Chicken.h">
+      <Filter>src\Adventure</Filter>
+    </ClInclude>
+    <ClInclude Include="Chickencoop.h">
+      <Filter>src\Adventure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

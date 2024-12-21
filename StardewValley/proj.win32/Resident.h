@@ -15,7 +15,6 @@ protected:
     cocos2d::Label* nameLabel;
 
 public:
- 
     // NPC 的构造函数和析构函数
     Resident();
     virtual ~Resident();

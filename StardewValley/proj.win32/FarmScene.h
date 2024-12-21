@@ -4,6 +4,7 @@
 #ifndef __FARM_SCENE_H__
 #define __FARM_SCENE_H__
 
+
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 #include "Tool.h"       // 假设有 Tool 类
@@ -11,13 +12,16 @@
 #include "player.h"    //玩家类
 #include "Farmer.h"    //农民类
 #include "NPCinfo.h"   //npcUI面板
-#include "Tree.h"
-#include "tilledLand.h"
-#include "WateredLand.h"
+#include "Tree.h"//农场--树（可砍伐）
+#include"Chickencoop.h" //鸡舍实现
+#include "tilledLand.h"//瓦片土地
+#include "WateredLand.h"//水资源
 #include "Crop.h"    //农作物类
 #include "MenuLayer.h"//菜单界面
-#include "Toolbar.h" 
-#define farmscale 4
+#include "Toolbar.h" //工具栏
+#include "RepairBuilding.h"//修复建筑/菜单界面
+
+
 
 class FarmScene : public cocos2d::Scene {
 public:
@@ -42,6 +46,7 @@ public:
 
     // 检查是否与围墙发生碰撞
     bool isColliding(const cocos2d::Vec2& newPos);  // 声明碰撞检测函数
+    bool isColliding2(const cocos2d::Vec2& newPos);  // 声明碰撞检测函数
 
     //鼠标点击事件的控制
     void onMouseClicked(cocos2d::Event* event);
@@ -76,6 +81,7 @@ private:
     cocos2d::TMXTiledMap* Farmmap;   // 地图对象，改为 Tiled 地图
     cocos2d::TMXLayer* groundLayer;  // 地面层
     cocos2d::TMXLayer* wallLayer;    // 围墙层
+    cocos2d::TMXLayer* wallLayer2;    // 围墙层2
 
     //场景转化相关
     cocos2d::ui::Button* startButton;  // 声明按钮变量--进入室内
@@ -105,6 +111,10 @@ private:
     //农场实现后续功能相关
     //std::vector<Tool*> tools;      // 工具列表
     std::vector<Tree*> trees; //树列表
+    ChickenCoop* coop;
+
+    //修复建筑相关
+    RepairBuilding* market;
 
     //交互相关
     //长按键盘相关

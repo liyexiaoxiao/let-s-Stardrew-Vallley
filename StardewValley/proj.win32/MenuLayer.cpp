@@ -29,35 +29,31 @@ bool MenuLayer::init() {
     auto BGSize = MenuBG->getBoundingBox();
     auto BasicButtonPos = cocos2d::Vec2(BGSize.origin.x + 50, BGSize.origin.y + BGSize.size.height + 25);
     auto BasicButton = Tool.createButton("photo/ui/basic.png", BasicButtonPos, 3.2f);
-    BasicButton->setLocalZOrder(2);
     BasicButton->addClickEventListener([this](Ref* sender) {
         this->showPanel(1);  // 显示面板1
         });
-    this->addChild(BasicButton);
+    this->addChild(BasicButton,2);
 
     auto STButtonPos = cocos2d::Vec2(BasicButtonPos.x + 50, BasicButtonPos.y);
     auto STButton = Tool.createButton("photo/ui/storage.png", STButtonPos, 3.2f);
-    STButton->setLocalZOrder(2);
     STButton->addClickEventListener([this](Ref* sender) {
         this->showPanel(2);  // 显示面板2
         });
-    this->addChild(STButton);
+    this->addChild(STButton,2);
 
     auto SKButtonPos = cocos2d::Vec2(STButtonPos.x + 50, STButtonPos.y);
     auto SKButton = Tool.createButton("photo/ui/skill.png", SKButtonPos, 0.8f);
-    SKButton->setLocalZOrder(2);
     SKButton->addClickEventListener([this](Ref* sender) {
         this->showPanel(3);  // 显示面板3
         });
-    this->addChild(SKButton);
+    this->addChild(SKButton,2);
 
     auto EXButtonPos = cocos2d::Vec2(SKButtonPos.x + 50, SKButtonPos.y);
     auto EXButton = Tool.createButton("photo/ui/exit.png", EXButtonPos, 3.2f);
-    EXButton->setLocalZOrder(2);
     EXButton->addClickEventListener([this](Ref* sender) {
         this->showPanel(4);  // 显示面板4
         });
-    this->addChild(EXButton);
+    this->addChild(EXButton,2);
 
     // 初始时菜单隐藏
     this->setVisible(isVisible);
@@ -94,17 +90,42 @@ void MenuLayer::showPanel(int index) {
     panel3->setVisible(false);
     panel4->setVisible(false);
 
-    // 根据索引显示相应的面板
     if (index == 1) {
+        this->removeChild(panel1);
+        panel1 = nullptr;
+    }
+    else if (index == 2) {
+        this->removeChild(panel2);
+        panel2 = nullptr;
+    }
+    else if (index == 3) {
+        this->removeChild(panel3);
+        panel3 = nullptr;
+    }
+    else if (index == 4) {
+        this->removeChild(panel4);
+        panel4 = nullptr;
+    }
+
+    // 重新创建对应的面板
+    if (index == 1) {
+        panel1 = createPanel(1);  // 重新生成面板1
+        this->addChild(panel1,2);
         panel1->setVisible(true);
     }
     else if (index == 2) {
+        panel2 = createPanel(2);  // 重新生成面板2
+        this->addChild(panel2,2);
         panel2->setVisible(true);
     }
     else if (index == 3) {
+        panel3 = createPanel(3);  // 重新生成面板3
+        this->addChild(panel3,2);
         panel3->setVisible(true);
     }
     else if (index == 4) {
+        panel4 = createPanel(4);  // 重新生成面板4
+        this->addChild(panel4,2);
         panel4->setVisible(true);
     }
 }
@@ -200,25 +221,25 @@ cocos2d::Layer* MenuLayer::createPanel(int panelIndex) {
         auto FLevelPos = cocos2d::Vec2(MLevelPos.x, MLevelPos.y - 50);
         auto CLevelPos = cocos2d::Vec2(FLevelPos.x, FLevelPos.y - 50);
         for (int i = 0; i < mainPlayer->agricultureLevel; i++) {
-            auto currentPos = cocos2d::Vec2(ALevelPos.x + i * 10, ALevelPos.y);
+            auto currentPos = cocos2d::Vec2(ALevelPos.x + i * 30, ALevelPos.y);
             auto point = Tool.addImageToScene("photo/ui/point.png", currentPos, 1.0f);
             point->setLocalZOrder(5);
             panel->addChild(point);
         }
         for (int i = 0; i < mainPlayer->miningLevel; i++) {
-            auto currentPos = cocos2d::Vec2(MLevelPos.x + i * 10, MLevelPos.y);
+            auto currentPos = cocos2d::Vec2(MLevelPos.x + i * 30, MLevelPos.y);
             auto point = Tool.addImageToScene("photo/ui/point.png", currentPos, 1.0f);
             point->setLocalZOrder(5);
             panel->addChild(point);
         }
         for (int i = 0; i < mainPlayer->fishingLevel; i++) {
-            auto currentPos = cocos2d::Vec2(FLevelPos.x + i * 10, FLevelPos.y);
+            auto currentPos = cocos2d::Vec2(FLevelPos.x + i * 30, FLevelPos.y);
             auto point = Tool.addImageToScene("photo/ui/point.png", currentPos, 1.0f);
             point->setLocalZOrder(5);
             panel->addChild(point);
         }
         for (int i = 0; i < mainPlayer->cookingLevel; i++) {
-            auto currentPos = cocos2d::Vec2(CLevelPos.x + i * 10, CLevelPos.y);
+            auto currentPos = cocos2d::Vec2(CLevelPos.x + i * 30, CLevelPos.y);
             auto point = Tool.addImageToScene("photo/ui/point.png", currentPos, 1.0f);
             point->setLocalZOrder(5);
             panel->addChild(point);
