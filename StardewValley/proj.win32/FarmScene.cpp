@@ -1,4 +1,4 @@
-//农场地图功能完善
+    //农场地图功能完善
 #include "FarmScene.h"
 #include "Clock.h"
 #include "tilledLand.h"
@@ -55,6 +55,7 @@ bool FarmScene::init() {
     // 获取不同的图层
     groundLayer = Farmmap->getLayer("layer1ground");  // 地面层
     wallLayer = Farmmap->getLayer("layer2wall");      // 围墙层
+    wallLayer2 = Farmmap->getLayer("layer2wall2");//2
 
 
     // 创建玩家
@@ -114,8 +115,19 @@ bool FarmScene::init() {
     // 初始化所有土地未开垦
     int mapWidth = groundLayer->getLayerSize().width;
     int mapHeight = groundLayer->getLayerSize().height;
-    plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr));
-    tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
+   
+    //创建鸡舍
+    coop= ChickenCoop::create();
+    coop->setPosition(cocos2d::Vec2(1900, 300));  // 设置鸡舍的地图坐标
+    this->addChild(coop);  //加入鸡舍子节点
+
+
+    //创建冒险地图相关元素
+  //修复建筑
+    market = RepairBuilding::create("photo/Adventure/uncompletedBuilding.png", "photo/Adventure/completedmarket.png");
+    market->setPosition(cocos2d::Vec2(-1, -1300));  // 设置建筑物的位置
+    this->addChild(market);  // 将建筑物添加到场景中
+    interactiveElements.push_back(market);//可点击交互
 
 
     // 更新函数
@@ -129,9 +141,23 @@ bool FarmScene::init() {
     this->addChild(clock);
 
     // 初始化 plantedCrops
-    wateredLand.resize(mapHeight, std::vector<WateredLand*>(mapWidth, nullptr));
-    plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr)); 
-    tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
+    
+    // 检查并初始化 wateredLand
+    if (wateredLand.size() != mapHeight ||wateredLand[0].size() != mapWidth) {
+        wateredLand.resize(mapHeight, std::vector<WateredLand*>(mapWidth, nullptr));
+    }
+
+    // 检查并初始化 plantedCrops
+    if (plantedCrops.size() != mapHeight || plantedCrops[0].size() != mapWidth) {
+        plantedCrops.resize(mapHeight, std::vector<Crop*>(mapWidth, nullptr));
+    }
+
+    // 检查并初始化 tilledLand
+    if (tilledLand.size() != mapHeight || tilledLand[0].size() != mapWidth||clock->getGameTime()==0) {
+        tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
+    }
+   
+   
 
     // 创建菜单层并添加到场景中
     menuLayer = MenuLayer::create();

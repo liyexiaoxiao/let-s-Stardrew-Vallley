@@ -31,6 +31,9 @@
     <Filter Include="src\Task">
       <UniqueIdentifier>{e03efd37-c0d4-416b-b364-13cd11fe60ea}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Adventure">
+      <UniqueIdentifier>{cb24f175-1d9b-4db4-b5ff-74976089784f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,6 +65,9 @@
     </ClCompile>
     <ClCompile Include="Resident.cpp">
       <Filter>src\Character\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCinfo.cpp">
+      <Filter>src\UI</Filter>
     </ClCompile>
     <ClCompile Include="Crop.cpp">
       <Filter>src\Farm</Filter>
@@ -96,8 +102,14 @@
     <ClCompile Include="ItemStorage.cpp">
       <Filter>src\UI</Filter>
     </ClCompile>
-    <ClCompile Include="NPCinfo.cpp">
-      <Filter>src\Character\NPC</Filter>
+    <ClCompile Include="RepairBuilding.cpp">
+      <Filter>src\Adventure</Filter>
+    </ClCompile>
+    <ClCompile Include="Chicken.cpp">
+      <Filter>src\Adventure</Filter>
+    </ClCompile>
+    <ClCompile Include="Chickencoop.cpp">
+      <Filter>src\Adventure</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +149,9 @@
     <ClInclude Include="Task.h">
       <Filter>src\Task</Filter>
     </ClInclude>
+    <ClInclude Include="NPCinfo.h">
+      <Filter>src\UI</Filter>
+    </ClInclude>
     <ClInclude Include="InteractiveElement.h">
       <Filter>src\UI</Filter>
     </ClInclude>
@@ -170,8 +185,14 @@
     <ClInclude Include="ItemStorage.h">
       <Filter>src\UI</Filter>
     </ClInclude>
-    <ClInclude Include="NPCinfo.h">
-      <Filter>src\Character\NPC</Filter>
+    <ClInclude Include="RepairBuilding.h">
+      <Filter>src\Adventure</Filter>
+    </ClInclude>
+    <ClInclude Include="Chicken.h">
+      <Filter>src\Adventure</Filter>
+    </ClInclude>
+    <ClInclude Include="Chickencoop.h">
+      <Filter>src\Adventure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

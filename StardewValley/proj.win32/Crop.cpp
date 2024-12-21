@@ -7,6 +7,24 @@ Crop::Crop(const std::string& name, const std::vector<std::string>& stages)
     : name(name), currentStage(0), stages(stages) {
     // 创建作物的第一个阶段（种子）
     sprite = Sprite::create(stages[0]);
+    switch (bestseason=1) {
+    case 1:Bestseason = "Spring";
+        break;
+    case 2:Bestseason = "Summer";
+        break;
+    case 3:Bestseason = "Autumn";
+        break;
+    case 4:Bestseason = "Winter";
+        break;
+    }
+
+    Clock* clock = Clock::getInstance();
+    if (Bestseason == clock->getSeason()) {
+        neededwatereddays = 1;
+    }
+    else
+        neededwatereddays = 2;
+        
     this->addChild(sprite); // 将作物精灵添加到节点中
 }
 
@@ -19,7 +37,7 @@ Crop::~Crop() {
 
 void Crop::grow() {
     // 如果作物尚未成熟，增加阶段并更新精灵图像
-    if (currentStage < stages.size() - 1) {
+    if (currentStage < stages.size() - 2) {
         currentStage++;
         sprite->setTexture(stages[currentStage]); // 更换精灵的图片
     }
@@ -27,7 +45,7 @@ void Crop::grow() {
 
 bool Crop::isMature() const {
     // 判断作物是否已经成熟
-    return currentStage == stages.size() - 1;
+    return currentStage == stages.size() - 2;
 }
 
 Sprite* Crop::getSprite() const {
@@ -40,17 +58,26 @@ void Crop::setPosition(cocos2d::Vec2 position) {
 
 void Crop::water() {
     // 如果作物还没成熟，则让其成长到下一个阶段
-    if (currentStage < stages.size() - 1) {
-        currentStage++;
-        sprite->setTexture(stages[currentStage]); // 更新作物图像
-    }
     watered = true;  // 标记为已浇水
+    Clock* clock = Clock::getInstance();
+    if (clock->getGameTime() == 0) {
+        watereddays++;
+        if (watereddays == neededwatereddays) { 
+            grow();
+        }
+       
+    }
    
 }
 
 void Crop::resetWatered() {
-        watered = false;  // 每天结束时重置浇水状态
-    
+    Clock* clock = Clock::getInstance();
+    if (clock->getGameTime() == 0 && watered == 0) {
+        sprite->setTexture(stages[stages.size()-1]);// 前一天未浇水，植物枯萎
+    }
+    if (clock->getGameTime() == 0 && watered == 1) {
+        watered = false;  // 每天开始时重置浇水状态
+    }
 }
 
 Crop* Crop::plantSeed(int x, int y, cocos2d::TMXTiledMap* map,
@@ -74,19 +101,19 @@ Crop* Crop::plantSeed(int x, int y, cocos2d::TMXTiledMap* map,
     switch (cropType) {
     case 1:
         cropStages = { "photo/Farm/crop1_seed.png", "photo/Farm/crop1_growing1.png",
-                       "photo/Farm/crop1_growing2.png", "photo/Farm/crop1_mature.png" };
+                       "photo/Farm/crop1_growing2.png", "photo/Farm/crop1_mature.png", "photo/Farm/wilted_crop.png" };
         break;
     case 2:
         cropStages = { "photo/Farm/crop2_seed.png", "photo/Farm/crop2_growing1.png",
-                       "photo/Farm/crop2_growing2.png", "photo/Farm/crop2_growing3.png","photo/Farm/crop2_mature.png" };
+                       "photo/Farm/crop2_growing2.png", "photo/Farm/crop2_growing3.png","photo/Farm/crop2_mature.png", "photo/Farm/wilted_crop.png" };
         break;
     case 3:
         cropStages = { "photo/Farm/crop3_seed.png", "photo/Farm/crop3_growing1.png",
-                       "photo/Farm/crop3_growing2.png", "photo/Farm/crop3_growing3.png","photo/Farm/crop3_mature.png" };
+                       "photo/Farm/crop3_growing2.png", "photo/Farm/crop3_growing3.png","photo/Farm/crop3_mature.png", "photo/Farm/wilted_crop.png" };
         break;
     case 4:
         cropStages = { "photo/Farm/crop4_seed.png", "photo/Farm/crop4_growing1.png",
-                       "photo/Farm/crop4_growing2.png", "photo/Farm/crop4_mature.png" };
+                       "photo/Farm/crop4_growing2.png", "photo/Farm/crop4_mature.png", "photo/Farm/wilted_crop.png" };
         break;
     default:
         return nullptr; // 如果 cropType 无效，返回 nullptr
@@ -94,6 +121,8 @@ Crop* Crop::plantSeed(int x, int y, cocos2d::TMXTiledMap* map,
 
     // 创建作物对象
     Crop* newCrop = new Crop("Crop", cropStages);
+    newCrop->croptype = cropType;
+    newCrop->bestseason = cropType;
 
     // 获取瓦片的大小
     cocos2d::Size tileSize = map->getTileSize();

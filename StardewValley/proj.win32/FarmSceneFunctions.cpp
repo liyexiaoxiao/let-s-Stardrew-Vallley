@@ -5,6 +5,9 @@
 #include "Crop.h"
 #include "cocos2d.h"
 #include "MenuLayer.h"
+#include "ItemStorage.h"
+#include "ItemIDs.h"
+
 using namespace cocos2d;
 extern Player* mainPlayer;
 
@@ -56,6 +59,8 @@ int FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
 }
 
 void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
+    ItemStorage& storage = ItemStorage::getInstance();
+
     // 获取鼠标点击位置
     const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
     cocos2d::Vec2 clickPos = mouseEvent->getLocation();
@@ -84,18 +89,53 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
         }
         // 种植作物
         else if (mainPlayer->Heldseed > 0) {
-            Crop* crop = plantedCrops[adjustedY][adjustedX];
-            if (tilledLand[adjustedY][adjustedX] && plantedCrops[adjustedY][adjustedX] == nullptr) {
-                // 调用种植方法
-                Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops, mainPlayer->Heldseed);
+            const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
+            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_RIGHT) {
+                // 如果是右键点击
+                Crop* crop = plantedCrops[adjustedY][adjustedX];
+                if (tilledLand[adjustedY][adjustedX] && plantedCrops[adjustedY][adjustedX] == nullptr) {
+                    // 调用种植方法
+                    Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops, mainPlayer->Heldseed);
+                    switch (plantedCrops[adjustedY][adjustedX]->croptype) {
+                    case 1:
+                        storage.addItem(StorageID::FANGFENGCAO, 1);
+                        break;
+                    case 2:
+                        storage.addItem(StorageID::SHUMEI, 1);
+                        break;
+                    case 3:
+                        storage.addItem(StorageID::NANGUA, 1);
+                        break;
+                    case 4:
+                        storage.addItem(StorageID::XIAOMAI, 1);
+                        break;
+                    };
+                }
+
             }
-            
-        }
-        if (mainPlayer->Heldtool == 3 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
+            if (mainPlayer->Heldtool == 3 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
+                plantedCrops[adjustedY][adjustedX]->water();
+                WateredLand::waterLand(tileX, tileY, Farmmap, wateredLand);
+            }
+            if (mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isMature()) {
 
-
-            plantedCrops[adjustedY][adjustedX]->water();
-            WateredLand::waterLand(tileX, tileY, Farmmap, wateredLand);
+                switch (plantedCrops[adjustedY][adjustedX]->croptype) {
+                case 1:
+                    storage.addItem(StorageID::FANGFENGCAO, 1);
+                    break;
+                case 2:
+                    storage.addItem(StorageID::SHUMEI, 1);
+                    break;
+                case 3:
+                    storage.addItem(StorageID::NANGUA, 1);
+                    break;
+                case 4:
+                    storage.addItem(StorageID::XIAOMAI, 1);
+                    break;
+                };
+                plantedCrops[adjustedY][adjustedX]->removeFromParent();
+                plantedCrops[adjustedY][adjustedX] = nullptr;
+            }
         }
     }
 }
@@ -157,18 +197,19 @@ void FarmScene::moveMap(float deltaX, float deltaY) {
     const cocos2d::Vec2 newPlayerPos = playerPos - cocos2d::Vec2(deltaX, deltaY);
 
     // 判断玩家是否碰到围墙
-    if (!isColliding(newPlayerPos)) {
+    if (!isColliding(newPlayerPos) && !isColliding2(newPlayerPos)) {
         // 如果没有碰到围墙，更新玩家位置
+         // 如果没有碰到围墙，更新玩家位置
         const cocos2d::Vec2 newPos = Farmmap->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         Farmmap->setPosition(newPos);
-
+        //NPC
         const cocos2d::Vec2 farmerPosition = farmer->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         farmer->setPosition(farmerPosition);
         const cocos2d::Vec2 fishermanPosition = fisherman->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         fisherman->setPosition(fishermanPosition);
         const cocos2d::Vec2 breederPosition = breeder->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         breeder->setPosition(breederPosition);
-
+        //按钮
         const cocos2d::Vec2 buttonPosition = startButton->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         startButton->setPosition(buttonPosition);
         const cocos2d::Vec2 buttonPosition2 = startButton2->getPosition() + cocos2d::Vec2(deltaX, deltaY);
@@ -179,6 +220,11 @@ void FarmScene::moveMap(float deltaX, float deltaY) {
             const cocos2d::Vec2 newTreePos = tree->getPosition() + cocos2d::Vec2(deltaX, deltaY);
             tree->setPosition(newTreePos);  // 设置树的新位置
         }
+        //建筑
+        const cocos2d::Vec2 marketPosition = market->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+        market->setPosition(marketPosition);
+        const cocos2d::Vec2 coopPosition = coop->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+        coop->setPosition(coopPosition);
     }
 }
 void FarmScene::update(float deltaTime) {
@@ -237,3 +283,46 @@ bool FarmScene::isColliding(const cocos2d::Vec2& newPos) {
     // 没有碰撞
     return false;
 }
+
+bool FarmScene::isColliding2(const cocos2d::Vec2& newPos) {
+    // 获取玩家的边界框（Bounding Box）
+    cocos2d::Rect playerBoundingBox = mainPlayer->getBoundingBox();
+
+    // 获取瓦片的大小
+    const cocos2d::Size tileSize = Farmmap->getTileSize();
+    const float tileWidth = tileSize.width;
+    const float tileHeight = tileSize.height;
+
+    // 计算新位置
+    const cocos2d::Vec2 mapSpacePos = Farmmap->convertToNodeSpace(newPos);  // 将屏幕坐标转换为地图坐标
+    // 调整Y坐标（反转Y轴）
+    const float adjustedY = Farmmap->getContentSize().height - mapSpacePos.y;
+
+    // 获取玩家在新位置时的边界框
+    playerBoundingBox.origin = cocos2d::Vec2(mapSpacePos.x, adjustedY);
+
+    // 遍历围墙图层的所有瓦片，检查是否与玩家的边界框相交
+    const int layerWidth = wallLayer2->getLayerSize().width;
+    const int layerHeight = wallLayer2->getLayerSize().height;
+
+    for (int x = 0; x < layerWidth; ++x) {
+        for (int y = 0; y < layerHeight; ++y) {
+            const auto tile = wallLayer2->getTileAt(cocos2d::Vec2(x, y));
+
+            if (tile) {
+                // 获取瓦片的边界框
+                const cocos2d::Rect tileBoundingBox(x * tileWidth, y * tileHeight, tileWidth, tileHeight);
+
+                // 判断瓦片的边界框是否与玩家的边界框重叠
+                if (playerBoundingBox.intersectsRect(tileBoundingBox)) {
+                    // 如果重叠，表示玩家与围墙发生碰撞
+                    return true;
+                }
+            }
+        }
+    }
+
+    // 没有碰撞
+    return false;
+}
+

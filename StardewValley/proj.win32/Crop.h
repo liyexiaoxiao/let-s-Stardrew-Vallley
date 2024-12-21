@@ -13,11 +13,14 @@ private:
     cocos2d::Sprite* sprite;
     bool watered;// 是否被浇水的标志
     int bestseason;
+    std::string Bestseason;
 
 public:
     Crop(const std::string& name, const std::vector<std::string>& stages);
     ~Crop();
-
+    int croptype;
+    int watereddays=0;
+    int neededwatereddays;
     void grow();
     bool isMature() const;
     cocos2d::Sprite* getSprite() const;
@@ -29,7 +32,6 @@ public:
         std::vector<std::vector<Crop*>>& plantedCrops,
         int cropType); // 添加 cropType 参数
 
-    static void updateTileTexture(cocos2d::TMXTiledMap* map, int x, int y, bool watered);
 
 };
 #endif // CROP_H_
