@@ -214,7 +214,7 @@ bool FarmScene::init() {
     shop->setVisible(false);
     this->addChild(shop, 13);
     // 创建商店按钮
-    ShopButton = Tool.createButton("photo/storage/openshop.png", cocos2d::Vec2(2800, 200), 1.0f);
+    ShopButton = Tool.createButton("photo/storage/openshop.png", cocos2d::Vec2(2200, 200), 1.0f);
     ShopButton->addClickEventListener([=](cocos2d::Ref* sender) {
         if (shop->isVisible()) {
             shop->hide();  // 如果任务栏已经可见，则隐藏它
