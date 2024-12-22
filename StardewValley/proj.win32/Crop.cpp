@@ -74,9 +74,9 @@ void Crop::shifei() {
 void Crop::resetWatered() {
     if (watered == true) {
         watereddays++;
-        //if (watereddays == neededwatereddays) {
+        if (watereddays == neededwatereddays) {
             grow();
-        //}
+        }
     }
     watered = false;
     
