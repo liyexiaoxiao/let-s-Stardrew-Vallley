@@ -6,6 +6,7 @@
 struct Task {
     std::string title;
     std::string status;  // 任务的状态，如 "In Progress" 或 "Completed"
+    int number;
     cocos2d::ui::Button* button;  // 任务对应的按钮
 };
 
@@ -37,10 +38,9 @@ public:
     // 添加任务
     void addTask(const std::string& title, const std::string& RenPhoto, const std::string& CailiaoPhoto, int CailiaoNum,int taskNum);
     // 任务点击事件
-    void onTaskClicked(const std::string& taskTitle, cocos2d::ui::Button* taskButton);
-    // 更新任务状态
-    void updateTaskStatus(const std::string& taskTitle, const std::string& newStatus);
-
+    void onTaskClicked(const std::string& taskTitle, cocos2d::ui::Button* taskButton, int taskNum);
+    //任务完成逻辑
+    bool if_can_complete(int taskNum);
 private:
     static TaskBar* instance;  // 单例实例
     bool visible;  // 记录任务栏的显示状态

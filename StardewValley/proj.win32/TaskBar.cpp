@@ -1,8 +1,9 @@
 #include "TaskBar.h"
-
+#include "player.h"
+#include "ItemStorage.h"
 // 定义静态成员变量
 TaskBar* TaskBar::instance = nullptr;
-
+extern Player* mainPlayer;
 // 初始化
 bool TaskBar::init() {
     if (!Layer::init()) {
@@ -33,24 +34,20 @@ bool TaskBar::init() {
 
     return true;
 }
-
 // 显示任务栏
 void TaskBar::show() {
     this->setVisible(true);
     visible = true;
 }
-
 // 隐藏任务栏
 void TaskBar::hide() {
     this->setVisible(false);
     visible = false;
 }
-
 // 检查任务栏当前是否可见
 bool TaskBar::isVisible() const {
     return visible;
 }
-
 // 添加任务
 void TaskBar::addTask(const std::string& title, const std::string& RenPhoto, const std::string& CailiaoPhoto, int CailiaoNum, int taskNum) {
     Tools Tool;
@@ -70,8 +67,8 @@ void TaskBar::addTask(const std::string& title, const std::string& RenPhoto, con
     float posY = visibleSize.width / 2 - 400;
     posY += ((taskNum-1) % 5) * 60;
     taskButton->setPosition(cocos2d::Vec2(posX, posY));  // 设定按钮位置
-    taskButton->addClickEventListener([this, title, taskButton](cocos2d::Ref* sender) {
-        onTaskClicked(title, taskButton);  // 传递按钮引用
+    taskButton->addClickEventListener([this, title, taskButton,taskNum](cocos2d::Ref* sender) {
+        onTaskClicked(title, taskButton,taskNum);  // 传递按钮引用
         });
     //任务相关信息放置
     float Scale = 0.8f;
@@ -88,35 +85,126 @@ void TaskBar::addTask(const std::string& title, const std::string& RenPhoto, con
     task.title = title;
     task.status = "In Progress";
     task.button = taskButton;
+    task.number = taskNum;
 
     taskList.push_back(task);
     this->addChild(taskButton, 100);  // 直接将按钮添加到Layer
 
     // 更新任务栏高度，如果需要的话，你可以调整显示区域的高度
 }
-
 // 任务点击事件
-void TaskBar::onTaskClicked(const std::string& taskTitle, cocos2d::ui::Button* taskButton) {
+void TaskBar::onTaskClicked(const std::string& taskTitle, cocos2d::ui::Button* taskButton,int taskNum) {
     // 查找对应的任务
     for (auto& task : taskList) {
         if (task.title == taskTitle) {
-            // 更新任务状态
-            task.status = "Completed";  // 修改为已完成
-            taskButton->setTitleText(taskTitle + " (Completed)");  // 更新按钮的文本
-            taskButton->setTitleColor(cocos2d::Color3B::GREEN);  // 修改文字颜色为绿色
-            cocos2d::log("Task completed: %s", taskTitle.c_str());
-            break;
+            if (if_can_complete(taskNum)) {
+                // 更新任务状态
+                task.status = "Completed";  // 修改为已完成
+                taskButton->setTitleText(taskTitle + " (Completed)");  // 更新按钮的文本
+                taskButton->setTitleColor(cocos2d::Color3B::GREEN);  // 修改文字颜色为绿色
+                cocos2d::log("Task completed: %s", taskTitle.c_str());
+                break;
+            }
+            else
+                break;
         }
     }
+}
+//任务是否能完成+物品减少逻辑
+bool TaskBar::if_can_complete(int taskNum) {
+    ItemStorage& storage = ItemStorage::getInstance();
+    if (taskNum == 1) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::BEER)) >= 150 ){
+            storage.removeItem(StorageID::BEER, 150);
+            mainPlayer->setMoney(1000);
+
+
+            return true;
+        }
+        else
+            return false;
+    }
+    else if (taskNum == 2) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::FISH_A)) >= 50) {
+            storage.removeItem(StorageID::FISH_A, 50);
+            mainPlayer->setMoney(1500);
+            return true;
+        }
+        else
+            return false;
+    }
+    else if (taskNum == 3) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::HONGMOGU)) >= 200) {
+            storage.removeItem(StorageID::HONGMOGU, 200);
+            mainPlayer->setMoney(1200);
+            return true;
+        }
+        else
+            return false;
+    }
+    else if (taskNum == 4) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::JIANG)) >= 250) {
+            storage.removeItem(StorageID::JIANG, 250);
+            mainPlayer->setMoney(1800);
+            return true;
+        }
+        else
+            return false;
+    }
+    else if (taskNum == 5) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::LUOBO)) >= 80) {
+            storage.removeItem(StorageID::LUOBO, 80);
+            mainPlayer->setMoney(500);
+            return true;
+        }
+        else
+            return false;
+    }
+    else if (taskNum == 6) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::MUTOU)) >= 500) {
+            storage.removeItem(StorageID::MUTOU, 500);
+            mainPlayer->setMoney(2000);
+            return true;
+        }
+        else
+            return false;
+    }
+    else if (taskNum == 7) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::COOKED_FISH)) >= 20) {
+            storage.removeItem(StorageID::COOKED_FISH, 20);
+            mainPlayer->setMoney(800);
+            return true;
+        }
+        else
+            return false;
+    }
+    else if (taskNum == 8) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::DACONG)) >= 150) {
+            storage.removeItem(StorageID::DACONG, 150);
+            mainPlayer->setMoney(900);
+            return true;
+        }
+        else
+            return false;
+    }
+    else if (taskNum == 9) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::NANGUA)) >= 200) {
+            storage.removeItem(StorageID::NANGUA, 200);
+            mainPlayer->setMoney(1200);
+            return true;
+        }
+        else
+            return false;
+    }
+    else if (taskNum == 10) {
+        if (storage.getItemQuantity(static_cast<int>(StorageID::SHITOU)) >= 500) {
+            storage.removeItem(StorageID::SHITOU, 500);
+            mainPlayer->setMoney(2000);
+            return true;
+        }
+        else
+            return false;
+    }
+    return false;
 }
 
-// 更新任务状态
-void TaskBar::updateTaskStatus(const std::string& taskTitle, const std::string& newStatus) {
-    for (auto& task : taskList) {
-        if (task.title == taskTitle) {
-            task.status = newStatus;
-            task.button->setTitleText(task.title + " (" + newStatus + ")");
-            break;
-        }
-    }
-}

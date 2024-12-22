@@ -62,7 +62,7 @@ public:
     int getHeldSeed() { return Heldseed; } // 获取当前持有的种子
 
     //玩家拥有财产相关
-    void setMoney(const int newmoney) { money = newmoney; }
+    void setMoney(const int newmoney) { money += newmoney; }
     int getMoney() const { return money; }
 
     //存储解锁物品信息相关

@@ -48,9 +48,9 @@ void ItemStorage::initializeItems() {
     setItemIconPath(StorageID::BEER, "photo/storage/beer.png");
     setItemIconPath(StorageID::FEILIAO, "photo/storage/feiliao.png");
     // 设置部分物品的初始数量
-    itemQuantities[static_cast<int>(StorageID::MUTOU)] = 10;
-    itemQuantities[static_cast<int>(StorageID::SHITOU)] = 10;
-    itemQuantities[static_cast<int>(StorageID::DACONG)] = 10;
+    itemQuantities[static_cast<int>(StorageID::MUTOU)] = 100;
+    itemQuantities[static_cast<int>(StorageID::SHITOU)] = 600;
+    itemQuantities[static_cast<int>(StorageID::DACONG)] = 200;
     itemQuantities[static_cast<int>(StorageID::DUMOGU)] = 10;
     itemQuantities[static_cast<int>(StorageID::FANGFENGCAO)] = 10;
     itemQuantities[static_cast<int>(StorageID::HONGMOGU)] = 10;
