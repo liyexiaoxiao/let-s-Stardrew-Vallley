@@ -58,6 +58,7 @@ void TaskBar::addTask(const std::string& title, const std::string& RenPhoto, con
     taskButton->setTitleText(title + " (In Progress)");  // 初始状态为 In Progress
     taskButton->setTitleFontSize(20);
     taskButton->setTitleColor(cocos2d::Color3B::RED);  // 设置初始文字颜色为红色
+    this->addChild(taskButton, 100);  // 直接将按钮添加到Layer
 
     // 计算按钮的位置
     float posX = visibleSize.width / 2-100;
@@ -67,6 +68,7 @@ void TaskBar::addTask(const std::string& title, const std::string& RenPhoto, con
     float posY = visibleSize.width / 2 - 400;
     posY += ((taskNum-1) % 5) * 60;
     taskButton->setPosition(cocos2d::Vec2(posX, posY));  // 设定按钮位置
+
     taskButton->addClickEventListener([this, title, taskButton,taskNum](cocos2d::Ref* sender) {
         onTaskClicked(title, taskButton,taskNum);  // 传递按钮引用
         });
@@ -88,9 +90,7 @@ void TaskBar::addTask(const std::string& title, const std::string& RenPhoto, con
     task.number = taskNum;
 
     taskList.push_back(task);
-    this->addChild(taskButton, 100);  // 直接将按钮添加到Layer
 
-    // 更新任务栏高度，如果需要的话，你可以调整显示区域的高度
 }
 // 任务点击事件
 void TaskBar::onTaskClicked(const std::string& taskTitle, cocos2d::ui::Button* taskButton,int taskNum) {

@@ -8,6 +8,7 @@
 #include "FarmhouseScene.h"
 #include "TaskBar.h" 
 #include "Tools.h"
+#include "Shop.h"
 extern Player* mainPlayer; // 主玩家
 
 
@@ -196,11 +197,11 @@ bool FarmScene::init() {
     //工具栏
     Toolbar* toolbar = Toolbar::getInstance();
     this->addChild(toolbar, 5);
+
     // 初始化任务栏
     TaskBar* taskbar = TaskBar::getInstance();  // 获取 TaskBar 实例
     taskbar->setVisible(false);  // 初始时隐藏任务栏
     this->addChild(taskbar, 10);  // 将任务栏添加到场景中，确保它在最上层
-
     // 创建任务栏按钮
     auto taskbarButton= Tool.createButton("photo/ui/taskbarbutton.png", cocos2d::Vec2(visibleSize.width - 100, visibleSize.height - 230), 4.0f);
     taskbarButton->addClickEventListener([=](cocos2d::Ref* sender) {
@@ -212,6 +213,22 @@ bool FarmScene::init() {
         }
         });
     this->addChild(taskbarButton,5);
+
+    // 初始化商店
+    Shop* shop = Shop::getInstance();  
+    shop->setVisible(false);  
+    this->addChild(shop, 13); 
+    // 创建商店按钮
+    auto ShopButton = Tool.createButton("photo/storage/openshop.png", cocos2d::Vec2(200,200), 1.0f);
+    ShopButton->addClickEventListener([=](cocos2d::Ref* sender) {
+        if (shop->isVisible()) {
+            shop->hide();  // 如果任务栏已经可见，则隐藏它
+        }
+        else {
+            shop->show();  // 如果任务栏不可见，则显示它
+        }
+        });
+    this->addChild(ShopButton, 5);
 
     // 监听键盘输入
     auto Keyboardlistener = cocos2d::EventListenerKeyboard::create();
