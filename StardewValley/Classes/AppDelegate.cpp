@@ -97,7 +97,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 
     // run
-    director->runWithScene(FarmScene::create());
+    director->runWithScene(StartupScene::create());
 
     return true;
 }

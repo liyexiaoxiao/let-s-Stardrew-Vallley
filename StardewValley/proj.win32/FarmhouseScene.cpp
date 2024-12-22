@@ -117,18 +117,6 @@ bool FarmhouseScene::init()
         background->setContentSize(screenSize);
         this->addChild(background, 0);
     }
-
-    // 创建一个贴图
-    /*auto centerImage = Sprite::create("photo/Character/PlayerFront1.png");  // 使用你想要显示的图片路径
-    if (centerImage == nullptr) {
-        CCLOG("Center image loading failed!");
-    }
-    else {
-        centerImage->setPosition(setGroundPosition);  // 将图片位置设置为屏幕中心
-        centerImage->setScale(0.7f);
-        this->addChild(centerImage, 2);  // 将图片添加到场景中，2表示层级关系，越大的值会在上面显示
-    }
-    */
     // 设置时钟显示
     Clock* clock = Clock::getInstance();
     if (clock->getParent() == nullptr) {
@@ -142,7 +130,7 @@ bool FarmhouseScene::init()
     clock->setTimeDisplay();
 
 
-    menuLayer = MenuLayer::create();  // 创建菜单对象
+    MenuLayer*menuLayer = MenuLayer::create();  // 创建菜单对象
     if (menuLayer == nullptr) {
         CCLOG("MenuLayer creation failed");
         return false;
