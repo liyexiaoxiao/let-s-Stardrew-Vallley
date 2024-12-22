@@ -117,7 +117,7 @@ bool FarmScene::init() {
     int mapHeight = groundLayer->getLayerSize().height;
    
     //创建鸡舍
-    coop= ChickenCoop::create();
+    coop=Coop::create();
     coop->setPosition(cocos2d::Vec2(1900, 300));  // 设置鸡舍的地图坐标
     this->addChild(coop);  //加入鸡舍子节点
 
@@ -164,10 +164,8 @@ bool FarmScene::init() {
     menuLayer = MenuLayer::create();
     this->addChild(menuLayer);
     //工具栏
-    Toolbar *toolbar=Toolbar::create();
-    if (toolbar) {
-        this->addChild(toolbar, 5);  
-    }
+    Toolbar* toolbar = Toolbar::getInstance();
+    this->addChild(toolbar, 5);
 
     // 监听键盘输入
     auto Keyboardlistener = cocos2d::EventListenerKeyboard::create();

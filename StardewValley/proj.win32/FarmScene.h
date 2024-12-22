@@ -7,13 +7,12 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "Tool.h"       // 假设有 Tool 类
 #include "Resident.h"   //NPC基类
 #include "player.h"    //玩家类
 #include "Farmer.h"    //农民类
 #include "NPCinfo.h"   //npcUI面板
 #include "Tree.h"//农场--树（可砍伐）
-#include"Chickencoop.h" //鸡舍实现
+#include"Coop.h" //鸡舍实现
 #include "tilledLand.h"//瓦片土地
 #include "WateredLand.h"//水资源
 #include "Crop.h"    //农作物类
@@ -113,7 +112,7 @@ private:
     //农场实现后续功能相关
     //std::vector<Tool*> tools;      // 工具列表
     std::vector<Tree*> trees; //树列表
-    ChickenCoop* coop;
+   Coop* coop;
 
     //修复建筑相关
     RepairBuilding* market;

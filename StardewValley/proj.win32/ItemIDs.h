@@ -18,7 +18,6 @@ enum class StorageID {
     ZUANSHI,
     FENSHUIJING,
     QICAIKUANGSHI,
-    MAX_STORAGE_ID,
     FISH_A,
     FISH_B,
     FISH_C,
@@ -27,7 +26,9 @@ enum class StorageID {
     BERRIES,
     COOKED_FISH,
     BEER,
-    EGG
+    EGG,
+    FEILIAO,
+    MAX_STORAGE_ID,
 
 };
 
