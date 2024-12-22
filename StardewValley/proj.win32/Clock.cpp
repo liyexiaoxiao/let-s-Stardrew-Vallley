@@ -3,7 +3,9 @@
 
 Clock* Clock::instance = nullptr;  // 初始化单例指针为 nullptr
 
-Clock::Clock() : gameTime(0), timeLabel(nullptr), ClockPhoto(nullptr), dayLabel(nullptr), seasonImage(nullptr), weatherImage(nullptr){}
+Clock::Clock() : gameTime(0), timeLabel(nullptr), ClockPhoto(nullptr), dayLabel(nullptr), seasonImage(nullptr), weatherImage(nullptr){
+    std::set<int> rainyDays = { 2,5,8,10,13,15,26,29,31,35,36,38 };
+}
 
 Clock::~Clock() {}
 
@@ -106,8 +108,8 @@ void Clock::setTimeDisplay() {
     }
     // 设置天气------------------------------------
     std::string newWeather="Sunny";
-    if (day%2==0) {
-        newWeather = "Rainy";
+    if (rainyDays.find(day) != rainyDays.end()) {
+        newWeather = "Rainy"; // 如果 day 在 rainyDays 中，设置为 Rainy
     }
 
     // 如果天气变化，更新天气图片

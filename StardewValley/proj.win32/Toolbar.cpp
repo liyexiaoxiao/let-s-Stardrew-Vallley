@@ -38,13 +38,35 @@ bool Toolbar::init() {
     this->addChild(markerSprite, 7);
 
     //种子包
-    auto SeedBagGround = tool.addImageToScene("photo/tools/SeedBagGround.png", cocos2d::Vec2(ToolbarPos.x + 57 * 6, ToolbarPos.y), 2.5f);
+    auto SeedBagGround = tool.addImageToScene("photo/tools/SeedGround.png", cocos2d::Vec2(ToolbarPos.x + 57 * 6, ToolbarPos.y), 0.35f);
     SeedButton = tool.createButton("photo/tools/seed_crop1.png", cocos2d::Vec2(ToolbarPos.x + 57 * 6, ToolbarPos.y), 1.0f);
     SeedButton->addClickEventListener([this](Ref* sender) {
         createSeedSelectionPanel();
         });
     this->addChild(SeedButton, 3);
     this->addChild(SeedBagGround, 2);
+
+    //肥料选择红框
+    auto feiliaoRedBox = tool.addImageToScene("photo/tools/redkuang.png", cocos2d::Vec2(ToolbarPos.x + 58 * 7, ToolbarPos.y), 1.0f);
+    feiliaoRedBox->setVisible(false);
+    this->addChild(feiliaoRedBox, 8);
+    //肥料
+    auto feiliaoGround = tool.addImageToScene("photo/tools/SeedGround.png", cocos2d::Vec2(ToolbarPos.x + 58 * 7, ToolbarPos.y), 0.35f);
+    auto feiliaoButton = tool.createButton("photo/tools/feiliao.png", cocos2d::Vec2(ToolbarPos.x + 58 * 7, ToolbarPos.y), 2.7f);
+    feiliaoButton->addClickEventListener([this, feiliaoRedBox](Ref* sender) {
+        if (mainPlayer->if_holdfeiliao == 0) {
+            // 如果当前没有持有肥料，显示红框
+            feiliaoRedBox->setVisible(true);
+            mainPlayer->if_holdfeiliao = 1;
+        }
+        else {
+            // 如果当前已经持有肥料，隐藏红框
+            feiliaoRedBox->setVisible(false);
+            mainPlayer->if_holdfeiliao = 0;
+        }
+        });
+    this->addChild(feiliaoButton, 3);
+    this->addChild(feiliaoGround, 2);
 
     // 注册鼠标滚轮事件
     auto listener = cocos2d::EventListenerMouse::create();

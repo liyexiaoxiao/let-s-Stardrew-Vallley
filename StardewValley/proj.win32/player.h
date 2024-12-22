@@ -13,7 +13,7 @@ enum class ItemID {
     T_WateringCan = 3, // 浇水壶
     T_Pickaxe = 4,//镐子
     T_Sickle = 5,//镰刀
-    T_Fish = 6,
+    T_Fish = 6,//钓鱼竿
 
     A_Seed = 7,
     A_Seed1=8,
@@ -103,11 +103,10 @@ public:
     std::string PlayerName;
     std::string FarmName;
     int Heldtool = 1;
-    //为了测试暂时设此参数=1时拿着锄头，等于2时拿着浇水壶，等于3时拿着斧头，等于4时拿着鱼竿
-
+    //此参数=1时拿着斧头，等于2时锄头，等于3时浇水壶，等于4时镐子，等于5时镰刀，等于6时钓鱼竿
     int Heldseed = 2;
-    //为了测试暂时设此参数=1时拿着防风草种子，等于2时拿着树莓种子，等于3时拿着南瓜种子，等于4时拿着小麦种子
-
+    //设此参数=1时拿着防风草种子，等于2时拿着树莓种子，等于3时拿着南瓜种子，等于4时拿着小麦种子
+    bool if_holdfeiliao = 0;
 private:
     //玩家等级
     double maxlevel = 4;//每一个技能方向等级上限

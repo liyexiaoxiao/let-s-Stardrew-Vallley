@@ -27,7 +27,7 @@ public:
     void closeSeedPanel(cocos2d::Ref* sender);
 private:
     int currentToolIndex;  // 当前持有的工具索引
-    cocos2d::ui::Button* SeedButton;
+    cocos2d::ui::Button* SeedButton;       //种子按钮
     cocos2d::Sprite* markerSprite;        // 新的图片 (指示标记)
     float markerStartX;                   // 新图片的初始 x 坐标
     float markerY;                        // 新图片的 y 坐标
