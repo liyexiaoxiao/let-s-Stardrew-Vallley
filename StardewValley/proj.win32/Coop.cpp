@@ -1,13 +1,13 @@
-#include "ChickenCoop.h"
+#include "Coop.h"
 
-ChickenCoop::ChickenCoop()
+Coop::Coop()
     : chicken1(nullptr), chicken2(nullptr), feedButton(nullptr), collectEggButton(nullptr) {
 }
 
-ChickenCoop::~ChickenCoop() {}
+Coop::~Coop() {}
 
-ChickenCoop* ChickenCoop::create() {
-    ChickenCoop* ret = new ChickenCoop();
+Coop* Coop::create() {
+    Coop* ret = new Coop();
     if (ret && ret->init()) {
         ret->autorelease();
         return ret;
@@ -16,7 +16,7 @@ ChickenCoop* ChickenCoop::create() {
     return nullptr;
 }
 
-bool ChickenCoop::init() {
+bool Coop::init() {
     // 设置鸡舍背景（鸡舍的图片路径）
     auto coopBackground = cocos2d::Sprite::create("photo/Adventure/coop.png");
     coopBackground->setPosition(cocos2d::Vec2(400, 300));  // 设置鸡舍背景的坐标
@@ -31,12 +31,29 @@ bool ChickenCoop::init() {
     chicken2->setPosition(cocos2d::Vec2(250, 130));  // 鸡的相对位置
     coopBackground->addChild(chicken2, 1);
 
+    //创建牛、羊
+    cow1 = Cow::create("photo/Farm/cow.png");
+    cow1->setPosition(cocos2d::Vec2(500, 300)); 
+    coopBackground->addChild(cow1, 1);  
+
+    cow2 = Cow::create("photo/Farm/cow.png");
+    cow2->setPosition(cocos2d::Vec2(500, 100));
+    coopBackground->addChild(cow2, 1);
+
+    sheep1 = Sheep::create("photo/Farm/sheep.png");
+    sheep1->setPosition(cocos2d::Vec2(700, 300));
+    coopBackground->addChild(sheep1, 1);
+
+    sheep2 = Sheep::create("photo/Farm/sheep.png");
+    sheep2->setPosition(cocos2d::Vec2(700, 100));
+    coopBackground->addChild(sheep2, 1);
+    
     // 创建按钮并绑定回调（按钮位置相对于鸡舍背景）
-    feedButton = cocos2d::MenuItemImage::create("photo/Farm/feed_button.png", "photo/Farm/feed_button.png", CC_CALLBACK_1(ChickenCoop::onFeedClicked, this));
+    feedButton = cocos2d::MenuItemImage::create("photo/Farm/feed_button.png", "photo/Farm/feed_button.png", CC_CALLBACK_1(Coop::onFeedClicked, this));
     feedButton->setScale(2.0f);
     feedButton->setPosition(cocos2d::Vec2(400, 80));  // 设置按钮的相对位置
 
-    collectEggButton = cocos2d::MenuItemImage::create("photo/Farm/collect_egg_button.png", "photo/Farm/collect_egg_button.png", CC_CALLBACK_1(ChickenCoop::onCollectEggClicked, this));
+    collectEggButton = cocos2d::MenuItemImage::create("photo/Farm/collect_egg_button.png", "photo/Farm/collect_egg_button.png", CC_CALLBACK_1(Coop::onCollectEggClicked, this));
     collectEggButton->setScale(2.0f);
     collectEggButton->setPosition(cocos2d::Vec2(500, 80));  // 设置按钮的相对位置
 
@@ -48,21 +65,22 @@ bool ChickenCoop::init() {
     return true;
 }
 
-void ChickenCoop::onFeedClicked(cocos2d::Ref* sender) {
+void Coop::onFeedClicked(cocos2d::Ref* sender) {
     // 同步喂鸡
     chicken1->setState(Chicken::State::Full);  // 喂第一只鸡
     chicken2->setState(Chicken::State::Full);  // 喂第二只鸡
+    cow1->setState(Cow::State::Full);
+    cow2->setState(Cow::State::Full);
+    sheep1->setState(Sheep::State::Full);
+    sheep2->setState(Sheep::State::Full);
 }
 
-void ChickenCoop::onCollectEggClicked(cocos2d::Ref* sender) {
-    // 同步取蛋
-    if (chicken1->hasEgg()) {
-        chicken1->collectEgg();  // 取第一只鸡的蛋
-    }
-
-    if (chicken2->hasEgg()) {
-        chicken2->collectEgg();  // 取第二只鸡的蛋
-    }
-
+void Coop::onCollectEggClicked(cocos2d::Ref* sender) {
+    chicken1->collectProduct();
+    chicken2->collectProduct();
+    cow1->collectProduct();
+    cow2->collectProduct();
+    sheep1->collectProduct();
+    sheep2->collectProduct();
 }
 
