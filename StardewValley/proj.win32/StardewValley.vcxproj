@@ -168,6 +168,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClCompile Include="ItemStorage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuLayer.cpp" />
+    <ClCompile Include="Mine.cpp" />
     <ClCompile Include="NPCinfo.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playerManager.cpp" />
@@ -198,6 +199,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="ItemStorage.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="MenuLayer.h" />
+    <ClInclude Include="Mine.h" />
     <ClInclude Include="NPCinfo.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playerManager.h" />
