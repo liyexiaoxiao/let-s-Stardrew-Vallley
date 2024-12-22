@@ -3,6 +3,7 @@
 #include "Tools.h"
 extern Player* mainPlayer;
 
+Toolbar* Toolbar::instance = nullptr;
 bool Toolbar::init() {
     if (!Layer::init()) {
         return false;
@@ -18,17 +19,17 @@ bool Toolbar::init() {
 
     // 创建工具
     auto Pos = cocos2d::Vec2(ToolbarPos.x-143, ToolbarPos.y);
-    auto Axe=tool.addImageToScene("photo/tools/Axe_1.png", Pos, 2.5f);
+    Axe=tool.addImageToScene("photo/tools/Axe_1.png", Pos, 2.5f);
     this-> addChild(Axe,5);
-    auto Hoe = tool.addImageToScene("photo/tools/Hoe_1.png", cocos2d::Vec2(Pos.x+57,Pos.y), 2.5f);
+    Hoe = tool.addImageToScene("photo/tools/Hoe_1.png", cocos2d::Vec2(Pos.x+57,Pos.y), 2.5f);
     this->addChild(Hoe,5);
-    auto Watering_Can = tool.addImageToScene("photo/tools/Wateringcan_1.png", cocos2d::Vec2(Pos.x + 57*2, Pos.y), 2.5f);
+    Watering_Can = tool.addImageToScene("photo/tools/Wateringcan_1.png", cocos2d::Vec2(Pos.x + 57*2, Pos.y), 2.5f);
     this->addChild(Watering_Can,5);
-    auto Pickaxe = tool.addImageToScene("photo/tools/Pickaxe_1.png", cocos2d::Vec2(Pos.x + 57 * 3, Pos.y), 2.5f);
+    Pickaxe = tool.addImageToScene("photo/tools/Pickaxe_1.png", cocos2d::Vec2(Pos.x + 57 * 3, Pos.y), 2.5f);
     this->addChild(Pickaxe,5);
-    auto Sickle = tool.addImageToScene("photo/tools/Sickle_1.png", cocos2d::Vec2(Pos.x + 57 * 4, Pos.y), 2.5f);
+    Sickle = tool.addImageToScene("photo/tools/Sickle_1.png", cocos2d::Vec2(Pos.x + 57 * 4, Pos.y), 2.5f);
     this->addChild(Sickle,5);
-    auto Fish = tool.addImageToScene("photo/tools/Fish_1.png", cocos2d::Vec2(Pos.x + 57 * 5, Pos.y), 2.5f);
+    Fish = tool.addImageToScene("photo/tools/Fish_1.png", cocos2d::Vec2(Pos.x + 57 * 5, Pos.y), 2.5f);
     this->addChild(Fish,5);
 
     // 添加需要平移的图片
@@ -104,6 +105,65 @@ void Toolbar::updateMarkerPosition() {
     if (mainPlayer) {
         mainPlayer->setHeldTool(currentToolIndex);
         cocos2d::log("Current tool: %d, Marker X: %.2f", currentToolIndex, newX);
+    }
+}
+// 更新工具的图标
+void Toolbar::updateToolIcons() {
+    // 判断主玩家的等级，更新工具图标
+    int agricultureLevel = mainPlayer->agricultureLevel; // 获取玩家的农业等级
+    int miningLevel = mainPlayer->miningLevel;
+    int fishingLevel = mainPlayer->fishingLevel;
+    int cookingLevel = mainPlayer->cookingLevel;
+    // 根据农业等级更新图标
+    if (agricultureLevel == 1) {
+        // 更新图标为1级图标
+        Axe->setTexture("photo/tools/Axe_1.png");
+        Hoe->setTexture("photo/tools/Hoe_1.png");
+        Watering_Can->setTexture("photo/tools/Wateringcan_1.png");
+    }
+    else if (agricultureLevel == 2) {
+        // 更新图标为2级图标
+        Axe->setTexture("photo/tools/Axe_2.png");
+        Hoe->setTexture("photo/tools/Hoe_2.png");
+        Watering_Can->setTexture("photo/tools/Wateringcan_2.png");
+    }
+    else if (agricultureLevel == 3) {
+        // 更新图标为3级图标
+        Axe->setTexture("photo/tools/Axe_3.png");
+        Hoe->setTexture("photo/tools/Hoe_3.png");
+        Watering_Can->setTexture("photo/tools/Wateringcan_3.png");
+    }
+    else if (agricultureLevel == 4) {
+        // 更新图标为4级图标
+        Axe->setTexture("photo/tools/Axe_4.png");
+        Hoe->setTexture("photo/tools/Hoe_4.png");
+        Watering_Can->setTexture("photo/tools/Wateringcan_4.png");
+    }
+    // 根据挖矿等级更新图标
+    if (miningLevel == 1) {
+        Pickaxe->setTexture("photo/tools/pickaxe_1.png");
+    }
+    else if (miningLevel == 2) {
+        Pickaxe->setTexture("photo/tools/pickaxe_2.png");
+    }
+    else if (miningLevel == 3) {
+        Pickaxe->setTexture("photo/tools/pickaxe_3.png");
+    }
+    else if (miningLevel == 4) {
+        Pickaxe->setTexture("photo/tools/pickaxe_4.png");
+    }
+    // 根据钓鱼等级更新图标
+    if (fishingLevel == 1) {
+        Fish->setTexture("photo/tools/fish_1.png");
+    }
+    else if (fishingLevel == 2) {
+        Fish->setTexture("photo/tools/fish_2.png");
+    }
+    else if (fishingLevel == 3) {
+        Fish->setTexture("photo/tools/fish_3.png");
+    }
+    else if (fishingLevel == 4) {
+        Fish->setTexture("photo/tools/fish_4.png");
     }
 }
 // 弹出种子选择面板
@@ -182,7 +242,6 @@ void Toolbar::onSeedSelected(cocos2d::Ref* sender, int seedType) {
     // 关闭面板
     closeSeedPanel(nullptr);
 }
-
 // 关闭种子选择面板
 void Toolbar::closeSeedPanel(cocos2d::Ref* sender) {
     // 移除面板

@@ -163,10 +163,8 @@ bool FarmScene::init() {
     menuLayer = MenuLayer::create();
     this->addChild(menuLayer);
     //¹¤¾ßÀ¸
-    Toolbar *toolbar=Toolbar::create();
-    if (toolbar) {
-        this->addChild(toolbar, 5);  
-    }
+    Toolbar* toolbar = Toolbar::getInstance();
+    this->addChild(toolbar, 5);
 
     // ¼àÌı¼üÅÌÊäÈë
     auto Keyboardlistener = cocos2d::EventListenerKeyboard::create();

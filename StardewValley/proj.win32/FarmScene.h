@@ -7,7 +7,6 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-#include "Tool.h"       // 假设有 Tool 类
 #include "Resident.h"   //NPC基类
 #include "player.h"    //玩家类
 #include "Farmer.h"    //农民类
