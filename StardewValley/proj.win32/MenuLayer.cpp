@@ -154,7 +154,7 @@ cocos2d::Layer* MenuLayer::createPanel(int panelIndex) {
         auto FarmLabel = Tool.createLabel(mainPlayer->FarmName, "fonts/Marker Felt.ttf", 32, FarmLabelPos);
         panel->addChild(FarmLabel, 5);
         //添加钱
-        auto MoneyLabelPos = cocos2d::Vec2(FarmLabelPos.x, FarmLabelPos.y - 80);
+        auto MoneyLabelPos = cocos2d::Vec2(FarmLabelPos.x, FarmLabelPos.y - 60);
         std::string label_1 = "Money you have:";
         std::string AllMoneyLabel = label_1 + std::to_string(mainPlayer->getMoney());
         auto MoneyLabel = Tool.createLabel(AllMoneyLabel, "fonts/Marker Felt.ttf", 32, MoneyLabelPos);
@@ -162,9 +162,15 @@ cocos2d::Layer* MenuLayer::createPanel(int panelIndex) {
         //添加时间
         std::string seasonshow = clock->getSeason();
         std::string AllTimeLabel = "year: " + std::to_string(clock->getYear()) + " day: " + std::to_string(clock->getDay()) + " " + seasonshow;
-        auto TimeLabelPos = cocos2d::Vec2(MoneyLabelPos.x, MoneyLabelPos.y - 80);
+        auto TimeLabelPos = cocos2d::Vec2(MoneyLabelPos.x, MoneyLabelPos.y - 60);
         auto TimeLabel = Tool.createLabel(AllTimeLabel, "fonts/Marker Felt.ttf", 32, TimeLabelPos);
         panel->addChild(TimeLabel, 5);
+        //添加声望
+        auto PrestigeLabelPos = cocos2d::Vec2(TimeLabelPos.x, TimeLabelPos.y - 60);
+        std::string label_2 = "Your Prestige:";
+        std::string AllPrestigeLabel = label_2 + std::to_string(mainPlayer->getPrestige());
+        auto PrestigeLabel = Tool.createLabel(AllPrestigeLabel, "fonts/Marker Felt.ttf", 32, PrestigeLabelPos);
+        panel->addChild(PrestigeLabel, 5);
     }
     else if (panelIndex == 2) {
         auto stolatticePos = cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 2 + 120);

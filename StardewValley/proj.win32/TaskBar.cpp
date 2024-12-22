@@ -117,8 +117,7 @@ bool TaskBar::if_can_complete(int taskNum) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::BEER)) >= 150 ){
             storage.removeItem(StorageID::BEER, 150);
             mainPlayer->setMoney(1000);
-
-
+            mainPlayer->setPrestige(20);
             return true;
         }
         else
@@ -128,6 +127,7 @@ bool TaskBar::if_can_complete(int taskNum) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::FISH_A)) >= 50) {
             storage.removeItem(StorageID::FISH_A, 50);
             mainPlayer->setMoney(1500);
+            mainPlayer->setPrestige(40);
             return true;
         }
         else
@@ -136,7 +136,9 @@ bool TaskBar::if_can_complete(int taskNum) {
     else if (taskNum == 3) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::HONGMOGU)) >= 200) {
             storage.removeItem(StorageID::HONGMOGU, 200);
+            storage.addItem(StorageID::JUANZHOU, 1);
             mainPlayer->setMoney(1200);
+            mainPlayer->setPrestige(30);
             return true;
         }
         else
@@ -145,7 +147,9 @@ bool TaskBar::if_can_complete(int taskNum) {
     else if (taskNum == 4) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::JIANG)) >= 250) {
             storage.removeItem(StorageID::JIANG, 250);
+            storage.addItem(StorageID::HUASHU, 1);
             mainPlayer->setMoney(1800);
+            mainPlayer->setPrestige(60);
             return true;
         }
         else
@@ -155,6 +159,7 @@ bool TaskBar::if_can_complete(int taskNum) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::LUOBO)) >= 80) {
             storage.removeItem(StorageID::LUOBO, 80);
             mainPlayer->setMoney(500);
+            mainPlayer->setPrestige(10);
             return true;
         }
         else
@@ -163,7 +168,9 @@ bool TaskBar::if_can_complete(int taskNum) {
     else if (taskNum == 6) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::MUTOU)) >= 500) {
             storage.removeItem(StorageID::MUTOU, 500);
+            storage.addItem(StorageID::BEIKE, 1);
             mainPlayer->setMoney(2000);
+            mainPlayer->setPrestige(80);
             return true;
         }
         else
@@ -173,6 +180,7 @@ bool TaskBar::if_can_complete(int taskNum) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::COOKED_FISH)) >= 20) {
             storage.removeItem(StorageID::COOKED_FISH, 20);
             mainPlayer->setMoney(800);
+            mainPlayer->setPrestige(18);
             return true;
         }
         else
@@ -182,6 +190,7 @@ bool TaskBar::if_can_complete(int taskNum) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::DACONG)) >= 150) {
             storage.removeItem(StorageID::DACONG, 150);
             mainPlayer->setMoney(900);
+            mainPlayer->setPrestige(19);
             return true;
         }
         else
@@ -190,7 +199,9 @@ bool TaskBar::if_can_complete(int taskNum) {
     else if (taskNum == 9) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::NANGUA)) >= 200) {
             storage.removeItem(StorageID::NANGUA, 200);
+            storage.addItem(StorageID::LAZIJI, 1);
             mainPlayer->setMoney(1200);
+            mainPlayer->setPrestige(40);
             return true;
         }
         else
@@ -199,7 +210,9 @@ bool TaskBar::if_can_complete(int taskNum) {
     else if (taskNum == 10) {
         if (storage.getItemQuantity(static_cast<int>(StorageID::SHITOU)) >= 500) {
             storage.removeItem(StorageID::SHITOU, 500);
+            storage.addItem(StorageID::SHANHU, 1);
             mainPlayer->setMoney(2000);
+            mainPlayer->setPrestige(80);
             return true;
         }
         else

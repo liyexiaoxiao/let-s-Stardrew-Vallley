@@ -54,7 +54,8 @@ public:
     void setHeldSeed(int seed) { Heldseed = seed; } // 设置当前持有的种子
     int getHeldTool() { return Heldtool; } // 获取当前持有的工具
     int getHeldSeed() { return Heldseed; } // 获取当前持有的种子
-
+    void setPrestige(int add) { prestige += add; } //增加声望值
+    int getPrestige() { return prestige ; } //获取声望值
     //玩家拥有财产相关
     void setMoney(const int newmoney) { money += newmoney; }
     int getMoney() const { return money; }
@@ -72,9 +73,9 @@ public:
     std::string FarmName;
     int Heldtool = 1;
     //为了测试暂时设此参数=1时拿着锄头，等于2时拿着浇水壶，等于3时拿着斧头，等于4时拿着鱼竿
-
     int Heldseed = 1;
     //为了测试暂时设此参数=1时拿着防风草种子，等于2时拿着树莓种子，等于3时拿着南瓜种子，等于4时拿着小麦种子
+    
     bool if_holdfeiliao = 0;
 private:
     //玩家等级
@@ -86,7 +87,8 @@ private:
     bool c_level_max;
     //玩家金币
     int money;
-
+    //玩家声望
+    int prestige = 10;
     std::vector<int> agricultureItems;  // 农业技能对应的物品ID集合
     std::vector<int> miningItems;       // 采矿技能对应的物品ID集合
     std::vector<int> fishingItems;      // 钓鱼技能对应的物品ID集合
