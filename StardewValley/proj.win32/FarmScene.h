@@ -87,14 +87,14 @@ private:
     //场景转化相关
     cocos2d::ui::Button* startButton;  // 声明按钮变量--进入室内
     cocos2d::ui::Button* startButton2;  // 声明按钮变量--前往冒险地图
-    
+
     std::vector<std::vector<TilledLand*>> tilledLand;
     //只能进行手动清理的资源
     //void onExit();
-    
+
     //钓鱼相关
     cocos2d::ui::Button* FishingButton;
-    
+
     // 记录哪些土地已开垦
     std::vector<std::vector<WateredLand*>> wateredLand;// 记录哪些土地已浇水
     std::vector<std::vector<Crop*>> plantedCrops; // 存储种植的作物
@@ -107,12 +107,12 @@ private:
     Resident* farmer;
     Resident* fisherman;
     Resident* breeder;
-    
+
 
     //农场实现后续功能相关
     //std::vector<Tool*> tools;      // 工具列表
     std::vector<Tree*> trees; //树列表
-   Coop* coop;
+    Coop* coop;
 
     //修复建筑相关
     RepairBuilding* market;
@@ -129,7 +129,7 @@ private:
 
     MenuLayer* menuLayer;  // 菜单层对象
     bool isMenuActive = false;  // 标志变量，表示菜单是否显示
-   
+
 };
 
 #endif // __FARM_SCENE_H__

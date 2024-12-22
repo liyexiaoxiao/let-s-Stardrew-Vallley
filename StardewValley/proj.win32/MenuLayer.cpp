@@ -32,28 +32,28 @@ bool MenuLayer::init() {
     BasicButton->addClickEventListener([this](Ref* sender) {
         this->showPanel(1);  // 显示面板1
         });
-    this->addChild(BasicButton,2);
+    this->addChild(BasicButton, 2);
 
     auto STButtonPos = cocos2d::Vec2(BasicButtonPos.x + 50, BasicButtonPos.y);
     auto STButton = Tool.createButton("photo/ui/storage.png", STButtonPos, 3.2f);
     STButton->addClickEventListener([this](Ref* sender) {
         this->showPanel(2);  // 显示面板2
         });
-    this->addChild(STButton,2);
+    this->addChild(STButton, 2);
 
     auto SKButtonPos = cocos2d::Vec2(STButtonPos.x + 50, STButtonPos.y);
     auto SKButton = Tool.createButton("photo/ui/skill.png", SKButtonPos, 0.8f);
     SKButton->addClickEventListener([this](Ref* sender) {
         this->showPanel(3);  // 显示面板3
         });
-    this->addChild(SKButton,2);
+    this->addChild(SKButton, 2);
 
     auto EXButtonPos = cocos2d::Vec2(SKButtonPos.x + 50, SKButtonPos.y);
     auto EXButton = Tool.createButton("photo/ui/exit.png", EXButtonPos, 3.2f);
     EXButton->addClickEventListener([this](Ref* sender) {
         this->showPanel(4);  // 显示面板4
         });
-    this->addChild(EXButton,2);
+    this->addChild(EXButton, 2);
 
     // 初始时菜单隐藏
     this->setVisible(isVisible);
@@ -110,22 +110,22 @@ void MenuLayer::showPanel(int index) {
     // 重新创建对应的面板
     if (index == 1) {
         panel1 = createPanel(1);  // 重新生成面板1
-        this->addChild(panel1,2);
+        this->addChild(panel1, 2);
         panel1->setVisible(true);
     }
     else if (index == 2) {
         panel2 = createPanel(2);  // 重新生成面板2
-        this->addChild(panel2,2);
+        this->addChild(panel2, 2);
         panel2->setVisible(true);
     }
     else if (index == 3) {
         panel3 = createPanel(3);  // 重新生成面板3
-        this->addChild(panel3,2);
+        this->addChild(panel3, 2);
         panel3->setVisible(true);
     }
     else if (index == 4) {
         panel4 = createPanel(4);  // 重新生成面板4
-        this->addChild(panel4,2);
+        this->addChild(panel4, 2);
         panel4->setVisible(true);
     }
 }
@@ -216,8 +216,8 @@ cocos2d::Layer* MenuLayer::createPanel(int panelIndex) {
         auto CPhoto = Tool.addImageToScene("photo/ui/skill_cooking.png", CPhotoPos, 3.8f);
         panel->addChild(CPhoto, 5);
         //添加升级按钮
-        auto LevelupButton = Tool.createButton("photo/ui/longbutton.png", cocos2d::Vec2(CLabelPos.x+200, CLabelPos.y-50));
-        auto LevelulLabel=Tool.createLabel("Level up", "fonts/Marker Felt.ttf", 32, cocos2d::Vec2(CLabelPos.x + 200, CLabelPos.y - 50));
+        auto LevelupButton = Tool.createButton("photo/ui/longbutton.png", cocos2d::Vec2(CLabelPos.x + 200, CLabelPos.y - 50));
+        auto LevelulLabel = Tool.createLabel("Level up", "fonts/Marker Felt.ttf", 32, cocos2d::Vec2(CLabelPos.x + 200, CLabelPos.y - 50));
         panel->addChild(LevelupButton, 5);
         panel->addChild(LevelulLabel, 6);
         LevelupButton->addClickEventListener([this](Ref* sender) {

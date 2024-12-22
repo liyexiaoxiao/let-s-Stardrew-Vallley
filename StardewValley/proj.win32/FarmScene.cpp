@@ -1,4 +1,4 @@
-    //农场地图功能完善
+//农场地图功能完善
 #include "FarmScene.h"
 #include "Clock.h"
 #include "tilledLand.h"
@@ -115,9 +115,9 @@ bool FarmScene::init() {
     // 初始化所有土地未开垦
     int mapWidth = groundLayer->getLayerSize().width;
     int mapHeight = groundLayer->getLayerSize().height;
-   
+
     //创建鸡舍
-    coop=Coop::create();
+    coop = Coop::create();
     coop->setPosition(cocos2d::Vec2(1900, 300));  // 设置鸡舍的地图坐标
     this->addChild(coop);  //加入鸡舍子节点
 
@@ -142,9 +142,9 @@ bool FarmScene::init() {
     this->addChild(clock);
 
     // 初始化 plantedCrops
-    
+
     // 检查并初始化 wateredLand
-    if (wateredLand.size() != mapHeight ||wateredLand[0].size() != mapWidth) {
+    if (wateredLand.size() != mapHeight || wateredLand[0].size() != mapWidth) {
         wateredLand.resize(mapHeight, std::vector<WateredLand*>(mapWidth, nullptr));
     }
 
@@ -154,10 +154,10 @@ bool FarmScene::init() {
     }
 
     // 检查并初始化 tilledLand
-    if (tilledLand.size() != mapHeight || tilledLand[0].size() != mapWidth||clock->getGameTime()==0) {
+    if (tilledLand.size() != mapHeight || tilledLand[0].size() != mapWidth || clock->getGameTime() == 0) {
         tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
     }
-   
+
     canResetCrops = true;
 
     // 创建菜单层并添加到场景中
@@ -223,7 +223,7 @@ bool FarmScene::init() {
     // 设置按钮大小，确保按钮不会超出屏幕
     FishingButton->setScale(5.0f);  // 可根据需要调整按钮大小
     FishingButton->setVisible(true);
-    
+
     /*FishingButton->addClickEventListener([=](Ref* sender) {
         // 拿着钓鱼竿才能钓鱼
         if (mainPlayer->Heldtool == 6) {
@@ -339,39 +339,38 @@ bool FarmScene::init() {
                 }, 2.0f, "remove_no_tool");
         }
     });*/
-    
+
     Farmmap->addChild(FishingButton);
 
 
     return true;
- }
+}
 
- ////资源清理--手动
- //void FarmScene::onExit() {
- //    if (mainPlayer) {
- //        this->removeChild(mainPlayer);
- //    }
+////资源清理--手动
+//void FarmScene::onExit() {
+//    if (mainPlayer) {
+//        this->removeChild(mainPlayer);
+//    }
 
- //    // 清理交互元素
- //    for (auto element : interactiveElements) {
- //        delete element;  // 手动删除交互元素
- //    }
- //    interactiveElements.clear();  // 清空容器
+//    // 清理交互元素
+//    for (auto element : interactiveElements) {
+//        delete element;  // 手动删除交互元素
+//    }
+//    interactiveElements.clear();  // 清空容器
 
- //    // 移除事件监听器
- //    _eventDispatcher->removeEventListenersForTarget(this);
+//    // 移除事件监听器
+//    _eventDispatcher->removeEventListenersForTarget(this);
 
- //    // 清理其他资源，如工具、树等
- //    for (auto tree : trees) {
- //        delete tree;  // 手动删除树
- //    }
- //    trees.clear();  // 清空树列表
+//    // 清理其他资源，如工具、树等
+//    for (auto tree : trees) {
+//        delete tree;  // 手动删除树
+//    }
+//    trees.clear();  // 清空树列表
 
- //    // 如果有定时器或动作，需要取消它们
- //    this->unscheduleAllCallbacks();  // 取消所有定时器
+//    // 如果有定时器或动作，需要取消它们
+//    this->unscheduleAllCallbacks();  // 取消所有定时器
 
- //    // 调用基类的 onExit 方法
- //    Scene::onExit();
- //    
- //}
-
+//    // 调用基类的 onExit 方法
+//    Scene::onExit();
+//    
+//}

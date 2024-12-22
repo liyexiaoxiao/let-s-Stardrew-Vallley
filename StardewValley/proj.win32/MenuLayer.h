@@ -28,4 +28,3 @@ private:
 };
 
 #endif  // __MENU_LAYER_H__
-

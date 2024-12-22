@@ -107,7 +107,7 @@ public:
 
     int Heldseed = 1;
     //为了测试暂时设此参数=1时拿着防风草种子，等于2时拿着树莓种子，等于3时拿着南瓜种子，等于4时拿着小麦种子
-
+    bool if_holdfeiliao = 0;
 private:
     //玩家等级
     double maxlevel = 4;//每一个技能方向等级上限

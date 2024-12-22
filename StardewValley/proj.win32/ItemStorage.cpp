@@ -64,7 +64,7 @@ void ItemStorage::initializeItems() {
     itemQuantities[static_cast<int>(StorageID::FENSHUIJING)] = 10;
     itemQuantities[static_cast<int>(StorageID::QICAIKUANGSHI)] = 10;
     itemQuantities[static_cast<int>(StorageID::FEILIAO)] = 10;
-  
+
 }
 
 // ÃÌº”ŒÔ∆∑
