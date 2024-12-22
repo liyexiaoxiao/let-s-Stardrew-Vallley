@@ -6,7 +6,6 @@
 #include "cocos2d.h"
 #include "MenuLayer.h"
 #include "FarmhouseScene.h"
-#include"ExploreScene.h"
 #include "TaskBar.h" 
 #include "Tools.h"
 extern Player* mainPlayer; // 主玩家
@@ -69,28 +68,32 @@ bool FarmScene::init() {
 
     //创建农场里面的交互性元素--初始即存在
     // 创建 Farmer NPC 
-    //1.农民
+   // 实例化 Farmer NPC
     farmer = new Resident();
     farmer->init("Alex", "Farmer", "photo/Character/Resident1.png", cocos2d::Vec2(1000, 1000));
-    interactiveElements.push_back(farmer);//可点击交互
+    interactiveElements.push_back(farmer); // 添加到可交互元素列表
     this->addChild(farmer);  // 将 Farmer 添加到场景中
-    //2.渔夫
+
+    // 实例化 Fisherman NPC
     fisherman = new Resident();
     fisherman->init("Willy", "Fisherman", "photo/Character/Resident2.png", cocos2d::Vec2(1000, -50));
-    interactiveElements.push_back(fisherman);//可点击交互
-    this->addChild(fisherman);  // 将  fisherman 添加到场景中
-    //3.饲养着
+    interactiveElements.push_back(fisherman); // 添加到可交互元素列表
+    this->addChild(fisherman);  // 将 Fisherman 添加到场景中
+
+    // 实例化 Breeder NPC
     breeder = new Resident();
     breeder->init("Marnie", "Breeder", "photo/Character/Resident3.png", cocos2d::Vec2(0, -100));
-    interactiveElements.push_back(breeder);//可点击交互
-    this->addChild(breeder);  // 将  fisherman 添加到场景中
+    interactiveElements.push_back(breeder); // 添加到可交互元素列表
+    this->addChild(breeder);  // 将 Breeder 添加到场景中
 
-    //创建农场里面的树
+
+    //创建农场里面的树 冒险地图的矿物
     // 从Tiled地图的Object Layer中读取对象信息并创建对象
-    auto objectGroup = Farmmap->getObjectGroup("Olayer1Tree");
-    if (objectGroup) {
+    auto objectGroup1 = Farmmap->getObjectGroup("Olayer1Tree");
+    auto objectGroup2 = Farmmap->getObjectGroup("Olayer3mine");
+    if (objectGroup1) {
         // 遍历所有的对象
-        for (auto& object : objectGroup->getObjects()) {
+        for (auto& object : objectGroup1->getObjects()) {
             // object 是 Value 类型，可以转化为 ValueMap
             auto obj = object.asValueMap();
 
@@ -113,6 +116,30 @@ bool FarmScene::init() {
                 interactiveElements.push_back(tree);
             }
             // 可以添加更多类型的对象
+        }
+    }
+
+    //初始化矿物
+    if (objectGroup2) {
+        // 遍历所有的对象
+        for (auto& object : objectGroup2->getObjects()) {
+            // object 是 Value 类型，可以转化为 ValueMap
+            auto obj = object.asValueMap();
+           Mine* mine =Mine::create();
+            // 获取树在 TileMap 坐标系中的位置
+            float tileX = obj["x"].asFloat();
+            float tileY = obj["y"].asFloat();
+
+            // 将 TileMap 坐标转换为屏幕坐标
+            cocos2d::Vec2 mapPosition = cocos2d::Vec2(tileX, tileY);
+            cocos2d::Vec2 worldPosition = Farmmap->convertToWorldSpace(mapPosition);
+
+            // 设置树的位置为屏幕坐标
+            mine->setPosition(worldPosition);
+            this->addChild(mine);
+            mines.push_back(mine);//加入管理矿物的容器
+            // 将树添加到可交互对象列表中
+            interactiveElements.push_back(mine);
         }
     }
     // 初始化所有土地未开垦
@@ -216,23 +243,7 @@ bool FarmScene::init() {
         });
     this->addChild(startButton);
 
-    startButton2 = cocos2d::ui::Button::create("photo/startup_p/enterhome.png");//先懒得改
-    // 设置按钮位置
-    startButton2->setPosition(cocos2d::Vec2(1180, 1000));
-    // 设置按钮大小，确保按钮不会超出屏幕
-    startButton2->setScale(0.8f);  // 可根据需要调整按钮大小
-    // 设置按钮的 Z 值为第1层（较高的显示层级）
-    startButton->setLocalZOrder(1);
-    // 设置按钮点击事件，连接到第二个画面：冒险！！！
-    startButton2->addClickEventListener([=](Ref* sender) {
-        // 切换到 ExploreScene 场景
-        //onExit();
-        auto exploreScene = ExploreScene::create();  // 创建新场景
-        auto transition = cocos2d::TransitionFade::create(1.0f, exploreScene, cocos2d::Color3B::WHITE);  // 创建切换过渡效果
-        cocos2d::Director::getInstance()->replaceScene(transition);  // 执行场景替换
-        });
-    this->addChild(startButton2);
-
+ 
     //钓鱼功能按钮
     FishingButton = cocos2d::ui::Button::create("photo/Farm/Fishingrod.png");
     // 设置按钮位置

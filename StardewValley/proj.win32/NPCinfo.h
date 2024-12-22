@@ -3,7 +3,6 @@
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
-
 class NPCInfo : public cocos2d::Layer {
 public:
     NPCInfo() {};
