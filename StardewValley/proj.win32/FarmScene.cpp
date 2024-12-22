@@ -380,31 +380,3 @@ bool FarmScene::init() {
     return true;
 }
 
-////资源清理--手动
-//void FarmScene::onExit() {
-//    if (mainPlayer) {
-//        this->removeChild(mainPlayer);
-//    }
-
-//    // 清理交互元素
-//    for (auto element : interactiveElements) {
-//        delete element;  // 手动删除交互元素
-//    }
-//    interactiveElements.clear();  // 清空容器
-
-//    // 移除事件监听器
-//    _eventDispatcher->removeEventListenersForTarget(this);
-
-//    // 清理其他资源，如工具、树等
-//    for (auto tree : trees) {
-//        delete tree;  // 手动删除树
-//    }
-//    trees.clear();  // 清空树列表
-
-//    // 如果有定时器或动作，需要取消它们
-//    this->unscheduleAllCallbacks();  // 取消所有定时器
-
-//    // 调用基类的 onExit 方法
-//    Scene::onExit();
-//    
-//}

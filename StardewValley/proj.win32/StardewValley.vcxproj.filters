@@ -1,267 +1,164 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="win32">
-      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="resource">
-      <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Scene">
-      <UniqueIdentifier>{14a59f2f-a5e9-4cf7-a499-2dbad6b71f26}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Farm">
-      <UniqueIdentifier>{348cc910-1aef-4619-9f9e-245242cc44c8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Character">
-      <UniqueIdentifier>{b1355052-98d4-48fa-abf3-539f0da25522}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\UI">
-      <UniqueIdentifier>{5787218b-67e2-4871-a051-bc9e6096eb4d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Tools">
-      <UniqueIdentifier>{4af4ffdc-f05b-4a4e-aba5-305e885ff9a2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Character\NPC">
-      <UniqueIdentifier>{2b39214f-3766-465e-968c-25f1748134c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Task">
-      <UniqueIdentifier>{e03efd37-c0d4-416b-b364-13cd11fe60ea}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Adventure">
-      <UniqueIdentifier>{cb24f175-1d9b-4db4-b5ff-74976089784f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Adventure\Animals">
-      <UniqueIdentifier>{4cc91d6b-345e-40c5-803b-dd4c76b43fe7}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>win32</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\AppDelegate.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="StartupScene.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="InitialScene.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="FarmScene.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="Tree.cpp">
-      <Filter>src\Farm</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>src\Character</Filter>
-    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="Animal.cpp" />
+    <ClCompile Include="calendar.cpp" />
+    <ClCompile Include="Chicken.cpp" />
+    <ClCompile Include="Coop.cpp" />
+    <ClCompile Include="Cow.cpp" />
+    <ClCompile Include="Crop.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="RepairBuilding.cpp" />
+    <ClCompile Include="Sheep.cpp" />
+    <ClCompile Include="tilledLand.cpp" />
+    <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Clock.cpp">
-      <Filter>src\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Tools.cpp">
-      <Filter>src\Tools</Filter>
-    </ClCompile>
-    <ClCompile Include="Resident.cpp">
-      <Filter>src\Character\NPC</Filter>
-    </ClCompile>
-    <ClCompile Include="Crop.cpp">
-      <Filter>src\Farm</Filter>
-    </ClCompile>
-    <ClCompile Include="tilledLand.cpp">
-      <Filter>src\Farm</Filter>
-    </ClCompile>
-    <ClCompile Include="MenuLayer.cpp">
-      <Filter>src\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="FarmSceneFunctions.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="FarmhouseScene.cpp">
-      <Filter>src\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="playerManager.cpp">
-      <Filter>src\Character</Filter>
-    </ClCompile>
-    <ClCompile Include="WateredLand.cpp">
-      <Filter>src\Farm</Filter>
-    </ClCompile>
-    <ClCompile Include="Toolbar.cpp">
-      <Filter>src\UI</Filter>
+      <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="ItemStorage.cpp">
-      <Filter>src\UI</Filter>
+      <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="RepairBuilding.cpp">
-      <Filter>src\Adventure</Filter>
+    <ClCompile Include="MenuLayer.cpp">
+      <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="Coop.cpp">
-      <Filter>src\Adventure</Filter>
-    </ClCompile>
-    <ClCompile Include="Animal.cpp">
-      <Filter>src\Adventure\Animals</Filter>
-    </ClCompile>
-    <ClCompile Include="Chicken.cpp">
-      <Filter>src\Adventure\Animals</Filter>
-    </ClCompile>
-    <ClCompile Include="Cow.cpp">
-      <Filter>src\Adventure\Animals</Filter>
-    </ClCompile>
-    <ClCompile Include="Sheep.cpp">
-      <Filter>src\Adventure\Animals</Filter>
+    <ClCompile Include="TaskBar.cpp">
+      <Filter>Task</Filter>
     </ClCompile>
     <ClCompile Include="NPCinfo.cpp">
-      <Filter>src\Character\NPC</Filter>
+      <Filter>People</Filter>
     </ClCompile>
-    <ClCompile Include="Mine.cpp" />
-<<<<<<< Updated upstream
-    <ClCompile Include="TaskBar.cpp">
-      <Filter>src\Task</Filter>
-=======
-    <ClCompile Include="calendar.cpp">
-      <Filter>src\UI</Filter>
->>>>>>> Stashed changes
+    <ClCompile Include="player.cpp">
+      <Filter>People</Filter>
+    </ClCompile>
+    <ClCompile Include="FarmhouseScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="FarmScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="FarmSceneFunctions.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="InitialScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="WateredLand.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Resident.cpp">
+      <Filter>People</Filter>
+    </ClCompile>
+    <ClCompile Include="Toolbar.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools.cpp">
+      <Filter>Tool</Filter>
+    </ClCompile>
+    <ClCompile Include="StartupScene.cpp">
+      <Filter>Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Mine.cpp">
+      <Filter>Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="main.h">
-      <Filter>win32</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\AppDelegate.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="StartupScene.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="InitialScene.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="FarmScene.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Tree.h">
-      <Filter>src\Farm</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>src\Character</Filter>
-    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="Animal.h" />
+    <ClInclude Include="calendar.h" />
+    <ClInclude Include="Coop.h" />
+    <ClInclude Include="Chicken.h" />
+    <ClInclude Include="Cow.h" />
+    <ClInclude Include="Crop.h" />
+    <ClInclude Include="InteractiveElement.h" />
+    <ClInclude Include="main.h" />
+    <ClInclude Include="RepairBuilding.h" />
+    <ClInclude Include="Sheep.h" />
+    <ClInclude Include="tilledLand.h" />
+    <ClInclude Include="Tree.h" />
     <ClInclude Include="Clock.h">
-      <Filter>src\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Tools.h">
-      <Filter>src\Tools</Filter>
-    </ClInclude>
-    <ClInclude Include="Resident.h">
-      <Filter>src\Character\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="InteractiveElement.h">
-      <Filter>src\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Crop.h">
-      <Filter>src\Farm</Filter>
-    </ClInclude>
-    <ClInclude Include="tilledLand.h">
-      <Filter>src\Farm</Filter>
-    </ClInclude>
-    <ClInclude Include="MenuLayer.h">
-      <Filter>src\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="FarmhouseScene.h">
-      <Filter>src\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="playerManager.h">
-      <Filter>src\Character</Filter>
-    </ClInclude>
-    <ClInclude Include="WateredLand.h">
-      <Filter>src\Farm</Filter>
-    </ClInclude>
-    <ClInclude Include="Toolbar.h">
-      <Filter>src\UI</Filter>
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="ItemIDs.h">
-      <Filter>src\UI</Filter>
+      <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="ItemStorage.h">
-      <Filter>src\UI</Filter>
+      <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="RepairBuilding.h">
-      <Filter>src\Adventure</Filter>
+    <ClInclude Include="MenuLayer.h">
+      <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="Coop.h">
-      <Filter>src\Adventure</Filter>
-    </ClInclude>
-    <ClInclude Include="Chicken.h">
-      <Filter>src\Adventure\Animals</Filter>
-    </ClInclude>
-    <ClInclude Include="Animal.h">
-      <Filter>src\Adventure\Animals</Filter>
-    </ClInclude>
-    <ClInclude Include="Cow.h">
-      <Filter>src\Adventure\Animals</Filter>
-    </ClInclude>
-    <ClInclude Include="Sheep.h">
-      <Filter>src\Adventure\Animals</Filter>
+    <ClInclude Include="TaskBar.h">
+      <Filter>Task</Filter>
     </ClInclude>
     <ClInclude Include="NPCinfo.h">
-      <Filter>src\Character\NPC</Filter>
+      <Filter>People</Filter>
     </ClInclude>
-    <ClInclude Include="Mine.h" />
-<<<<<<< Updated upstream
-    <ClInclude Include="TaskBar.h">
-      <Filter>src\Task</Filter>
-=======
-    <ClInclude Include="calendar.h">
-      <Filter>src\UI</Filter>
->>>>>>> Stashed changes
+    <ClInclude Include="player.h">
+      <Filter>People</Filter>
+    </ClInclude>
+    <ClInclude Include="FarmhouseScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FarmScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="InitialScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="WateredLand.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Resident.h">
+      <Filter>People</Filter>
+    </ClInclude>
+    <ClInclude Include="Toolbar.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="StartupScene.h">
+      <Filter>Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Mine.h">
+      <Filter>Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="game.rc">
-      <Filter>resource</Filter>
-    </ResourceCompile>
+    <ResourceCompile Include="game.rc" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Resources\photo\Map\64x64soilpiece.tsx">
-      <Filter>resource</Filter>
-    </None>
-    <None Include="..\Resources\photo\Map\architecture.tsx">
-      <Filter>resource</Filter>
-    </None>
-    <None Include="..\Resources\photo\Map\exploremap2560x2560.tmx">
-      <Filter>resource</Filter>
-    </None>
-    <None Include="..\Resources\photo\Map\farmraw.tsx">
-      <Filter>resource</Filter>
-    </None>
-    <None Include="..\Resources\photo\Map\mine.tsx">
-      <Filter>resource</Filter>
-    </None>
-    <None Include="..\Resources\photo\Map\mineraw.tsx">
-      <Filter>resource</Filter>
-    </None>
-    <None Include="..\Resources\photo\Map\summeraw.tsx">
-      <Filter>resource</Filter>
-    </None>
+    <Image Include="..\Resources\photo\InternalHouse\boiled_egg.jpg" />
+    <Image Include="..\Resources\photo\Map\FarmInit.png" />
+    <Image Include="..\Resources\photo\Map\mine.png" />
+    <Image Include="..\Resources\photo\Map\spring_outdoorsTileSheet.es-ES.png" />
+    <Image Include="..\Resources\photo\Map\summer_outdoorsTileSheet.es-ES.png" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Resources\photo\Map\FarmInit.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\photo\Map\mine.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\photo\Map\spring_outdoorsTileSheet.es-ES.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\photo\Map\summer_outdoorsTileSheet.es-ES.png">
-      <Filter>resource</Filter>
-    </Image>
-    <Image Include="..\Resources\photo\InternalHouse\boiled_egg.jpg">
-      <Filter>resource</Filter>
-    </Image>
+    <None Include="..\Resources\photo\Map\64x64soilpiece.tsx" />
+    <None Include="..\Resources\photo\Map\architecture.tsx" />
+    <None Include="..\Resources\photo\Map\exploremap2560x2560.tmx" />
+    <None Include="..\Resources\photo\Map\farmraw.tsx" />
+    <None Include="..\Resources\photo\Map\mine.tsx" />
+    <None Include="..\Resources\photo\Map\mineraw.tsx" />
+    <None Include="..\Resources\photo\Map\summeraw.tsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="UI">
+      <UniqueIdentifier>{2527da57-f0b9-43b1-963b-e3b37d0340ca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Task">
+      <UniqueIdentifier>{28f27677-3b63-4c3d-a602-a40991b2d65e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="People">
+      <UniqueIdentifier>{60bf0d20-c54b-4808-b842-c66fb489f757}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{fa7d3c47-8c13-4c81-8dac-76d82d109442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tool">
+      <UniqueIdentifier>{ecd99b26-43d7-4258-88ca-cee0c7dcfcf2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

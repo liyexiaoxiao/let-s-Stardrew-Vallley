@@ -28,8 +28,13 @@ enum class StorageID {
     BEER,
     EGG,
     FEILIAO,
-    MAX_STORAGE_ID,
-
+    MINE,
+    HUASHU,
+    BEIKE,
+    SHANHU,
+    LAZIJI,
+    JUANZHOU,
+    MAX_STORAGE_ID
 };
 
 #endif // ITEMIDS_H

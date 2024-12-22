@@ -47,17 +47,22 @@ void ItemStorage::initializeItems() {
     setItemIconPath(StorageID::COOKED_FISH, "photo/storage/cooked_fish.png");
     setItemIconPath(StorageID::BEER, "photo/storage/beer.png");
     setItemIconPath(StorageID::FEILIAO, "photo/storage/feiliao.png");
+    setItemIconPath(StorageID::HUASHU, "photo/storage/huashu.png");
+    setItemIconPath(StorageID::BEIKE, "photo/storage/beike.png");
+    setItemIconPath(StorageID::SHANHU, "photo/storage/shanhu.png");
+    setItemIconPath(StorageID::LAZIJI, "photo/storage/laziji.png");
+    setItemIconPath(StorageID::JUANZHOU, "photo/storage/juanzhou.png");
     // 设置部分物品的初始数量
-    itemQuantities[static_cast<int>(StorageID::MUTOU)] = 10;
-    itemQuantities[static_cast<int>(StorageID::SHITOU)] = 10;
-    itemQuantities[static_cast<int>(StorageID::DACONG)] = 10;
+    itemQuantities[static_cast<int>(StorageID::MUTOU)] = 600;
+    itemQuantities[static_cast<int>(StorageID::SHITOU)] = 600;
+    itemQuantities[static_cast<int>(StorageID::DACONG)] = 200;
     itemQuantities[static_cast<int>(StorageID::DUMOGU)] = 10;
     itemQuantities[static_cast<int>(StorageID::FANGFENGCAO)] = 10;
-    itemQuantities[static_cast<int>(StorageID::HONGMOGU)] = 10;
-    itemQuantities[static_cast<int>(StorageID::JIANG)] = 10;
+    itemQuantities[static_cast<int>(StorageID::HONGMOGU)] = 210;
+    itemQuantities[static_cast<int>(StorageID::JIANG)] = 260;
     itemQuantities[static_cast<int>(StorageID::LANMOGU)] = 10;
     itemQuantities[static_cast<int>(StorageID::LUOBO)] = 10;
-    itemQuantities[static_cast<int>(StorageID::NANGUA)] = 10;
+    itemQuantities[static_cast<int>(StorageID::NANGUA)] = 210;
     itemQuantities[static_cast<int>(StorageID::SHUMEI)] = 10;
     itemQuantities[static_cast<int>(StorageID::XIAOMAI)] = 10;
     itemQuantities[static_cast<int>(StorageID::ZUANSHI)] = 10;

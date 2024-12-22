@@ -35,12 +35,6 @@ enum class ItemCategory {
     // 可以继续添加其他类别
 };
 
-struct ItemInfo {
-    bool unlocked; // 是否解锁
-    int count;     // 数量
-    ItemID id;       // 物品的唯一ID（枚举类型）,注意书写方式
-    ItemCategory category;//物品种类，便于生成好看的UI
-};
 
 class Player : public cocos2d::Sprite {
 public:
@@ -60,34 +54,11 @@ public:
     void setHeldSeed(int seed) { Heldseed = seed; } // 设置当前持有的种子
     int getHeldTool() { return Heldtool; } // 获取当前持有的工具
     int getHeldSeed() { return Heldseed; } // 获取当前持有的种子
-
+    void setPrestige(int add) { prestige += add; } //增加声望值
+    int getPrestige() { return prestige ; } //获取声望值
     //玩家拥有财产相关
-    void setMoney(const int newmoney) { money = newmoney; }
+    void setMoney(const int newmoney) { money += newmoney; }
     int getMoney() const { return money; }
-
-    //存储解锁物品信息相关
-    void unlockItem(ItemID itemId);
-    void addItem(ItemID itemId, int amount);
-    void deleteItem(ItemID itemId, int amount);
-
-    // 获取排序后的物品信息
-    //对物品进行排序 T-A-M-F--辅助仓库UI按照合理顺序生成
-//基于category
-    std::vector<std::pair<ItemID, ItemInfo>> getSortedItems() const {
-        std::vector<std::pair<ItemID, ItemInfo>> sortedItems(items.begin(), items.end());
-        std::sort(sortedItems.begin(), sortedItems.end(), [](const std::pair<ItemID, ItemInfo>& a, const std::pair<ItemID, ItemInfo>& b) {
-            return a.second.category < b.second.category;
-            });
-        return sortedItems;
-    }
-    //供给外界获取到物品信息
-    std::vector<std::pair<ItemID, ItemInfo>> getItemsInfo() const {
-        std::vector<std::pair<ItemID, ItemInfo>> itemsInfo;
-        for (const auto& itemPair : items) {
-            itemsInfo.emplace_back(itemPair.first, itemPair.second);
-        }
-        return itemsInfo;
-    }
 
     //技能树相关
     // 技能树等级
@@ -95,18 +66,16 @@ public:
     double miningLevel=1;
     double fishingLevel=1;
     double cookingLevel=1;
-    void upgradeSkillTree(ItemCategory category, double exp); // 增加经验值，并可能升级技能树
-    void unlockItemsForLevel(ItemCategory category, int targetLevel); // 解锁特定等级的物品
-    std::map<int, std::vector<ItemID>>& getItemsMapByCategory(ItemCategory category);
+    void upgradeSkillTree(int ID, double exp); // 增加经验值，并可能升级技能树
 
     //先不改
     std::string PlayerName;
     std::string FarmName;
     int Heldtool = 1;
     //为了测试暂时设此参数=1时拿着锄头，等于2时拿着浇水壶，等于3时拿着斧头，等于4时拿着鱼竿
-
     int Heldseed = 1;
     //为了测试暂时设此参数=1时拿着防风草种子，等于2时拿着树莓种子，等于3时拿着南瓜种子，等于4时拿着小麦种子
+    
     bool if_holdfeiliao = 0;
 private:
     //玩家等级
@@ -118,14 +87,12 @@ private:
     bool c_level_max;
     //玩家金币
     int money;
-    //玩家物品
-    std::unordered_map<ItemID, ItemInfo> items; // 存储物品信息的映射
-
-    // 每个等级解锁的物品
-    std::map<int, std::vector<ItemID>> agricultureUnlockItems;//int级解锁 物品 int个数
-    std::map<int, std::vector<ItemID>> miningUnlockItems;
-    std::map<int, std::vector<ItemID>> fishingUnlockItems;
-    std::map<int, std::vector<ItemID>> cookingUnlockItems;
+    //玩家声望
+    int prestige = 10;
+    std::vector<int> agricultureItems;  // 农业技能对应的物品ID集合
+    std::vector<int> miningItems;       // 采矿技能对应的物品ID集合
+    std::vector<int> fishingItems;      // 钓鱼技能对应的物品ID集合
+    std::vector<int> cookingItems;      // 烹饪技能对应的物品ID集合
 
 };
 

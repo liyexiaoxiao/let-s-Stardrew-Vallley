@@ -18,12 +18,10 @@ public:
     // 相关功能
     void removeMine(); // 移除矿区
     bool isRemoved() const { return removed; }
-
+    // 每日更新
+    void reset();
     // 实现 InteractiveElement 的 onClick 方法
-    int onClick() override {
-        removeMine();
-        return 2;//多态返回2，表示收获矿产，后续实现仓库物品+n
-    }
+    int onClick() override;
 
     // 利用包围盒进行多态判断
     cocos2d::Rect getBoundingBox() const override;

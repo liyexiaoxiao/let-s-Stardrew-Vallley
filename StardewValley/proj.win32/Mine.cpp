@@ -1,6 +1,7 @@
 //地图上树的生成
 #include "Mine.h"
-
+#include"player.h"//进行所持工具的判断
+extern Player* mainPlayer;
 Mine::Mine() : removed(false) {
     // 指向玩家对象的指针
 }
@@ -27,10 +28,27 @@ bool Mine::init() {
 
     return true;
 }
+int Mine::onClick(){
+    if (mainPlayer->getHeldTool() == 4){
+    removeMine();
+    return 2;//多态返回2，表示收获矿产，后续实现仓库物品+n
+    }
+    return 0;//什么都不做
+}
 
 void Mine::removeMine() {
     this->initWithFile("photo/Adventure/nomine.png");//树图变成树桩
     removed = true;  // 设置为已移除
+}
+
+//进行每日更新
+void Mine::reset() {
+    if (removed) {
+        // 随机选择矿区图像
+        int randomIndex = rand() % mineImages.size();  // 获取随机索引
+        this->initWithFile(mineImages[randomIndex]);  // 根据随机索引选择矿区图像
+        removed = false;  // 标记为未移除
+    }
 }
 
 cocos2d::Rect Mine::getBoundingBox() const {
