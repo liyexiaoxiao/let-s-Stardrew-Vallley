@@ -27,6 +27,9 @@ public:
     std::string getWeek() const { return Week; }
     std::string getSeason() const { return Season; }
     std::string getWeather()const { return Weather; }
+    void onGameTimeReset(const std::function<void()>& callback) {
+        callbacks.push_back(callback);
+    }
 
 private:
     Clock();  // 私有构造函数，防止外部实例化
@@ -46,6 +49,13 @@ private:
     std::string Season = ""; // 初始化季节
     std::string Weather = "";// 初始化天气
     std::set<int> rainyDays;  // 存储特定的雨天
+
+    std::vector<std::function<void()>> callbacks;
+    void notifyGameTimeReset() {
+        for (const auto& callback : callbacks) {
+            callback();
+        }
+    }
 };
 
 #endif // CLOCK_H

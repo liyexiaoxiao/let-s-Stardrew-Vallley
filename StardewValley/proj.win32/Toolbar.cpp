@@ -38,7 +38,7 @@ bool Toolbar::init() {
     this->addChild(markerSprite, 7);
 
     //ÖÖ×Ó°ü
-    auto SeedBagGround = tool.addImageToScene("photo/tools/SeedBagGround.png", cocos2d::Vec2(ToolbarPos.x + 57 * 6, ToolbarPos.y), 2.5f);
+    auto SeedBagGround = tool.addImageToScene("photo/tools/SeedBagGround.png", cocos2d::Vec2(ToolbarPos.x + 57 * 6, ToolbarPos.y), 0.5f);
     SeedButton = tool.createButton("photo/tools/seed_crop1.png", cocos2d::Vec2(ToolbarPos.x + 57 * 6, ToolbarPos.y), 1.0f);
     SeedButton->addClickEventListener([this](Ref* sender) {
         createSeedSelectionPanel();

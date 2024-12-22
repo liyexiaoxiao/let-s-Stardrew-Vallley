@@ -132,6 +132,7 @@ bool FarmScene::init() {
 
     // 更新函数
     schedule([this](float deltaTime) {
+
         update(deltaTime);
         }, "update_key");
 
@@ -157,7 +158,7 @@ bool FarmScene::init() {
         tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
     }
    
-   
+    canResetCrops = true;
 
     // 创建菜单层并添加到场景中
     menuLayer = MenuLayer::create();

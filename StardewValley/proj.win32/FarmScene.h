@@ -54,7 +54,8 @@ public:
     //种植种子
     void onMouseClickedSoil(cocos2d::Event* event);
     //第二天更新植物状态
-    void nextDay();
+    void resetAllCrops();
+    void resetWateredLand();
 
     //检查点击是否与地图元素发生交互
     int checkForElementInteraction(const cocos2d::Vec2& clickPos);
@@ -74,6 +75,7 @@ public:
             _debugLabel->setString(info);
         }
     }
+    void setEnabledForReset(bool enabled);
 
 private:
     cocos2d::Label* _debugLabel = nullptr;  // 用于显示调试信息
@@ -82,7 +84,7 @@ private:
     cocos2d::TMXLayer* groundLayer;  // 地面层
     cocos2d::TMXLayer* wallLayer;    // 围墙层
     cocos2d::TMXLayer* wallLayer2;    // 围墙层2
-
+    bool canResetCrops;
     //场景转化相关
     cocos2d::ui::Button* startButton;  // 声明按钮变量--进入室内
     cocos2d::ui::Button* startButton2;  // 声明按钮变量--前往冒险地图
