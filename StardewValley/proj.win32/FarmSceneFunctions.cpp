@@ -75,9 +75,13 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
     int offsetX = static_cast<int>(std::round(mapPos.x / tileSize.width));
     int offsetY = static_cast<int>(std::round(mapPos.y / tileSize.height));
 
+    // 计算实际的瓦片坐标，偏移量需要减去
+    int adjustedX = tileX - offsetX;
+    int adjustedY = tileY - offsetY;
+
     // 确保点击在有效范围内
-    if (tileX - offsetX >= groundLayer->getLayerSize().width/4+3 && tileX - offsetX < 3*groundLayer->getLayerSize().width/4-1 &&
-        tileY - offsetY >= groundLayer->getLayerSize().height / 4+6 && tileY - offsetY < 3*groundLayer->getLayerSize().height/4+1) {
+    if (adjustedX >= 0 && adjustedX < groundLayer->getLayerSize().width &&
+        adjustedY >= 0 && adjustedY < groundLayer->getLayerSize().height) {
 
         // 获取点击位置的状态
         int adjustedX = tileX - offsetX;
@@ -223,6 +227,11 @@ void FarmScene::moveMap(float deltaX, float deltaY) {
         for (auto tree : trees) {
             const cocos2d::Vec2 newTreePos = tree->getPosition() + cocos2d::Vec2(deltaX, deltaY);
             tree->setPosition(newTreePos);  // 设置树的新位置
+        }
+        //矿物
+        for (auto mine : mines) {
+            const cocos2d::Vec2 newMinePos = mine->getPosition() + cocos2d::Vec2(deltaX, deltaY);
+            mine->setPosition(newMinePos);  // 设置树的新位置
         }
         //建筑
         const cocos2d::Vec2 marketPosition = market->getPosition() + cocos2d::Vec2(deltaX, deltaY);

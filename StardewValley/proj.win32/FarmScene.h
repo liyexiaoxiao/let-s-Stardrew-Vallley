@@ -16,6 +16,7 @@
 #include "tilledLand.h"//瓦片土地
 #include "WateredLand.h"//水资源
 #include "Crop.h"    //农作物类
+#include"Mine.h"//矿
 #include "MenuLayer.h"//菜单界面
 #include "Toolbar.h" //工具栏
 #include "RepairBuilding.h"//修复建筑/菜单界面
@@ -116,6 +117,9 @@ private:
 
     //修复建筑相关
     RepairBuilding* market;
+
+    //矿
+    std::vector<Mine*> mines; //树列表
 
     //交互相关
     //长按键盘相关
