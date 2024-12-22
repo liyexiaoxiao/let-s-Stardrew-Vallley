@@ -247,9 +247,9 @@ bool FarmScene::init() {
     //钓鱼功能按钮
     FishingButton = cocos2d::ui::Button::create("photo/Farm/Fishingrod.png");
     // 设置按钮位置
-    FishingButton->setPosition(cocos2d::Vec2(1700, 200));
+    FishingButton->setPosition(cocos2d::Vec2(1700, 2300));
     // 设置按钮的 Z 值为第1层（较高的显示层级）
-    FishingButton->setLocalZOrder(1);
+    FishingButton->setLocalZOrder(4);
     // 设置按钮大小，确保按钮不会超出屏幕
     FishingButton->setScale(5.0f);  // 可根据需要调整按钮大小
     FishingButton->setVisible(true);
