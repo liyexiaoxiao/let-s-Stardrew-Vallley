@@ -31,9 +31,6 @@
     <ClCompile Include="player.cpp">
       <Filter>People</Filter>
     </ClCompile>
-    <ClCompile Include="playerManager.cpp">
-      <Filter>People</Filter>
-    </ClCompile>
     <ClCompile Include="FarmhouseScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -98,9 +95,6 @@
       <Filter>People</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
-      <Filter>People</Filter>
-    </ClInclude>
-    <ClInclude Include="playerManager.h">
       <Filter>People</Filter>
     </ClInclude>
     <ClInclude Include="FarmhouseScene.h">

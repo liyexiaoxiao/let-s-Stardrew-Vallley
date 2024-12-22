@@ -55,7 +55,6 @@ public:
     void onMouseClickedSoil(cocos2d::Event* event);
     //第二天更新植物状态
     void resetAllCrops();
-    void resetWateredLand();
 
     //检查点击是否与地图元素发生交互
     int checkForElementInteraction(const cocos2d::Vec2& clickPos);

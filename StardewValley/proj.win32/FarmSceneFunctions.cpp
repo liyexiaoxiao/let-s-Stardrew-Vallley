@@ -51,9 +51,7 @@ int FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
         if (boundingBox.containsPoint(worldPos)) {
             int choosenextstep = child->onClick();  // 触发该元素的 onClick 事件 通过返回值进行后续操作
             //返回值为1，进行了砍树操作
-            mainPlayer->upgradeSkillTree(ItemCategory::A, 1);//农业经验值加一
-            mainPlayer->addItem(ItemID::A_wood, 1);//木材数量加一
-            return 1;
+            //返回值为2，进行了挖矿操作
         }
     }
     return 0;
@@ -278,7 +276,18 @@ void FarmScene::update(float deltaTime) {
         // 禁用 resetAllCrops 调用
         this->setEnabledForReset(false);
 
-
+        //重置npc可打招呼
+        farmer->isfs = false;
+        fisherman->isfs = false;
+        breeder->isfs = false;
+        
+        // 重置树、矿产
+        for (auto& tree : trees) {
+            tree->reset();  // 重置树为初始状态
+        }
+        for (auto& mine : mines) {
+            mine->reset();  // 重置树为初始状态
+        }
         // 设置两秒后重新启用
         this->scheduleOnce([this](float) {
             this->setEnabledForReset(true);

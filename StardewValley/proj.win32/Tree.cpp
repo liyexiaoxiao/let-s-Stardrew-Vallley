@@ -31,6 +31,13 @@ void Tree::removeTree() {
     this->initWithFile("photo/Farm/tree2.png");//树图变成树桩
     removed = true;  // 设置为已移除
 }
+//进行每日更新
+void Tree::reset() {
+    if (removed) {
+        this->initWithFile("photo/Farm/tree.png");  // 恢复为树
+        removed = false;  // 标记为未移除
+    }
+}
 
 cocos2d::Rect Tree::getBoundingBox() const {
     // 获取树的世界坐标

@@ -33,6 +33,16 @@ void Mine::removeMine() {
     removed = true;  // 设置为已移除
 }
 
+//进行每日更新
+void Mine::reset() {
+    if (removed) {
+        // 随机选择矿区图像
+        int randomIndex = rand() % mineImages.size();  // 获取随机索引
+        this->initWithFile(mineImages[randomIndex]);  // 根据随机索引选择矿区图像
+        removed = false;  // 标记为未移除
+    }
+}
+
 cocos2d::Rect Mine::getBoundingBox() const {
     // 获取树的世界坐标
     auto position = this->getPosition();
