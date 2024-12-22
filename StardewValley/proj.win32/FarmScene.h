@@ -63,22 +63,10 @@ public:
     void addInteractiveElement(InteractiveElement* element) {
         interactiveElements.push_back(element);
     }
-    void displayDebugInfo(const std::string& info) {
-        // 如果没有调试文本标签，创建一个新的
-        if (!_debugLabel) {
-            _debugLabel = cocos2d::Label::createWithSystemFont(info, "Arial", 24);
-            _debugLabel->setPosition(cocos2d::Vec2(400, 500));  // 在屏幕中间位置显示
-            this->addChild(_debugLabel);
-        }
-        else {
-            // 如果已有调试标签，更新它的文本
-            _debugLabel->setString(info);
-        }
-    }
     void setEnabledForReset(bool enabled);
 
 private:
-    cocos2d::Label* _debugLabel = nullptr;  // 用于显示调试信息
+
     // 地图相关
     cocos2d::TMXTiledMap* Farmmap;   // 地图对象，改为 Tiled 地图
     cocos2d::TMXLayer* groundLayer;  // 地面层
@@ -87,7 +75,6 @@ private:
     bool canResetCrops;
     //场景转化相关
     cocos2d::ui::Button* startButton;  // 声明按钮变量--进入室内
-    cocos2d::ui::Button* startButton2;  // 声明按钮变量--前往冒险地图
 
     std::vector<std::vector<TilledLand*>> tilledLand;
     //只能进行手动清理的资源

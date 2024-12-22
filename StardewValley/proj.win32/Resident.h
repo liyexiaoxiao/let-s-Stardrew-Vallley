@@ -1,6 +1,5 @@
 #pragma once
 #include "cocos2d.h"
-#include "Task.h"//npc任务相关
 #include "InteractiveElement.h" //交互式相关
 #include"NPCinfo.h"//展示NPC面板
 class Resident : public cocos2d::Sprite,public InteractiveElement {
@@ -12,7 +11,6 @@ protected:
     //可以建立关系的达标值--useless
     int maxfriendship=10;
     int maxromance = 10;
-    Task* currentTask;              // 当前任务
     bool busy;                      // 是否忙碌
     // 面板相关的成员变量
     cocos2d::Label* nameLabel;
@@ -43,9 +41,6 @@ public:
     void increaseFriendship() { friendship++; }
     void increaseRomance() { romance++; }
  
-    // 设置和获取任务
-    void setTask(Task* task);
-    Task* getCurrentTask() const;
 
     // 设置和获取忙碌状态
     bool isBusy() const { return busy; }

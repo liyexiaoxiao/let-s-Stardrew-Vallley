@@ -3,7 +3,7 @@
 #include "ui/CocosGUI.h"
 
 Resident::Resident()
-    : name("Unknown"), profession("Unknown"), romance(0), friendship(0),currentTask(nullptr), busy(false) {
+    : name("Unknown"), profession("Unknown"), romance(0), friendship(0),busy(false) {
     nameLabel = cocos2d::Label::createWithSystemFont("Name: ", "Arial", 24);
     this->addChild(nameLabel);
     nameLabel->setVisible(false);
@@ -64,13 +64,6 @@ void Resident::onButtonClick(cocos2d::Ref* sender) {
         cocos2d::RemoveSelf::create(),
         nullptr
     ));
-}
-void Resident::setTask(Task* task) {
-    currentTask = task;
-}
-
-Task* Resident::getCurrentTask() const {
-    return currentTask;
 }
 
 void Resident::setBusy(bool busyStatus) {

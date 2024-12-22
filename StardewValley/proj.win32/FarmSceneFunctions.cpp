@@ -220,8 +220,6 @@ void FarmScene::moveMap(float deltaX, float deltaY) {
         //按钮
         const cocos2d::Vec2 buttonPosition = startButton->getPosition() + cocos2d::Vec2(deltaX, deltaY);
         startButton->setPosition(buttonPosition);
-        const cocos2d::Vec2 buttonPosition2 = startButton2->getPosition() + cocos2d::Vec2(deltaX, deltaY);
-        startButton2->setPosition(buttonPosition2);
 
         // 更新树的位置
         for (auto tree : trees) {

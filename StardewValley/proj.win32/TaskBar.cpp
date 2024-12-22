@@ -64,7 +64,7 @@ void TaskBar::addTask(const std::string& title, const std::string& RenPhoto, con
 
     // 计算按钮的位置
     float posX = visibleSize.width / 2-100;
-    if (taskNum > 5) {0
+    if (taskNum > 5) {
         posX += 350;
     }
     float posY = visibleSize.width / 2 - 400;

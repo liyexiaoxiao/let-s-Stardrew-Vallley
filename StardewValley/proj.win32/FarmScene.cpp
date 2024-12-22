@@ -6,7 +6,6 @@
 #include "cocos2d.h"
 #include "MenuLayer.h"
 #include "FarmhouseScene.h"
-#include"ExploreScene.h"
 #include "TaskBar.h" 
 #include "Tools.h"
 extern Player* mainPlayer; // 主玩家
@@ -244,23 +243,7 @@ bool FarmScene::init() {
         });
     this->addChild(startButton);
 
-    startButton2 = cocos2d::ui::Button::create("photo/startup_p/enterhome.png");//先懒得改
-    // 设置按钮位置
-    startButton2->setPosition(cocos2d::Vec2(1180, 1000));
-    // 设置按钮大小，确保按钮不会超出屏幕
-    startButton2->setScale(0.8f);  // 可根据需要调整按钮大小
-    // 设置按钮的 Z 值为第1层（较高的显示层级）
-    startButton->setLocalZOrder(1);
-    // 设置按钮点击事件，连接到第二个画面：冒险！！！
-    startButton2->addClickEventListener([=](Ref* sender) {
-        // 切换到 ExploreScene 场景
-        //onExit();
-        auto exploreScene = ExploreScene::create();  // 创建新场景
-        auto transition = cocos2d::TransitionFade::create(1.0f, exploreScene, cocos2d::Color3B::WHITE);  // 创建切换过渡效果
-        cocos2d::Director::getInstance()->replaceScene(transition);  // 执行场景替换
-        });
-    this->addChild(startButton2);
-
+ 
     //钓鱼功能按钮
     FishingButton = cocos2d::ui::Button::create("photo/Farm/Fishingrod.png");
     // 设置按钮位置
