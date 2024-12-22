@@ -123,6 +123,9 @@
     <ClCompile Include="Sheep.cpp">
       <Filter>src\Adventure\Animals</Filter>
     </ClCompile>
+    <ClCompile Include="Mine.cpp">
+      <Filter>src\Adventure</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="Sheep.h">
       <Filter>src\Adventure\Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="Mine.h">
+      <Filter>src\Adventure</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
