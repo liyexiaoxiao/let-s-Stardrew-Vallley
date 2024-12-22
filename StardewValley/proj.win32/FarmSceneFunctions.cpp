@@ -7,6 +7,7 @@
 #include "MenuLayer.h"
 #include "ItemStorage.h"
 #include "ItemIDs.h"
+#include "calendar.h"
 
 using namespace cocos2d;
 extern Player* mainPlayer;
@@ -35,7 +36,7 @@ void FarmScene::onMouseClicked(cocos2d::Event* event) {
     int Interacted = checkForElementInteraction(clickPos);
 
     // 如果点击的瓦片在土地上，调用 `onMouseClickedSoil`
-    if (!Interacted && (tileX >= 0 && tileX < groundLayer->getLayerSize().width &&
+    if (/*!Interacted && */(tileX >= -groundLayer->getLayerSize().width && tileX < groundLayer->getLayerSize().width &&
         tileY >= 0 && tileY < groundLayer->getLayerSize().height)) {
         onMouseClickedSoil(event);  // 处理种植作物的逻辑
     }
@@ -80,8 +81,13 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
     int adjustedY = tileY - offsetY;
 
     // 确保点击在有效范围内
+<<<<<<< Updated upstream
     if (adjustedX >= 0 && adjustedX < groundLayer->getLayerSize().width &&
         adjustedY >= 0 && adjustedY < groundLayer->getLayerSize().height) {
+=======
+    if (tileX - offsetX >= -groundLayer->getLayerSize().width && tileX - offsetX < groundLayer->getLayerSize().width &&
+        tileY - offsetY >= 0 && tileY - offsetY < groundLayer->getLayerSize().height) {
+>>>>>>> Stashed changes
 
         // 获取点击位置的状态
         int adjustedX = tileX - offsetX;
@@ -118,7 +124,7 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
 
             }
             if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 3 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
-                plantedCrops[adjustedY][adjustedX]->watered=true;
+                plantedCrops[adjustedY][adjustedX]->water();
                 WateredLand::waterLand(tileX, tileY, Farmmap, wateredLand);
             }
             if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isMature()) {
@@ -140,6 +146,9 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
                 plantedCrops[adjustedY][adjustedX]->removeFromParent();
                 plantedCrops[adjustedY][adjustedX] = nullptr;
             }
+            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->if_holdfeiliao == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
+                plantedCrops[adjustedY][adjustedX]->shifei();
+            }
             if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isDead()) {
                 plantedCrops[adjustedY][adjustedX]->removeFromParent();
                 plantedCrops[adjustedY][adjustedX] = nullptr;
@@ -149,32 +158,42 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
 }
 
 
-// 设置按键状态为真，表示按键被按下
 void FarmScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
+    // 提前初始化日期变量
+    int currentDay = 15;   // 假设当前日期是15
+    int currentMonth = 12; // 假设当前月份是12月
+    int currentYear = 2024;
+    CalendarPanel* calendarPanel = CalendarPanel::create(currentDay, currentMonth, currentYear);
 
     switch (keyCode) {
-        case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
-            movingUp = true;
-            break;
-        case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
-            movingDown = true;
-            break;
-        case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
-            movingLeft = true;
-            break;
-        case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
-            movingRight = true;
-            break;
-        case cocos2d::EventKeyboard::KeyCode::KEY_E://按e打开或关闭菜单
-            if (menuLayer) {
-                menuLayer->toggleVisibility();
-            }
-            isMenuActive = !isMenuActive;
-            break;
-        default:
-            break;
+    case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
+        movingUp = true;
+        break;
+    case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
+        movingDown = true;
+        break;
+    case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
+        movingLeft = true;
+        break;
+    case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
+        movingRight = true;
+        break;
+    case cocos2d::EventKeyboard::KeyCode::KEY_E: // 按e打开或关闭菜单
+        if (menuLayer) {
+            menuLayer->toggleVisibility();
+        }
+        isMenuActive = !isMenuActive;
+        break;
+    case cocos2d::EventKeyboard::KeyCode::KEY_F: // 按F打开日历
+        // 创建并显示日历面板
+        
+        this->addChild(calendarPanel);
+        break;
+    default:
+        break;
     }
 }
+
 // 设置按键状态为假，表示按键已松开
 void FarmScene::onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
 
@@ -283,10 +302,14 @@ void FarmScene::resetAllCrops() {
 
     for (std::vector<Crop*>& row : plantedCrops) {
         for (Crop* crop : row) {
+            if (crop != nullptr && crop->feiliao == true) {
+                crop->grow();
+                crop->feiliao = false;
+            }
             if (crop != nullptr&&crop->watered==true) {
                 crop->resetWatered();
             }
-            else if (crop != nullptr && crop->watered == false) {
+            else if (crop != nullptr && crop->watered == false&& crop->isMature() == false) {
                 crop->notWatered();
             }
         }

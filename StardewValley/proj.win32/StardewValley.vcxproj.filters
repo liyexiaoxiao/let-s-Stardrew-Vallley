@@ -118,8 +118,13 @@
       <Filter>src\Character\NPC</Filter>
     </ClCompile>
     <ClCompile Include="Mine.cpp" />
+<<<<<<< Updated upstream
     <ClCompile Include="TaskBar.cpp">
       <Filter>src\Task</Filter>
+=======
+    <ClCompile Include="calendar.cpp">
+      <Filter>src\UI</Filter>
+>>>>>>> Stashed changes
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -205,8 +210,13 @@
       <Filter>src\Character\NPC</Filter>
     </ClInclude>
     <ClInclude Include="Mine.h" />
+<<<<<<< Updated upstream
     <ClInclude Include="TaskBar.h">
       <Filter>src\Task</Filter>
+=======
+    <ClInclude Include="calendar.h">
+      <Filter>src\UI</Filter>
+>>>>>>> Stashed changes
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
