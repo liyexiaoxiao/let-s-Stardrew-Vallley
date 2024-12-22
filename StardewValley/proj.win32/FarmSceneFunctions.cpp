@@ -96,7 +96,7 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
         int adjustedY = tileY - offsetY;
         const auto mouseEvent = dynamic_cast<cocos2d::EventMouse*>(event);
         // 开垦土地
-        if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT&&mainPlayer->Heldtool == 1 && !tilledLand[adjustedY][adjustedX]) {
+        if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT&&mainPlayer->Heldtool == 2 && !tilledLand[adjustedY][adjustedX]) {
             TilledLand::tillLand(tileX, tileY, Farmmap, tilledLand);
         }
         // 种植作物
@@ -108,20 +108,7 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
                 if (tilledLand[adjustedY][adjustedX] && plantedCrops[adjustedY][adjustedX] == nullptr) {
                     // 调用种植方法
                     Crop::plantSeed(tileX, tileY, Farmmap, plantedCrops, mainPlayer->Heldseed);
-                    switch (plantedCrops[adjustedY][adjustedX]->croptype) {
-                    case 1:
-                        storage.addItem(StorageID::FANGFENGCAO, 1);
-                        break;
-                    case 2:
-                        storage.addItem(StorageID::SHUMEI, 1);
-                        break;
-                    case 3:
-                        storage.addItem(StorageID::NANGUA, 1);
-                        break;
-                    case 4:
-                        storage.addItem(StorageID::XIAOMAI, 1);
-                        break;
-                    };
+                    
                 }
 
             }
@@ -129,7 +116,7 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
                 plantedCrops[adjustedY][adjustedX]->water();
                 WateredLand::waterLand(tileX, tileY, Farmmap, wateredLand);
             }
-            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isMature()) {
+            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 2 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isMature()) {
 
                 switch (plantedCrops[adjustedY][adjustedX]->croptype) {
                 case 1:
@@ -151,7 +138,7 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
             if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->if_holdfeiliao == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
                 plantedCrops[adjustedY][adjustedX]->shifei();
             }
-            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isDead()) {
+            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 2 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isDead()) {
                 plantedCrops[adjustedY][adjustedX]->removeFromParent();
                 plantedCrops[adjustedY][adjustedX] = nullptr;
             }

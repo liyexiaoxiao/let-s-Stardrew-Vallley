@@ -19,12 +19,15 @@ public:
     ~FarmhouseScene();
     // 创建场景
     static Scene* createScene();
+    void movePlayer(float deltaX, float deltaY);
     // 初始化场景
     virtual bool init();
     // 宏，创建静态的 create() 函数
     CREATE_FUNC(FarmhouseScene);
     void onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
     //长按
+    void onKeyReleased(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event);
+    void moveMap(float deltaX, float deltaY);
 };
 
 #endif // __FARMHOUSE_SCENE_H__
