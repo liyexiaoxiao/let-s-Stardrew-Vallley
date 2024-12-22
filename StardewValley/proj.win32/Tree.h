@@ -18,6 +18,7 @@ public:
     //相关功能
     void removeTree(); // 移除杂草
     bool isRemoved() const { return removed; }
+    void reset();
 
     // 实现 InteractiveElement 的 onClick 方法
     int onClick() override {

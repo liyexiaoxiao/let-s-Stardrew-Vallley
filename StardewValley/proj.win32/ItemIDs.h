@@ -29,6 +29,7 @@ enum class StorageID {
     EGG,
     FEILIAO,
     MAX_STORAGE_ID,
+    MINE
 
 };
 

@@ -26,7 +26,7 @@ void Clock::startClock() {
 
 void Clock::updateClock(float deltaTime) {
     CCLOG("Updating clock, gameTime: %f", gameTime);
-    gameTime += deltaTime / 0.7f;//换算成分钟
+    gameTime += deltaTime / 0.1f;//换算成分钟
     // 当一天结束时重置 gameTime
     if (gameTime >= 1440) { // 1440 分钟即为一天
         gameTime = 0;  // 重置时间

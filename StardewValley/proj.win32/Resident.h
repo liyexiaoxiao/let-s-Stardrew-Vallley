@@ -7,10 +7,8 @@ protected:
     std::string name;               // NPC 的名字
     std::string profession;         // NPC 的职业
     int romance;                    // 浪漫值
+    int cureentDay;
     int friendship;                 //友谊值
-    //可以建立关系的达标值--useless
-    int maxfriendship=10;
-    int maxromance = 10;
     bool busy;                      // 是否忙碌
     // 面板相关的成员变量
     cocos2d::Label* nameLabel;
@@ -21,6 +19,8 @@ protected:
 
 
 public:
+    bool isfs = false;                      //用于判断今天是否已经增加友谊值了
+
     // NPC 的构造函数和析构函数
     Resident();
     virtual ~Resident();
