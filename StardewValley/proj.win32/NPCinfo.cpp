@@ -85,7 +85,7 @@ void NPCInfo::showResidentInfo(const std::string& name, const std::string& profe
         std::string friendshipStr = "Friendship: " + std::to_string(friendship);
         friendshipLabel->setString(friendshipStr);
         // 判断是否达成满级友谊
-        if (friendship >= 2) {  // 假设 10 为满级友谊
+        if (friendship >= 2) {  // 假设 2 为满级友谊
             if (relationshipImage == nullptr) {
                 relationshipImage = cocos2d::Sprite::create("photo/ui/friendship.png");  // 使用适当的图片
                 relationshipImage->setPosition(cocos2d::Vec2(nameLabel->getPosition().x - 40, nameLabel->getPosition().y - 200));
@@ -98,6 +98,13 @@ void NPCInfo::showResidentInfo(const std::string& name, const std::string& profe
     if (romanceLabel) {
         std::string romanceStr = "Romance: " + std::to_string(romance);
         romanceLabel->setString(romanceStr);
+        if (romance >= 2) {  // 假设 2 为满级友谊
+            if (relationshipImage == nullptr) {
+                relationshipImage = cocos2d::Sprite::create("photo/ui/romance.png");  // 使用适当的图片
+                relationshipImage->setPosition(cocos2d::Vec2(nameLabel->getPosition().x + 40, nameLabel->getPosition().y - 200));
+                this->addChild(relationshipImage);
+            }
+        }
     }
 
     // 显示面板
