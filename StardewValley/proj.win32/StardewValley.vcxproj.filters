@@ -34,6 +34,9 @@
     <Filter Include="src\Adventure">
       <UniqueIdentifier>{cb24f175-1d9b-4db4-b5ff-74976089784f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Adventure\Animals">
+      <UniqueIdentifier>{4cc91d6b-345e-40c5-803b-dd4c76b43fe7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -102,11 +105,20 @@
     <ClCompile Include="RepairBuilding.cpp">
       <Filter>src\Adventure</Filter>
     </ClCompile>
-    <ClCompile Include="Chicken.cpp">
+    <ClCompile Include="Coop.cpp">
       <Filter>src\Adventure</Filter>
     </ClCompile>
-    <ClCompile Include="Chickencoop.cpp">
-      <Filter>src\Adventure</Filter>
+    <ClCompile Include="Animal.cpp">
+      <Filter>src\Adventure\Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="Chicken.cpp">
+      <Filter>src\Adventure\Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="Cow.cpp">
+      <Filter>src\Adventure\Animals</Filter>
+    </ClCompile>
+    <ClCompile Include="Sheep.cpp">
+      <Filter>src\Adventure\Animals</Filter>
     </ClCompile>
     <ClCompile Include="NPCinfo.cpp">
       <Filter>src\Character\NPC</Filter>
@@ -182,11 +194,20 @@
     <ClInclude Include="RepairBuilding.h">
       <Filter>src\Adventure</Filter>
     </ClInclude>
-    <ClInclude Include="Chicken.h">
+    <ClInclude Include="Coop.h">
       <Filter>src\Adventure</Filter>
     </ClInclude>
-    <ClInclude Include="Chickencoop.h">
-      <Filter>src\Adventure</Filter>
+    <ClInclude Include="Chicken.h">
+      <Filter>src\Adventure\Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="Animal.h">
+      <Filter>src\Adventure\Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="Cow.h">
+      <Filter>src\Adventure\Animals</Filter>
+    </ClInclude>
+    <ClInclude Include="Sheep.h">
+      <Filter>src\Adventure\Animals</Filter>
     </ClInclude>
     <ClInclude Include="NPCinfo.h">
       <Filter>src\Character\NPC</Filter>
