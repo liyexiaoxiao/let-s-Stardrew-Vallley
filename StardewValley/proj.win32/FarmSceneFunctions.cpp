@@ -154,11 +154,7 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
 
 
 void FarmScene::onKeyPressed(cocos2d::EventKeyboard::KeyCode keyCode, cocos2d::Event* event) {
-    // 提前初始化日期变量
-    int currentDay = 15;   // 假设当前日期是15
-    int currentMonth = 12; // 假设当前月份是12月
-    int currentYear = 2024;
-    CalendarPanel* calendarPanel = CalendarPanel::create(currentDay, currentMonth, currentYear);
+    CalendarPanel* calendarPanel = CalendarPanel::create();
 
     switch (keyCode) {
     case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:

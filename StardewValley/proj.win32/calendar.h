@@ -8,10 +8,9 @@ public:
 
     bool init();
     void closePanel(cocos2d::Ref* sender);
-    void checkSpecialEvent();
     void showEventPopup(const std::string& title, const std::string& message, const std::string& rewardType);
     void giveReward(const std::string& rewardType);
-    static CalendarPanel* create(int currentDay, int currentMonth, int currentYear);
+    static CalendarPanel* create();
     std::string getGiftImagePath(const std::string& rewardType);
 
 private:

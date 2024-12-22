@@ -156,7 +156,7 @@ std::string CalendarPanel::getGiftImagePath(const std::string& rewardType) {
 }
 
 
-CalendarPanel* CalendarPanel::create(int currentDay, int currentMonth, int currentYear) {
+CalendarPanel* CalendarPanel::create() {
     CalendarPanel* panel = new CalendarPanel();
     if (panel && panel->init()) {
         panel->autorelease();
