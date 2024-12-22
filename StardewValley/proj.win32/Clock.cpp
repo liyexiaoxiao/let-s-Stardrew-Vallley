@@ -56,7 +56,7 @@ void Clock::setTimeDisplay() {
         day++;
     }
 
-    year = day / 112;
+    year = day / 112+1;
     // 改变星期几
     switch (day % 7) {
         case 0: Week = "Sun"; break;

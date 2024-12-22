@@ -10,6 +10,7 @@
 #include "Tools.h"
 #include "ItemStorage.h"
 #include "ItemIDs.h"
+#include "Shop.h"
 extern Player* mainPlayer; // 主玩家
 
 // 构造析构初始化
@@ -215,6 +216,22 @@ bool FarmScene::init() {
         }
         });
     this->addChild(taskbarButton,5);
+    // 初始化商店
+    Shop* shop = Shop::getInstance();
+    shop->setVisible(false);
+    this->addChild(shop, 13);
+    // 创建商店按钮
+    auto ShopButton = Tool.createButton("photo/storage/openshop.png", cocos2d::Vec2(200, 200), 1.0f);
+    ShopButton->addClickEventListener([=](cocos2d::Ref* sender) {
+        if (shop->isVisible()) {
+            shop->hide();  // 如果任务栏已经可见，则隐藏它
+        }
+        else {
+            shop->show();  // 如果任务栏不可见，则显示它
+        }
+        });
+    this->addChild(ShopButton, 5);
+
 
     // 监听键盘输入
     auto Keyboardlistener = cocos2d::EventListenerKeyboard::create();
