@@ -21,12 +21,14 @@ public:
     int watereddays=0;
     int neededwatereddays;
     bool watered;// 是否被浇水的标志
+    bool feiliao;
     void grow();
     bool isMature() const;
     bool isDead() const ;
     cocos2d::Sprite* getSprite() const;
     void setPosition(cocos2d::Vec2 position);
     void water();
+    void shifei();
     void resetWatered();  // 每天结束时重置浇水状态
     void notWatered();
 

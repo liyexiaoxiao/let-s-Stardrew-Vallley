@@ -67,6 +67,9 @@ void Crop::water() {
     watered = true;  // 标记为已浇水
 };
 
+void Crop::shifei() {
+    feiliao = true;  // 标记为已施肥
+};
 
 void Crop::resetWatered() {
     if (watered == true) {

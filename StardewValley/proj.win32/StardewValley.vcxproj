@@ -155,6 +155,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="Animal.cpp" />
+    <ClCompile Include="calendar.cpp" />
     <ClCompile Include="Chicken.cpp" />
     <ClCompile Include="Coop.cpp" />
     <ClCompile Include="Cow.cpp" />
@@ -185,6 +186,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="Animal.h" />
+    <ClInclude Include="calendar.h" />
     <ClInclude Include="Coop.h" />
     <ClInclude Include="Chicken.h" />
     <ClInclude Include="Cow.h" />
