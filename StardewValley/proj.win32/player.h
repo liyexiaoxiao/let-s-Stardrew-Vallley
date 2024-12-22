@@ -65,7 +65,7 @@ public:
     double miningLevel=1;
     double fishingLevel=1;
     double cookingLevel=1;
-    void upgradeSkillTree(int ID, int exp); // 增加经验值，并可能升级技能树
+    void upgradeSkillTree(int ID, double exp); // 增加经验值，并可能升级技能树
 
     //先不改
     std::string PlayerName;
