@@ -58,6 +58,8 @@ int FarmScene::checkForElementInteraction(const cocos2d::Vec2& clickPos) {
                 mainPlayer->upgradeSkillTree(static_cast<int>(StorageID::MUTOU), 1);//农业经验值加1
                 break;
             case 2:
+                storage.addItem(StorageID::MINE, 1);//物品数量加1
+                mainPlayer->upgradeSkillTree(static_cast<int>(StorageID::MINE), 1);//农业经验值加1
                 break;
             //返回值为2，进行了挖矿操作
             }
@@ -261,7 +263,6 @@ void FarmScene::update(float deltaTime) {
     }
     if (movingRight) {
         moveMap(-10.0f, 0); // 向右持续移动
-       
     }
     Clock* clock = Clock::getInstance();
     clock->onGameTimeReset([this]() {

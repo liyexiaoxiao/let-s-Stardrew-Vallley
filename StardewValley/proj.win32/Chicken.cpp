@@ -1,5 +1,5 @@
 #include "Chicken.h"
-
+#include "ItemStorage.h"
 Chicken::Chicken()
     {
     //调整进度条位置
@@ -46,10 +46,11 @@ void Chicken::layEgg() {
 }
 
 void Chicken::collectProduct() {
+    ItemStorage& storage = ItemStorage::getInstance();
     if (productAvailable) {
         productAvailable = false;
         // 假设仓库类有个 `addEgg` 方法
-        //Warehouse::getInstance()->addEgg();
+        storage.addItem(StorageID::EGG, 1);//物品数量加1
          // 重置进度条
         productionTimer = 0.0f;  // 重置计时器
         progressBar->setPercentage(0);  // 重置进度条为 0%

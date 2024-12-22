@@ -94,10 +94,10 @@ cocos2d::Rect RepairBuilding::getBoundingBox() const {
 }
 void RepairBuilding::enoughmaterials() {
     ItemStorage& storage = ItemStorage::getInstance();
-    if (storage.getItemQuantity(static_cast<int>(StorageID::MUTOU) >= 100) && storage.getItemQuantity(static_cast<int>(StorageID::SHITOU) >= 100)) {
+    if (storage.getItemQuantity(static_cast<int>(StorageID::MUTOU)) >= 100 && storage.getItemQuantity(static_cast<int>(StorageID::SHITOU) )>= 100) {
         storage.removeItem(StorageID::MUTOU, 100);
         storage.removeItem(StorageID::SHITOU, 100);
         isready = true;
     }
-    isready = false;
+    else isready = false;
 }

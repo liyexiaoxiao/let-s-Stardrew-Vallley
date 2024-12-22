@@ -23,8 +23,10 @@ public:
             cocos2d::ScaleTo::create(0.1f, 1.1f),  // 放大 10%
             cocos2d::ScaleTo::create(0.1f, 1.0f),  // 恢复到原大小
             nullptr));  // 动作结束后继续执行
-        if (isready) {startRepair();
-        return 2;//还未规定
+        enoughmaterials();
+        if (isready) {
+            startRepair();
+            return 3;//还未规定
         }
         return 0;
     }

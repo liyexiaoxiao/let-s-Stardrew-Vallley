@@ -5,7 +5,8 @@
 #include "cocos2d.h"
 
 
-//为保证每一个player管理好自己的流程进度，我们在人物文件中实现实现对物品的管理
+
+
 //每个物品包含的信息
 enum class ItemID {
     T_Axe = 1,       // 斧头

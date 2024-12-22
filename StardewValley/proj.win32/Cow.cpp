@@ -1,6 +1,6 @@
 // Cow.cpp
 #include"Cow.h"
-
+#include "ItemStorage.h"
 Cow* Cow::create(const std::string& image) {
     Cow* cow = new Cow();
     if (cow && cow->init(image)) {
@@ -44,10 +44,11 @@ void Cow::produceMilk() {
 }
 
 void Cow::collectProduct() {
+    ItemStorage& storage = ItemStorage::getInstance();
     if (productAvailable) {
         productAvailable = false;
         // 假设仓库类有个 `addMilk` 方法
-        //Warehouse::getInstance()->addMilk();
+        storage.addItem(StorageID::NIUNAI, 1);//物品数量加1
          // 重置进度条
         productionTimer = 0.0f;  // 重置计时器
         progressBar->setPercentage(0);  // 重置进度条为 0%

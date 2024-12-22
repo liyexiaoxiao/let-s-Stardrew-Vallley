@@ -1,4 +1,5 @@
 #include "Sheep.h"
+#include "ItemStorage.h"
 Sheep::Sheep() {
     progressBar->setPosition(cocos2d::Vec2(this->getContentSize().width / 2, -10));
     progressBar->setScale(0.5f);
@@ -42,10 +43,11 @@ void Sheep::produceWool() {
 }
 
 void Sheep::collectProduct() {
+    ItemStorage& storage = ItemStorage::getInstance();
     if (productAvailable) {
         productAvailable = false;
         // 假设仓库类有个 `addWool` 方法
-        //Warehouse::getInstance()->addWool();
+        storage.addItem(StorageID::YANGMAO, 1);//物品数量加1
          // 重置进度条
         productionTimer = 0.0f;  // 重置计时器
         progressBar->setPercentage(0);  // 重置进度条为 0%

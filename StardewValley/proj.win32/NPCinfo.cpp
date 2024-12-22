@@ -98,7 +98,7 @@ void NPCInfo::showResidentInfo(const std::string& name, const std::string& profe
     if (romanceLabel) {
         std::string romanceStr = "Romance: " + std::to_string(romance);
         romanceLabel->setString(romanceStr);
-        if (romance >= 2) {  // 假设 2 为满级友谊
+        if (romance >= 3) {  // 假设 3为满浪漫--测试
             if (relationshipImage == nullptr) {
                 relationshipImage = cocos2d::Sprite::create("photo/ui/romance.png");  // 使用适当的图片
                 relationshipImage->setPosition(cocos2d::Vec2(nameLabel->getPosition().x + 40, nameLabel->getPosition().y - 200));

@@ -52,6 +52,7 @@ void Resident::onButtonClick(cocos2d::Ref* sender) {
     // 增加友谊值
     if (!isfs) {
         increaseFriendship();
+        increaseRomance();//增加浪漫值同理，只是达到新关系的天数不同
         // 显示友谊值增加的提示（可以使用 Label 来显示）
         auto friendshipLabel = cocos2d::Label::createWithSystemFont("Friendship +1", "Arial", 40);
         friendshipLabel->setPosition(this->getPosition() + cocos2d::Vec2(0, -10));
