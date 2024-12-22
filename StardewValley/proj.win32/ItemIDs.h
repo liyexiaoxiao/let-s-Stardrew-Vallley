@@ -34,7 +34,9 @@ enum class StorageID {
     SHANHU,
     LAZIJI,
     JUANZHOU,
-    MAX_STORAGE_ID
+    MAX_STORAGE_ID,
+    NIUNAI,
+    YANGMAO
 };
 
 #endif // ITEMIDS_H

@@ -8,9 +8,9 @@
 #include "FarmhouseScene.h"
 #include "TaskBar.h" 
 #include "Tools.h"
-#include "Shop.h"
+#include "ItemStorage.h"
+#include "ItemIDs.h"
 extern Player* mainPlayer; // 主玩家
-
 
 // 构造析构初始化
 FarmScene::FarmScene()
@@ -60,13 +60,12 @@ bool FarmScene::init() {
     wallLayer = Farmmap->getLayer("layer2wall");      // 围墙层
     wallLayer2 = Farmmap->getLayer("layer2wall2");//2
 
-
     // 创建玩家
     mainPlayer = Player::create("photo/Character/PlayerFront1.png");
     mainPlayer->setPosition(visibleSize.width / 2, visibleSize.height / 2); // 玩家在屏幕中心
     mainPlayer->setScale(1.0f);
     this->addChild(mainPlayer);
-
+       
     //创建农场里面的交互性元素--初始即存在
     // 创建 Farmer NPC 
    // 实例化 Farmer NPC
@@ -168,9 +167,11 @@ bool FarmScene::init() {
         }, "update_key");
 
     //初始化时间
+    
     Clock* clock = Clock::getInstance();
     clock->startClock();
-    this->addChild(clock);
+   
+        this->addChild(clock);
 
     // 初始化 plantedCrops
 
@@ -185,7 +186,7 @@ bool FarmScene::init() {
     }
 
     // 检查并初始化 tilledLand
-    if (tilledLand.size() != mapHeight || tilledLand[0].size() != mapWidth || clock->getGameTime() == 0) {
+    if (tilledLand.size() != mapHeight || tilledLand[0].size() != mapWidth ) {
         tilledLand.resize(mapHeight, std::vector<TilledLand*>(mapWidth, nullptr));
     }
 
@@ -193,15 +194,16 @@ bool FarmScene::init() {
 
     // 创建菜单层并添加到场景中
     menuLayer = MenuLayer::create();
-    this->addChild(menuLayer);
+        this->addChild(menuLayer);
+
     //工具栏
     Toolbar* toolbar = Toolbar::getInstance();
     this->addChild(toolbar, 5);
-
     // 初始化任务栏
     TaskBar* taskbar = TaskBar::getInstance();  // 获取 TaskBar 实例
     taskbar->setVisible(false);  // 初始时隐藏任务栏
     this->addChild(taskbar, 10);  // 将任务栏添加到场景中，确保它在最上层
+
     // 创建任务栏按钮
     auto taskbarButton= Tool.createButton("photo/ui/taskbarbutton.png", cocos2d::Vec2(visibleSize.width - 100, visibleSize.height - 230), 4.0f);
     taskbarButton->addClickEventListener([=](cocos2d::Ref* sender) {
@@ -213,22 +215,6 @@ bool FarmScene::init() {
         }
         });
     this->addChild(taskbarButton,5);
-
-    // 初始化商店
-    Shop* shop = Shop::getInstance();  
-    shop->setVisible(false);  
-    this->addChild(shop, 13); 
-    // 创建商店按钮
-    auto ShopButton = Tool.createButton("photo/storage/openshop.png", cocos2d::Vec2(200,200), 1.0f);
-    ShopButton->addClickEventListener([=](cocos2d::Ref* sender) {
-        if (shop->isVisible()) {
-            shop->hide();  // 如果任务栏已经可见，则隐藏它
-        }
-        else {
-            shop->show();  // 如果任务栏不可见，则显示它
-        }
-        });
-    this->addChild(ShopButton, 5);
 
     // 监听键盘输入
     auto Keyboardlistener = cocos2d::EventListenerKeyboard::create();
@@ -260,7 +246,8 @@ bool FarmScene::init() {
         });
     this->addChild(startButton);
 
- 
+
+    ItemStorage& storage = ItemStorage::getInstance();
     //钓鱼功能按钮
     FishingButton = cocos2d::ui::Button::create("photo/Farm/Fishingrod.png");
     // 设置按钮位置
@@ -271,7 +258,7 @@ bool FarmScene::init() {
     FishingButton->setScale(5.0f);  // 可根据需要调整按钮大小
     FishingButton->setVisible(true);
 
-    /*FishingButton->addClickEventListener([=](Ref* sender) {
+    FishingButton->addClickEventListener([this,&storage, visibleSize](Ref* sender) {
         // 拿着钓鱼竿才能钓鱼
         if (mainPlayer->Heldtool == 6) {
             // 点击后禁用按钮，防止重复点击
@@ -385,7 +372,7 @@ bool FarmScene::init() {
                 this->removeChild(label);  // 移除错误提示
                 }, 2.0f, "remove_no_tool");
         }
-    });*/
+    });
 
     Farmmap->addChild(FishingButton);
 

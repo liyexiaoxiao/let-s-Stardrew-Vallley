@@ -7,6 +7,7 @@
 #include "InteractiveElement.h" //交互式相关
 #include "cocos2d.h"
 
+
 class Tree : public cocos2d::Sprite,public InteractiveElement {
 public:
     Tree();
@@ -21,10 +22,7 @@ public:
     void reset();
 
     // 实现 InteractiveElement 的 onClick 方法
-    int onClick() override {
-        removeTree();
-        return 1;
-    }
+    int onClick() override;
     //利用包围盒进行多态判断
     cocos2d::Rect getBoundingBox() const override;
 

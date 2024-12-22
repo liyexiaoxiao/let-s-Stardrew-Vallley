@@ -52,6 +52,10 @@ void ItemStorage::initializeItems() {
     setItemIconPath(StorageID::SHANHU, "photo/storage/shanhu.png");
     setItemIconPath(StorageID::LAZIJI, "photo/storage/laziji.png");
     setItemIconPath(StorageID::JUANZHOU, "photo/storage/juanzhou.png");
+    setItemIconPath(StorageID::MINE, "photo/storage/mine.png");
+    setItemIconPath(StorageID::EGG, "photo/storage/egg.png");
+    setItemIconPath(StorageID::NIUNAI, "photo/storage/niunai.png");
+    setItemIconPath(StorageID::YANGMAO, "photo/storage/yangmao.png");
     // 设置部分物品的初始数量
     itemQuantities[static_cast<int>(StorageID::MUTOU)] = 600;
     itemQuantities[static_cast<int>(StorageID::SHITOU)] = 600;
@@ -69,7 +73,10 @@ void ItemStorage::initializeItems() {
     itemQuantities[static_cast<int>(StorageID::FENSHUIJING)] = 10;
     itemQuantities[static_cast<int>(StorageID::QICAIKUANGSHI)] = 10;
     itemQuantities[static_cast<int>(StorageID::FEILIAO)] = 10;
-
+    itemQuantities[static_cast<int>(StorageID::MINE)] = 20;
+    itemQuantities[static_cast<int>(StorageID::EGG)] = 0;
+    itemQuantities[static_cast<int>(StorageID::NIUNAI)] = 0;
+    itemQuantities[static_cast<int>(StorageID::YANGMAO)] = 0;
 }
 
 // 添加物品

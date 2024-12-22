@@ -23,13 +23,14 @@ public:
             cocos2d::ScaleTo::create(0.1f, 1.1f),  // 放大 10%
             cocos2d::ScaleTo::create(0.1f, 1.0f),  // 恢复到原大小
             nullptr));  // 动作结束后继续执行
-        if (isready) startRepair();
+        if (isready) {startRepair();
         return 2;//还未规定
+        }
+        return 0;
     }
     //利用包围盒进行多态判断
     cocos2d::Rect getBoundingBox() const override;
-
-    bool isready = true;//材料是否足够修复
+    void enoughmaterials();
 
 private:
     std::string brokenImage;  // 坏建筑图像路径
@@ -38,6 +39,7 @@ private:
     bool isRepaired;//是否已经修复
     float repairProgress;  // 修复进度
     float repairTime;  // 修复时间
+    bool isready;//材料是否足够修复
 
     cocos2d::ProgressTimer* repairProgressBar;  // 进度条
     // 其他可能的成员变量

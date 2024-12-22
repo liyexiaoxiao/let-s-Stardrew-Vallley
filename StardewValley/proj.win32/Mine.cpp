@@ -1,6 +1,7 @@
 //地图上树的生成
 #include "Mine.h"
-
+#include"player.h"//进行所持工具的判断
+extern Player* mainPlayer;
 Mine::Mine() : removed(false) {
     // 指向玩家对象的指针
 }
@@ -26,6 +27,13 @@ bool Mine::init() {
     this->setVisible(true);
 
     return true;
+}
+int Mine::onClick(){
+    if (mainPlayer->getHeldTool() == 4){
+    removeMine();
+    return 2;//多态返回2，表示收获矿产，后续实现仓库物品+n
+    }
+    return 0;//什么都不做
 }
 
 void Mine::removeMine() {
