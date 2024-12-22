@@ -1,7 +1,8 @@
 #include "RepairBuilding.h"
-
+#include "ItemStorage.h"
+#include "ItemIDs.h"
 RepairBuilding::RepairBuilding(const std::string& broken, const std::string& fixed)
-    : brokenImage(broken), fixedImage(fixed), repairProgress(0), repairTime(10.0f), isRepairing(false), isRepaired(false) {
+    : brokenImage(broken), fixedImage(fixed), repairProgress(0), repairTime(10.0f), isRepairing(false), isRepaired(false),isready(false) {
     // 创建进度条
     repairProgressBar = cocos2d::ProgressTimer::create(cocos2d::Sprite::create("photo/startup_p/textBox.png"));
     repairProgressBar->setType(cocos2d::ProgressTimer::Type::BAR);
@@ -90,4 +91,13 @@ cocos2d::Rect RepairBuilding::getBoundingBox() const {
         contentSize.width,  // 宽度
         contentSize.height  // 高度
     );
+}
+void RepairBuilding::enoughmaterials() {
+    ItemStorage& storage = ItemStorage::getInstance();
+    if (storage.getItemQuantity(static_cast<int>(StorageID::MUTOU) >= 100) && storage.getItemQuantity(static_cast<int>(StorageID::SHITOU) >= 100)) {
+        storage.removeItem(StorageID::MUTOU, 100);
+        storage.removeItem(StorageID::SHITOU, 100);
+        isready = true;
+    }
+    isready = false;
 }
