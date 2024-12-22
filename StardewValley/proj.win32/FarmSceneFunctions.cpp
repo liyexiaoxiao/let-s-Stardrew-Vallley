@@ -81,14 +81,9 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
     int adjustedY = tileY - offsetY;
 
     // 确保点击在有效范围内
-<<<<<<< Updated upstream
+
     if (adjustedX >= 0 && adjustedX < groundLayer->getLayerSize().width &&
         adjustedY >= 0 && adjustedY < groundLayer->getLayerSize().height) {
-=======
-    if (tileX - offsetX >= -groundLayer->getLayerSize().width && tileX - offsetX < groundLayer->getLayerSize().width &&
-        tileY - offsetY >= 0 && tileY - offsetY < groundLayer->getLayerSize().height) {
->>>>>>> Stashed changes
-
         // 获取点击位置的状态
         int adjustedX = tileX - offsetX;
         int adjustedY = tileY - offsetY;

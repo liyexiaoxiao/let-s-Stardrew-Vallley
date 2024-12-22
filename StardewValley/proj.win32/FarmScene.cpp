@@ -146,9 +146,9 @@ bool FarmScene::init() {
     int mapWidth = groundLayer->getLayerSize().width;
     int mapHeight = groundLayer->getLayerSize().height;
 
-    //创建鸡舍
+    //创建农舍
     coop = Coop::create();
-    coop->setPosition(cocos2d::Vec2(1900, 300));  // 设置鸡舍的地图坐标
+    coop->setPosition(cocos2d::Vec2(180, 500));  // 设置鸡舍的地图坐标
     this->addChild(coop);  //加入鸡舍子节点
 
 
