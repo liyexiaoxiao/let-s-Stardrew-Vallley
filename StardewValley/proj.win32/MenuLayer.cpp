@@ -4,7 +4,7 @@
 #include "Clock.h"
 #include "StartupScene.h"
 #include "ItemStorage.h"
-
+#include "Toolbar.h"
 extern Player* mainPlayer;
 
 MenuLayer::MenuLayer() : isVisible(false) {}
@@ -215,6 +215,14 @@ cocos2d::Layer* MenuLayer::createPanel(int panelIndex) {
         auto CPhotoPos = cocos2d::Vec2(FPhotoPos.x, FPhotoPos.y - 70);
         auto CPhoto = Tool.addImageToScene("photo/ui/skill_cooking.png", CPhotoPos, 3.8f);
         panel->addChild(CPhoto, 5);
+        //添加升级按钮
+        auto LevelupButton = Tool.createButton("photo/ui/longbutton.png", cocos2d::Vec2(CLabelPos.x+200, CLabelPos.y-50));
+        auto LevelulLabel=Tool.createLabel("Level up", "fonts/Marker Felt.ttf", 32, cocos2d::Vec2(CLabelPos.x + 200, CLabelPos.y - 50));
+        panel->addChild(LevelupButton, 5);
+        panel->addChild(LevelulLabel, 6);
+        LevelupButton->addClickEventListener([this](Ref* sender) {
+            Toolbar::getInstance()->updateToolIcons();
+            });
 
         auto ALevelPos = cocos2d::Vec2(ALabelPos.x + 100, ALabelPos.y);
         auto MLevelPos = cocos2d::Vec2(ALevelPos.x, ALevelPos.y - 50);
@@ -291,10 +299,11 @@ void MenuLayer::showStorage(Layer* panel) {
 
     ItemStorage& storage = ItemStorage::getInstance();
     //循环遍历存储物品数量的数组，如果物品数量不为0，则添加物品图标
+    int count = 0;
     for (int i = 0; i < static_cast<int>(StorageID::MAX_STORAGE_ID); i++) {
         if (storage.getItemQuantity(i)) {
-            int newX = Ref_Pos.x + i % 12 * 58;
-            int newY = Ref_Pos.y - i / 12 * 58;
+            int newX = Ref_Pos.x + count % 12 * 58;
+            int newY = Ref_Pos.y - count / 12 * 58;
             std::string photopath = storage.getItemIconPath(i);
             if (photopath != "") {
                 auto itemIcon = Tool.addImageToScene(photopath, cocos2d::Vec2(newX, newY), 2.8f);
@@ -302,6 +311,7 @@ void MenuLayer::showStorage(Layer* panel) {
             }
             auto itemLabel = Tool.createLabel(std::to_string(storage.getItemQuantity(i)), "fonts/Marker Felt.ttf", 20, cocos2d::Vec2(newX + 25, newY - 25));
             panel->addChild(itemLabel, 5);
+            count++;
         }
     }
 }

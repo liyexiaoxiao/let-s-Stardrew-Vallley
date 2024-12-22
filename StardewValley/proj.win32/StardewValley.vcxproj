@@ -210,7 +210,6 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)\Resources\" /D /E /I /F /Y
     <ClInclude Include="Clock.h" />
     <ClInclude Include="Task.h" />
     <ClInclude Include="tilledLand.h" />
-    <ClInclude Include="Tool.h" />
     <ClInclude Include="Toolbar.h" />
     <ClInclude Include="Tools.h" />
     <ClInclude Include="Tree.h" />

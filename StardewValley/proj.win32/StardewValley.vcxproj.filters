@@ -69,9 +69,6 @@
     <ClCompile Include="Resident.cpp">
       <Filter>src\Character\NPC</Filter>
     </ClCompile>
-    <ClCompile Include="NPCinfo.cpp">
-      <Filter>src\UI</Filter>
-    </ClCompile>
     <ClCompile Include="Crop.cpp">
       <Filter>src\Farm</Filter>
     </ClCompile>
@@ -123,8 +120,8 @@
     <ClCompile Include="Sheep.cpp">
       <Filter>src\Adventure\Animals</Filter>
     </ClCompile>
-    <ClCompile Include="Mine.cpp">
-      <Filter>src\Adventure</Filter>
+    <ClCompile Include="NPCinfo.cpp">
+      <Filter>src\Character\NPC</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -146,9 +143,6 @@
     <ClInclude Include="Tree.h">
       <Filter>src\Farm</Filter>
     </ClInclude>
-    <ClInclude Include="Tool.h">
-      <Filter>src\Farm</Filter>
-    </ClInclude>
     <ClInclude Include="player.h">
       <Filter>src\Character</Filter>
     </ClInclude>
@@ -163,9 +157,6 @@
     </ClInclude>
     <ClInclude Include="Task.h">
       <Filter>src\Task</Filter>
-    </ClInclude>
-    <ClInclude Include="NPCinfo.h">
-      <Filter>src\UI</Filter>
     </ClInclude>
     <ClInclude Include="InteractiveElement.h">
       <Filter>src\UI</Filter>
@@ -218,8 +209,8 @@
     <ClInclude Include="Sheep.h">
       <Filter>src\Adventure\Animals</Filter>
     </ClInclude>
-    <ClInclude Include="Mine.h">
-      <Filter>src\Adventure</Filter>
+    <ClInclude Include="NPCinfo.h">
+      <Filter>src\Character\NPC</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,9 @@
 
 Clock* Clock::instance = nullptr;  // 初始化单例指针为 nullptr
 
-Clock::Clock() : gameTime(0), timeLabel(nullptr), ClockPhoto(nullptr), dayLabel(nullptr), seasonImage(nullptr), weatherImage(nullptr){}
+Clock::Clock() : gameTime(0), timeLabel(nullptr), ClockPhoto(nullptr), dayLabel(nullptr), seasonImage(nullptr), weatherImage(nullptr){
+    std::set<int> rainyDays = { 2,5,8,10,13,15,26,29,31,35,36,38 };
+}
 
 Clock::~Clock() {}
 
@@ -24,10 +26,11 @@ void Clock::startClock() {
 
 void Clock::updateClock(float deltaTime) {
     CCLOG("Updating clock, gameTime: %f", gameTime);
-    gameTime += deltaTime / 0.7f;//换算成分钟
+    gameTime += deltaTime / 0.01f;//换算成分钟
     // 当一天结束时重置 gameTime
     if (gameTime >= 1440) { // 1440 分钟即为一天
         gameTime = 0;  // 重置时间
+        notifyGameTimeReset();
         day++;  // 增加一天
     }
     setTimeDisplay();
@@ -106,8 +109,8 @@ void Clock::setTimeDisplay() {
     }
     // 设置天气------------------------------------
     std::string newWeather="Sunny";
-    if (day%2==0) {
-        newWeather = "Rainy";
+    if (rainyDays.find(day) != rainyDays.end()) {
+        newWeather = "Rainy"; // 如果 day 在 rainyDays 中，设置为 Rainy
     }
 
     // 如果天气变化，更新天气图片

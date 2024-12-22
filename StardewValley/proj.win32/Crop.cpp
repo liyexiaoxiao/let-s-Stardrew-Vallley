@@ -24,6 +24,8 @@ Crop::Crop(const std::string& name, const std::vector<std::string>& stages)
     }
     else
         neededwatereddays = 2;
+    watered = false;
+    watereddays = 0;
         
     this->addChild(sprite); // 将作物精灵添加到节点中
 }
@@ -48,6 +50,11 @@ bool Crop::isMature() const {
     return currentStage == stages.size() - 2;
 }
 
+bool Crop::isDead() const {
+    // 判断作物是否已经成熟
+    return currentStage == stages.size() - 1;
+}
+
 Sprite* Crop::getSprite() const {
     return sprite; // 返回作物的精灵对象
 }
@@ -57,28 +64,28 @@ void Crop::setPosition(cocos2d::Vec2 position) {
 }
 
 void Crop::water() {
-    // 如果作物还没成熟，则让其成长到下一个阶段
     watered = true;  // 标记为已浇水
-    Clock* clock = Clock::getInstance();
-    if (clock->getGameTime() == 0) {
-        watereddays++;
-        if (watereddays == neededwatereddays) { 
-            grow();
-        }
-       
-    }
-   
-}
+};
+
 
 void Crop::resetWatered() {
-    Clock* clock = Clock::getInstance();
-    if (clock->getGameTime() == 0 && watered == 0) {
-        sprite->setTexture(stages[stages.size()-1]);// 前一天未浇水，植物枯萎
+    if (watered == true) {
+        watereddays++;
+        //if (watereddays == neededwatereddays) {
+            grow();
+        //}
     }
-    if (clock->getGameTime() == 0 && watered == 1) {
-        watered = false;  // 每天开始时重置浇水状态
-    }
+    watered = false;
+    
 }
+
+void Crop::notWatered() {
+     sprite->setTexture(stages[stages.size() - 1]);// 前一天未浇水，植物枯萎
+     currentStage = stages.size() - 1;
+     watered = false;  // 每天开始时重置浇水状态
+}
+
+
 
 Crop* Crop::plantSeed(int x, int y, cocos2d::TMXTiledMap* map,
     std::vector<std::vector<Crop*>>& plantedCrops,

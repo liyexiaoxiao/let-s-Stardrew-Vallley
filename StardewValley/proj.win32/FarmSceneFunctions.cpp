@@ -114,7 +114,7 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
 
             }
             if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 3 && plantedCrops[adjustedY][adjustedX] != nullptr && !plantedCrops[adjustedY][adjustedX]->isMature()) {
-                plantedCrops[adjustedY][adjustedX]->water();
+                plantedCrops[adjustedY][adjustedX]->watered=true;
                 WateredLand::waterLand(tileX, tileY, Farmmap, wateredLand);
             }
             if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isMature()) {
@@ -133,6 +133,10 @@ void FarmScene::onMouseClickedSoil(cocos2d::Event* event) {
                     storage.addItem(StorageID::XIAOMAI, 1);
                     break;
                 };
+                plantedCrops[adjustedY][adjustedX]->removeFromParent();
+                plantedCrops[adjustedY][adjustedX] = nullptr;
+            }
+            if (mouseEvent->getMouseButton() == cocos2d::EventMouse::MouseButton::BUTTON_LEFT && mainPlayer->Heldtool == 1 && plantedCrops[adjustedY][adjustedX] != nullptr && plantedCrops[adjustedY][adjustedX]->isDead()) {
                 plantedCrops[adjustedY][adjustedX]->removeFromParent();
                 plantedCrops[adjustedY][adjustedX] = nullptr;
             }
@@ -227,6 +231,12 @@ void FarmScene::moveMap(float deltaX, float deltaY) {
         coop->setPosition(coopPosition);
     }
 }
+
+void FarmScene::setEnabledForReset(bool enabled) {
+    canResetCrops = enabled;
+}
+
+
 void FarmScene::update(float deltaTime) {
     // 每帧更新，检查是否有按键被长按，持续移动地图
     if (movingUp) {
@@ -240,8 +250,57 @@ void FarmScene::update(float deltaTime) {
     }
     if (movingRight) {
         moveMap(-10.0f, 0); // 向右持续移动
+       
     }
+    Clock* clock = Clock::getInstance();
+    clock->onGameTimeReset([this]() {
+       
+        // 调用 resetAllCrops
+        this->resetAllCrops();
+
+        // 禁用 resetAllCrops 调用
+        this->setEnabledForReset(false);
+
+
+        // 设置两秒后重新启用
+        this->scheduleOnce([this](float) {
+            this->setEnabledForReset(true);
+            }, 10.0f, "EnableReset");
+        });
 }
+
+void FarmScene::resetAllCrops() {
+    if (!canResetCrops) {
+        return; // 如果当前禁用，直接返回
+    }
+
+    for (std::vector<Crop*>& row : plantedCrops) {
+        for (Crop* crop : row) {
+            if (crop != nullptr&&crop->watered==true) {
+                crop->resetWatered();
+            }
+            else if (crop != nullptr && crop->watered == false) {
+                crop->notWatered();
+            }
+        }
+
+        
+    }
+    int mapWidth = groundLayer->getLayerSize().width;
+    int mapHeight = groundLayer->getLayerSize().height;
+
+    for (int i = 0; i < mapWidth; i++) {
+        for (int j = 0; j < mapHeight; j++)
+        if (wateredLand[j][i] != nullptr) {
+            wateredLand[j][i]->removeFromParent();
+            wateredLand[j][i] = nullptr;
+        }
+    }
+    
+
+}
+
+
 bool FarmScene::isColliding(const cocos2d::Vec2& newPos) {
     // 获取玩家的边界框（Bounding Box）
     cocos2d::Rect playerBoundingBox = mainPlayer->getBoundingBox();
