@@ -123,6 +123,10 @@
     <ClCompile Include="NPCinfo.cpp">
       <Filter>src\Character\NPC</Filter>
     </ClCompile>
+    <ClCompile Include="Mine.cpp" />
+    <ClCompile Include="TaskBar.cpp">
+      <Filter>src\Task</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -154,9 +158,6 @@
     </ClInclude>
     <ClInclude Include="Resident.h">
       <Filter>src\Character\NPC</Filter>
-    </ClInclude>
-    <ClInclude Include="Task.h">
-      <Filter>src\Task</Filter>
     </ClInclude>
     <ClInclude Include="InteractiveElement.h">
       <Filter>src\UI</Filter>
@@ -211,6 +212,10 @@
     </ClInclude>
     <ClInclude Include="NPCinfo.h">
       <Filter>src\Character\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="Mine.h" />
+    <ClInclude Include="TaskBar.h">
+      <Filter>src\Task</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

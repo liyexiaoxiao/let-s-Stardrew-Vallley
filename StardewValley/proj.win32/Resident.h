@@ -1,6 +1,5 @@
 #pragma once
 #include "cocos2d.h"
-#include "Task.h"//npc任务相关
 #include "InteractiveElement.h" //交互式相关
 #include"NPCinfo.h"//展示NPC面板
 class Resident : public cocos2d::Sprite,public InteractiveElement {
@@ -9,7 +8,7 @@ protected:
     std::string profession;         // NPC 的职业
     int romance;                    // 浪漫值
     int friendship;                 //友谊值
-    Task* currentTask;              // 当前任务
+    //Task* currentTask;              // 当前任务
     bool busy;                      // 是否忙碌
     // 面板相关的成员变量
     cocos2d::Label* nameLabel;
@@ -34,21 +33,21 @@ public:
     void increaseFriendship() { friendship++; }
     void increaseRomance() { romance++; }
     //增加方式都是一样的，所以选择在父类实现
-    // 完成任务时增加友谊值
-    virtual void completeTask() {
-        if (currentTask && !currentTask->isCompleted) {
-            currentTask->isCompleted = true;
-            increaseFriendship();
-        }
-    }
+    //// 完成任务时增加友谊值
+    //virtual void completeTask() {
+    //    if (currentTask && !currentTask->isCompleted) {
+    //        currentTask->isCompleted = true;
+    //        increaseFriendship();
+    //    }
+    //}
     // 赠送爱心时增加浪漫值
     virtual void giveLove() {
         increaseRomance();
     }
 
-    // 设置和获取任务
-    void setTask(Task* task);
-    Task* getCurrentTask() const;
+    //// 设置和获取任务
+    //void setTask(Task* task);
+    //Task* getCurrentTask() const;
 
     // 设置和获取忙碌状态
     bool isBusy() const { return busy; }

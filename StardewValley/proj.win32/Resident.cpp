@@ -2,7 +2,7 @@
 
 
 Resident::Resident()
-    : name("Unknown"), profession("Unknown"), romance(0), currentTask(nullptr), busy(false) {
+    : name("Unknown"), profession("Unknown"), romance(0),  busy(false) {//currentTask(nullptr),
     nameLabel = cocos2d::Label::createWithSystemFont("Name: ", "Arial", 24);
     this->addChild(nameLabel);
     nameLabel->setVisible(false);
@@ -20,13 +20,13 @@ bool Resident::init(const std::string& n, const std::string& prof, const std::st
 }
 
 
-void Resident::setTask(Task* task) {
-    currentTask = task;
-}
-
-Task* Resident::getCurrentTask() const {
-    return currentTask;
-}
+//void Resident::setTask(Task* task) {
+//    currentTask = task;
+//}
+//
+//Task* Resident::getCurrentTask() const {
+//    return currentTask;
+//}
 
 void Resident::setBusy(bool busyStatus) {
     busy = busyStatus;
