@@ -14,9 +14,9 @@ Stardew_Valley_Farm
 
 |姓名|学号|分工|
 | :----:| :----: | :----: |
-|关云兮(组长)|       |项目任务分工 |
-|张诗蔻|2353240|<br>`Crop`类 <br>`FarmHouseScene`类 <br> `calendar`类 <br> `tiledland`类<br>`WateredLand`类 <br>``钓鱼功能 <br>`烹饪功能|
-|李烨|       |      |
+|关云兮(组长)|       |项目任务分工<br>共同修改`FarmScene`类 |
+|张诗蔻|2353240|<br>`Crop`类 <br>`FarmHouseScene`类 <br> `calendar`类 <br> `tiledland`类<br>`WateredLand`类 <br>``钓鱼功能 <br>`烹饪功能<br>共同修改`FarmScene`类|
+|李烨|2351127|<br>`InitialScene`类<br>共同修改`FarmScene`类及"StartupScene类<br>`Shop`类<br>`Tool`类<br>`TaskBar`类<br>`Clock`类<br>`ItemStorage`类<br>`Menulayer`类<br>`Toolbar`类<br>(内容包括时间、工具栏、菜单、背包、任务栏等UI组件及部分场景)|
 
 ## 成员贡献
 
@@ -24,7 +24,7 @@ Stardew_Valley_Farm
 | :----:| :----: | :----: | :----: |
 |关云兮(组长)|       |    |    |
 |张诗蔻|2353240|    |    |
-|李烨|       |    |   |
+|李烨|2351127|    |   |
 
 ## 项目组成
 
