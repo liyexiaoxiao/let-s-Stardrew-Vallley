@@ -15,7 +15,7 @@ Stardew_Valley_Farm
 |姓名|学号|分工|
 | :----:| :----: | :----: |
 |关云兮(组长)|       |项目任务分工 |
-|张诗蔻|2353240|<br>`Crop`类 <br>`FarmHouseScene`类 <br> `calendar`类 <br> `tiledland`类<br>`WateredLand`类 <br>`钓鱼功能  <br>`烹饪功能|
+|张诗蔻|2353240|<br>`Crop`类 <br>`FarmHouseScene`类 <br> `calendar`类 <br> `tiledland`类<br>`WateredLand`类 <br>``钓鱼功能 <br>`烹饪功能|
 |李烨|       |      |
 
 ## 成员贡献
