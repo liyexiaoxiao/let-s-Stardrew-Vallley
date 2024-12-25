@@ -288,18 +288,16 @@ bool FarmScene::init() {
             FishingButton->setEnabled(false);
 
             // 根据钓鱼等级决定能钓到的鱼
-            int fishID = 0;  // 用于记录钓到的鱼的类型ID（不同的ID对应不同的鱼）
-
+            if (mainPlayer->fishingLevel == 1) {
+                storage.addItem(StorageID::FISH_A, 1);
             if (mainPlayer->fishingLevel >= 2) {
                 // 等级2时，随机钓到F_fish1或者F_fish2
                 int randomFish = cocos2d::random(1, 2); // 随机生成1或2
                 if (randomFish == 1) {
                     storage.addItem(StorageID::FISH_A, 1);
-                    fishID = 1;  // 记录钓到鱼的ID
                 }
                 else {
                     storage.addItem(StorageID::FISH_B, 1);
-                    fishID = 2;
                 }
             }
             if (mainPlayer->fishingLevel >= 3) {
@@ -307,15 +305,12 @@ bool FarmScene::init() {
                 int randomFish = cocos2d::random(1, 3); // 随机生成1、2、3
                 if (randomFish == 1) {
                     storage.addItem(StorageID::FISH_A, 1);
-                    fishID = 1;
                 }
                 else if (randomFish == 2) {
                     storage.addItem(StorageID::FISH_B, 1);
-                    fishID = 2;
                 }
                 else {
                     storage.addItem(StorageID::FISH_C, 1);
-                    fishID = 3;
                 }
             }
             if (mainPlayer->fishingLevel >= 4) {
@@ -323,19 +318,15 @@ bool FarmScene::init() {
                 int randomFish = cocos2d::random(1, 4); // 随机生成1、2、3、4
                 if (randomFish == 1) {
                     storage.addItem(StorageID::FISH_A, 1);
-                    fishID = 1;
                 }
                 else if (randomFish == 2) {
                     storage.addItem(StorageID::FISH_B, 1);
-                    fishID = 2;
                 }
                 else if (randomFish == 3) {
                     storage.addItem(StorageID::FISH_C, 1);
-                    fishID = 3;
                 }
                 else {
                     storage.addItem(StorageID::FISH_D, 1);
-                    fishID = 4;
                 }
             }
 
@@ -347,36 +338,10 @@ bool FarmScene::init() {
                 label->setTextColor(cocos2d::Color4B::BLACK);  // 设置文字颜色为黑色
                 this->addChild(label);
 
-                // 根据钓到的鱼类型显示不同的鱼的图片
-                std::string fishImage = "";
-                switch (fishID) {
-                case 1:
-                    fishImage = "photo/Fish/fish_a.png";  // FISH_A 对应的图片路径
-                    break;
-                case 2:
-                    fishImage = "photo/Fish/fish_b.png";  // FISH_B 对应的图片路径
-                    break;
-                case 3:
-                    fishImage = "photo/Fish/fish_c.png";  // FISH_C 对应的图片路径
-                    break;
-                case 4:
-                    fishImage = "photo/Fish/fish_d.png";  // FISH_D 对应的图片路径
-                    break;
-                }
-
-                // 创建鱼的精灵并显示
-                auto fishSprite = cocos2d::Sprite::create(fishImage);
-                if (fishSprite) {
-                    fishSprite->setPosition(cocos2d::Vec2(visibleSize.width / 2, visibleSize.height / 3));  // 设置显示位置
-                    this->addChild(fishSprite);
-                }
-
                 // 提示显示完毕后，2秒后移除提示
                 this->scheduleOnce([=](float dt) {
                     this->removeChild(label);  // 移除提示标签
-                    if (fishSprite) {
-                        this->removeChild(fishSprite);  // 移除鱼的精灵
-                    }
+                   
                     // 启用按钮，玩家可以再次点击
                     FishingButton->setEnabled(true);
                     }, 2.0f, "remove_label");

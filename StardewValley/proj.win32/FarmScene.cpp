@@ -136,7 +136,6 @@ bool FarmScene::init() {
             interactiveElements.push_back(mine);
         }
     }
-    // 初始化所有土地未开垦
     int mapWidth = groundLayer->getLayerSize().width;
     int mapHeight = groundLayer->getLayerSize().height;
 
